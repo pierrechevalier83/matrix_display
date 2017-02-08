@@ -174,7 +174,7 @@ impl Matrix {
             Position::Middle
         }
     }
-    pub fn for_each_cell<F, Out: Write>(&mut self, f: &F, out: &mut Out)
+    pub fn for_each_cell<F, Out: Write>(&mut self, f: F, out: &mut Out)
         where F: for<'a> Fn(&'a Cell, &'a Position, &'a mut Out)
     {
         self.cells
@@ -264,10 +264,9 @@ impl MatrixDisplay {
         self.n_rows() * self.fmt.cell_h
     }
     pub fn print<Out: Write>(&mut self, out: &mut Out) {
-        pub fn write_cell<Out: Write>(cell: &Cell, pos: &Position, out: &mut Out) {
-            write!(out, "{}", cell.value).unwrap();
-        }
-        let f = write_cell;
-        self.mat.for_each_cell(&f, out);
+        self.mat.for_each_cell(|cell: &Cell, pos: &Position, out: &mut Out| {
+                                   write!(out, "{}", cell.value).unwrap();
+                               },
+                               out);
     }
 }
