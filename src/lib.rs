@@ -1,3 +1,5 @@
+use std::io::Write;
+
 #[cfg(test)]
 mod cell_tests {
     use super::Cell;
@@ -59,6 +61,16 @@ impl Matrix {
     pub fn n_cols(&self) -> usize {
         self.n_cols
     }
+    pub fn for_each_cell<Out: Write>(&mut self, f: fn(&Cell, &mut Out), out: &mut Out) {
+        self.cells
+            .clone()
+            .chunks(self.n_cols())
+            .into_iter()
+            .map(|row| {
+                row.into_iter().map( |cell|  f(cell, out) ).collect::<Vec<_>>();
+            })
+            .collect::<Vec<_>>();
+    }
 }
 
 #[cfg(test)]
@@ -118,6 +130,10 @@ mod matrix_display_tests {
     }
 }
 
+pub fn write_cell<Out: Write>(cell : &Cell, out: &mut Out) {
+    write!(out, "{}", cell.value).unwrap();
+}
+
 pub struct MatrixDisplay {
     fmt: Format,
     mat: Matrix,
@@ -137,5 +153,8 @@ impl MatrixDisplay {
     }
     pub fn height(&self) -> usize {
         self.n_rows() * self.fmt.cell_h
+    }
+    pub fn print<Out: Write>(&mut self, out: &mut Out) {
+        self.mat.for_each_cell(write_cell, out);
     }
 }
