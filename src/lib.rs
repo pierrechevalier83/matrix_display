@@ -30,6 +30,18 @@ impl Cell {
     }
 }
 
+pub enum Position {
+	Top,
+	Left,
+	Right,
+	Bottom,
+    TopLeft,
+	TopRight,
+    BottomLeft,
+	BottomRight,
+	Middle
+}
+
 #[cfg(test)]
 mod matrix_tests {
     use super::Cell;
@@ -61,6 +73,27 @@ impl Matrix {
     pub fn n_cols(&self) -> usize {
         self.n_cols
     }
+	pub fn from_index(&self, index: usize) -> Position {
+	    if index == 0 {
+		    Position::TopLeft
+		} else if index == self.n_cols() - 1 {
+		    Position::TopRight
+		} else if index == (self.n_rows() - 1) * self.n_cols() - 1 {
+		    Position::BottomLeft
+		} else if index == (self.n_rows() * self.n_cols()) - 1 {
+		    Position::BottomRight
+		} else if index < self.n_cols() {
+		    Position::Top
+		} else if index % self.n_cols() == 0 {
+		    Position::Left
+		} else if index % self.n_cols() == self.n_cols() - 1 {
+		    Position::Right
+		} else if index > (self.n_rows() - 1) * self.n_cols() {
+		    Position::Bottom
+		} else {
+		    Position::Middle
+		}
+	}
     pub fn for_each_cell<Out: Write>(&mut self, f: fn(&Cell, &mut Out), out: &mut Out) {
         self.cells
             .clone()
