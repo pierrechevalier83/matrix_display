@@ -73,22 +73,34 @@ impl Matrix {
     pub fn n_cols(&self) -> usize {
         self.n_cols
     }
+	fn is_top(&self, index: usize) -> bool {
+	    index < self.n_cols()
+	}
+	fn is_left(&self, index: usize) -> bool {
+		index % self.n_cols() == 0
+	}
+	fn is_right(&self, index: usize) -> bool {
+		index % self.n_cols() == self.n_cols() - 1
+	}
+	fn is_bottom(&self, index: usize) -> bool {
+		index >= (self.n_rows() - 1) * self.n_cols()
+	}
 	pub fn from_index(&self, index: usize) -> Position {
-	    if index == 0 {
+	    if self.is_top(index) && self.is_left(index) {
 		    Position::TopLeft
-		} else if index == self.n_cols() - 1 {
+		} else if self.is_top(index) && self.is_right(index) {
 		    Position::TopRight
-		} else if index == (self.n_rows() - 1) * self.n_cols() - 1 {
+		} else if self.is_bottom(index) && self.is_left(index) {
 		    Position::BottomLeft
-		} else if index == (self.n_rows() * self.n_cols()) - 1 {
+		} else if self.is_bottom(index) && self.is_right(index) {
 		    Position::BottomRight
-		} else if index < self.n_cols() {
+		} else if self.is_top(index) {
 		    Position::Top
-		} else if index % self.n_cols() == 0 {
+		} else if self.is_left(index) {
 		    Position::Left
-		} else if index % self.n_cols() == self.n_cols() - 1 {
+		} else if self.is_right(index) {
 		    Position::Right
-		} else if index > (self.n_rows() - 1) * self.n_cols() {
+		} else if self.is_bottom(index) {
 		    Position::Bottom
 		} else {
 		    Position::Middle
