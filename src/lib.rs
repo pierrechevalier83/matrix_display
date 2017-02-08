@@ -174,13 +174,13 @@ impl Matrix {
             Position::Middle
         }
     }
-    pub fn for_each_cell<Out: Write>(&mut self, f: fn(&Cell, &mut Out), out: &mut Out) {
+    pub fn for_each_cell<Out: Write>(&mut self, f: fn(&Cell, &Position, &mut Out), out: &mut Out) {
         self.cells
-            .clone()
-            .chunks(self.n_cols())
+		    .clone()
             .into_iter()
-            .map(|row| {
-                row.into_iter().map(|cell| f(cell, out)).collect::<Vec<_>>();
+			.enumerate()
+            .map(|(idx, cell)| {
+				f(&cell, &self.from_index(idx), out)
             })
             .collect::<Vec<_>>();
     }
@@ -243,7 +243,7 @@ mod matrix_display_tests {
     }
 }
 
-pub fn write_cell<Out: Write>(cell: &Cell, out: &mut Out) {
+pub fn write_cell<Out: Write>(cell: &Cell, pos: &Position, out: &mut Out) {
     write!(out, "{}", cell.value).unwrap();
 }
 
