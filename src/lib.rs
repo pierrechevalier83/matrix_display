@@ -233,6 +233,7 @@ mod matrix_display_tests {
         let d = MatrixDisplay::new(f, m);
         assert_eq!(3 * 5, d.width());
     }
+    #[test]
     fn height() {
         let f = Format::new(5, 7);
         let m = Matrix::new(3, (0..24).map(|x| Cell::new(' ', x)).collect::<Vec<_>>());
