@@ -219,6 +219,40 @@ impl Default for Format {
     }
 }
 
+#[cfg(test)]
+mod pad_tests {
+    use super::Pad;
+    #[test]
+    pub fn adds_up_to_correct_size() {
+        let pad = Pad::new(12, 3);
+        assert_eq!(12, pad.before + 3 + pad.after);
+    }
+    #[test]
+    pub fn centered() {
+        let pad = Pad::new(10, 2);
+        assert_eq!(4, pad.before);
+        assert_eq!(4, pad.after);
+    }
+    #[test]
+    pub fn odd_total() {
+        let pad = Pad::new(11, 3);
+        assert_eq!(4, pad.before);
+        assert_eq!(4, pad.after);
+    }
+}
+
+pub struct Pad {
+    pub before: usize,
+    pub after: usize,
+}
+impl Pad {
+    pub fn new(total: usize, content: usize) -> Pad {
+        Pad {
+            before: (total - content) / 2 + (total - content) % 2,
+            after: (total - content) / 2,
+        }
+    }
+}
 
 #[cfg(test)]
 mod matrix_display_tests {
