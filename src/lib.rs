@@ -276,6 +276,50 @@ mod matrix_display_tests {
     }
 }
 
+pub struct CharBox {
+    top: Option<char>,
+	left: Option<char>,
+	right: Option<char>,
+	bottom: Option<char>,
+}
+impl CharBox {
+    fn new(t: Option<char>, l: Option<char>, r: Option<char>, b: Option<char>) -> CharBox {
+	    CharBox{
+		    top: t,
+			left: l,
+			right: r,
+			bottom: b
+		}
+	}
+}
+
+// Functions that give the characters surrounding a cell TLRB
+pub struct BoxStyle {
+}
+impl BoxStyle {
+    pub fn plain(pos: &Position) -> CharBox {
+	    match *pos {
+		    Position::Right => CharBox::new(None,None,Some('\n'),None),
+		    Position::TopRight => CharBox::new(None,None, Some('\n'),None),
+		    Position::BottomRight => CharBox::new(None,None, Some('\n'),None),
+		    _ => CharBox::new(None, None, None, None)
+		}
+	}
+	pub fn unicode(pos: &Position) -> &'static str {
+	    match *pos {
+		    Position::Top => " ",
+		    Position::Left => " ",
+		    Position::Right => " ",
+		    Position::Bottom => " ",
+		    Position::TopLeft => " ",
+		    Position::TopRight => " ",
+		    Position::BottomLeft => " ",
+		    Position::BottomRight => " ",
+		    Position::Middle => " ",
+		}
+	}
+}
+
 pub struct MatrixDisplay {
     fmt: Format,
     mat: Matrix,
@@ -297,13 +341,18 @@ impl MatrixDisplay {
         self.n_rows() * self.fmt.cell_h
     }
     pub fn print<Out: Write>(&mut self, out: &mut Out) {
-        self.mat
+        let style = BoxStyle::plain;
+		self.mat
             .enumerate_cells()
             .iter()
             .map(|&(ref cell, ref pos)| {
+			    let around = style(pos);
+				if let Some(c) = around.left {
+                   write!(out, "{}", c).unwrap();
+				}
                 write!(out, "{}", cell.value).unwrap();
-				if pos == &Position::TopRight || pos == &Position::Right || pos == &Position::BottomRight {
-                    write!(out, "\n").unwrap();
+				if let Some(c) = around.right {
+                   write!(out, "{}", c).unwrap();
 				}
             })
             .collect::<Vec<_>>();
