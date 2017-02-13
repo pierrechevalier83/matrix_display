@@ -295,6 +295,46 @@ impl CharBox {
 
 // Functions that give the characters surrounding a cell TLRB
 pub struct BoxStyle {
+/*
+plain
+..
+..
+
+retro
++-+-+
+|.|.|
++-+-+
+|.|.|
++-+-+
+
+thin
+┌─┬─┐
+│.│.│
+├─┼─┤
+│.│.│
+└─┴─┘
+
+rounded
+╭─┬─╮
+│.│.│
+├─┼─┤
+│.│.│
+╰─┴─╯
+
+thick
+┏━┳━┓
+┃.┃.┃
+┣━╋━┫
+┃.┃.┃
+┗━┻━┛
+
+double
+╔═╦═╗
+║.║.║
+╠═╬═╣
+║.║.║
+╚═╩═╝
+*/
 }
 impl BoxStyle {
     pub fn plain(pos: &Position) -> CharBox {
@@ -303,19 +343,6 @@ impl BoxStyle {
 		    Position::TopRight => CharBox::new(None,None, Some('\n'),None),
 		    Position::BottomRight => CharBox::new(None,None, Some('\n'),None),
 		    _ => CharBox::new(None, None, None, None)
-		}
-	}
-	pub fn unicode(pos: &Position) -> &'static str {
-	    match *pos {
-		    Position::Top => " ",
-		    Position::Left => " ",
-		    Position::Right => " ",
-		    Position::Bottom => " ",
-		    Position::TopLeft => " ",
-		    Position::TopRight => " ",
-		    Position::BottomLeft => " ",
-		    Position::BottomRight => " ",
-		    Position::Middle => " ",
 		}
 	}
 }
