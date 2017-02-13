@@ -302,6 +302,9 @@ impl MatrixDisplay {
             .iter()
             .map(|&(ref cell, ref pos)| {
                 write!(out, "{}", cell.value).unwrap();
+				if pos == &Position::TopRight || pos == &Position::Right || pos == &Position::BottomRight {
+                    write!(out, "\n").unwrap();
+				}
             })
             .collect::<Vec<_>>();
     }
