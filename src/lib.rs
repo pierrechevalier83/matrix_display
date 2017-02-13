@@ -129,7 +129,7 @@ pub struct Matrix {
     cells: Vec<Cell>,
 }
 impl Matrix {
-    fn new(n_cols: usize, cells: Vec<Cell>) -> Matrix {
+    pub fn new(n_cols: usize, cells: Vec<Cell>) -> Matrix {
         Matrix {
             n_cols: n_cols,
             cells: cells,
@@ -281,7 +281,7 @@ pub struct MatrixDisplay {
     mat: Matrix,
 }
 impl MatrixDisplay {
-    fn new(f: Format, m: Matrix) -> MatrixDisplay {
+    pub fn new(f: Format, m: Matrix) -> MatrixDisplay {
         MatrixDisplay { fmt: f, mat: m }
     }
     fn n_rows(&self) -> usize {
