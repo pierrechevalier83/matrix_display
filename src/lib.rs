@@ -1,3 +1,6 @@
+extern crate unicode_segmentation;
+
+use unicode_segmentation::UnicodeSegmentation;
 use std::io::Write;
 
 #[cfg(test)]
@@ -239,6 +242,18 @@ mod pad_tests {
         assert_eq!(4, pad.before);
         assert_eq!(4, pad.after);
     }
+    #[test]
+    pub fn no_pad_even() {
+        let pad = Pad::new(4, 4);
+        assert_eq!(0, pad.before);
+        assert_eq!(0, pad.after);
+    }
+    #[test]
+    pub fn no_pad_odd() {
+        let pad = Pad::new(1, 1);
+        assert_eq!(0, pad.before);
+        assert_eq!(0, pad.after);
+    }
 }
 
 pub struct Pad {
@@ -278,73 +293,92 @@ mod matrix_display_tests {
 
 pub struct CharBox {
     top: Option<char>,
-	left: Option<char>,
-	right: Option<char>,
-	bottom: Option<char>,
+    left: Option<char>,
+    right: Option<char>,
+    bottom: Option<char>,
 }
 impl CharBox {
     fn new(t: Option<char>, l: Option<char>, r: Option<char>, b: Option<char>) -> CharBox {
-	    CharBox{
-		    top: t,
-			left: l,
-			right: r,
-			bottom: b
-		}
-	}
+        CharBox {
+            top: t,
+            left: l,
+            right: r,
+            bottom: b,
+        }
+    }
 }
 
 // Functions that give the characters surrounding a cell TLRB
-pub struct BoxStyle {
-/*
-plain
-..
-..
-
-retro
-+-+-+
-|.|.|
-+-+-+
-|.|.|
-+-+-+
-
-thin
-┌─┬─┐
-│.│.│
-├─┼─┤
-│.│.│
-└─┴─┘
-
-rounded
-╭─┬─╮
-│.│.│
-├─┼─┤
-│.│.│
-╰─┴─╯
-
-thick
-┏━┳━┓
-┃.┃.┃
-┣━╋━┫
-┃.┃.┃
-┗━┻━┛
-
-double
-╔═╦═╗
-║.║.║
-╠═╬═╣
-║.║.║
-╚═╩═╝
-*/
+pub enum BoxStyle {
+    Plain,
+    // ..
+    // ..
+    retro,
+    // +-+-+
+    // |.|.|
+    // +-+-+
+    // |.|.|
+    // +-+-+
+    thin,
+    // ┌─┬─┐
+    // │.│.│
+    // ├─┼─┤
+    // │.│.│
+    // └─┴─┘
+    rounded,
+    // ╭─┬─╮
+    // │.│.│
+    // ├─┼─┤
+    // │.│.│
+    // ╰─┴─╯
+    thick,
+    // ┏━┳━┓
+    // ┃.┃.┃
+    // ┣━╋━┫
+    // ┃.┃.┃
+    // ┗━┻━┛
+    double
+	// ╔═╦═╗
+    // ║.║.║
+    // ╠═╬═╣
+    // ║.║.║
+    // ╚═╩═╝
 }
+
 impl BoxStyle {
-    pub fn plain(pos: &Position) -> CharBox {
-	    match *pos {
-		    Position::Right => CharBox::new(None,None,Some('\n'),None),
-		    Position::TopRight => CharBox::new(None,None, Some('\n'),None),
-		    Position::BottomRight => CharBox::new(None,None, Some('\n'),None),
-		    _ => CharBox::new(None, None, None, None)
-		}
-	}
+    fn top_row(self, pos: &Position, cell_width: usize) -> String {
+        match self {
+            BoxStyle::Plain => String::new(),
+            _ => String::new(),
+        }
+    }
+    fn padding_row(self, pos: &Position, cell_width: usize) -> String {
+        match self {
+            BoxStyle::Plain => self.value_row(pos, cell_width, ""),
+            _ => String::new(),
+        }
+    }
+    fn value_row(self, pos: &Position, cell_width: usize, content: &str) -> String {
+        let pad = Pad::new(cell_width, content.graphemes(true).count());
+        let mut ret = std::iter::repeat(' ').take(pad.before).collect::<String>() + content +
+                      &std::iter::repeat(' ').take(pad.after).collect::<String>();
+        ret = match *pos {
+            Position::Right => ret + "\n",
+            Position::TopRight => ret + "\n",
+            Position::BottomRight => ret + "\n",
+            _ => ret,
+        };
+        match self {
+            BoxStyle::Plain => ret,
+            _ => String::new(),
+        }
+    }
+    fn bottom_row(self, pos: &Position, cell_width: usize) -> String {
+        match self {
+            BoxStyle::Plain => String::new(),
+            _ => String::new(),
+        }
+    }
 }
 
 pub struct MatrixDisplay {
@@ -368,19 +402,15 @@ impl MatrixDisplay {
         self.n_rows() * self.fmt.cell_h
     }
     pub fn print<Out: Write>(&mut self, out: &mut Out) {
-        let style = BoxStyle::plain;
-		self.mat
+        self.mat
             .enumerate_cells()
             .iter()
             .map(|&(ref cell, ref pos)| {
-			    let around = style(pos);
-				if let Some(c) = around.left {
-                   write!(out, "{}", c).unwrap();
-				}
-                write!(out, "{}", cell.value).unwrap();
-				if let Some(c) = around.right {
-                   write!(out, "{}", c).unwrap();
-				}
+                let style = BoxStyle::Plain;
+                write!(out,
+                       "{}",
+                       style.value_row(pos, self.fmt.cell_w, &cell.clone().value.to_string()))
+                    .unwrap();
             })
             .collect::<Vec<_>>();
     }
