@@ -333,13 +333,13 @@ pub enum BoxStyle {
 impl BoxStyle {
     fn top_row(&self, pos: &Position, cell_width: usize) -> String {
         match *self {
-            BoxStyle::Plain => String::new(),
+            BoxStyle::Plain => "\n".to_string(),
             _ => String::new(),
         }
     }
     fn padding_row(&self, pos: &Position, cell_width: usize) -> String {
         match *self {
-            BoxStyle::Plain => self.value_row(pos, cell_width, ""),
+            BoxStyle::Plain => "\n".to_string(),
             _ => String::new(),
         }
     }
@@ -360,7 +360,7 @@ impl BoxStyle {
     }
     fn bottom_row(&self, pos: &Position, cell_width: usize) -> String {
         match *self {
-            BoxStyle::Plain => String::new(),
+            BoxStyle::Plain => self.value_row(pos, cell_width, ""),
             _ => String::new(),
         }
     }
@@ -388,15 +388,27 @@ impl MatrixDisplay {
     }
     pub fn print<Out: Write>(&mut self, out: &mut Out) {
         let style = BoxStyle::Plain;
-        self.mat
+        let mut vertical_pad = Pad::new(self.fmt.cell_h, 1);
+		self.mat
             .enumerate_cells()
             .chunks(self.n_cols())
             .into_iter()
             .flat_map(|row| {
                 row.into_iter()
                     .inspect(|&&(_, ref pos)| {
-                        write!(out, "{}", style.top_row(pos, self.fmt.cell_w)).unwrap();
-                    })
+					    if vertical_pad.before >= 1 {
+                            write!(out, "{}", style.top_row(pos, self.fmt.cell_w)).unwrap();
+						    vertical_pad.before -= 1;
+                        }
+					})
+                    .collect::<Vec<_>>()
+                    .into_iter()
+                    .inspect(|&&(ref cell, ref pos)| {
+					   while vertical_pad.before > 0 {
+                            write!(out, "{}", style.padding_row(pos, self.fmt.cell_w)).unwrap();
+						    vertical_pad.before -= 1;
+					   } 
+					})
                     .collect::<Vec<_>>()
                     .into_iter()
                     .inspect(|&&(ref cell, ref pos)| {
@@ -407,6 +419,14 @@ impl MatrixDisplay {
                                                &cell.clone().value.to_string()))
                             .unwrap();
                     })
+                    .collect::<Vec<_>>()
+                    .into_iter()
+                    .inspect(|&&(ref cell, ref pos)| {
+					   while vertical_pad.after > 1 {
+                            write!(out, "{}", style.padding_row(pos, self.fmt.cell_w)).unwrap();
+						    vertical_pad.after -= 1;
+					   } 
+					})
                     .collect::<Vec<_>>()
                     .into_iter()
                     .inspect(|&&(ref cell, ref pos)| {
