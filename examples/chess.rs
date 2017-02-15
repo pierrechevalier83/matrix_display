@@ -2,7 +2,7 @@ extern crate matrix_display;
 use matrix_display::*;
 
 fn main() {
-    let format = Format::default();
+    let format = Format::new(5, 3); //default();
     let board = vec!['♜', '♞', '♝', '♛', '♚', '♝', '♞', '♜',
 	                 '♟', '♟', '♟', '♟', '♟', '♟', '♟', '♟',
 					 ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ',

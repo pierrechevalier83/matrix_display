@@ -291,74 +291,59 @@ mod matrix_display_tests {
     }
 }
 
-pub struct CharBox {
-    top: Option<char>,
-    left: Option<char>,
-    right: Option<char>,
-    bottom: Option<char>,
-}
-impl CharBox {
-    fn new(t: Option<char>, l: Option<char>, r: Option<char>, b: Option<char>) -> CharBox {
-        CharBox {
-            top: t,
-            left: l,
-            right: r,
-            bottom: b,
-        }
-    }
-}
-
 // Functions that give the characters surrounding a cell TLRB
 pub enum BoxStyle {
-    Plain,
-    // ..
-    // ..
-    retro,
-    // +-+-+
-    // |.|.|
-    // +-+-+
-    // |.|.|
-    // +-+-+
-    thin,
-    // ┌─┬─┐
-    // │.│.│
-    // ├─┼─┤
-    // │.│.│
-    // └─┴─┘
-    rounded,
-    // ╭─┬─╮
-    // │.│.│
-    // ├─┼─┤
-    // │.│.│
-    // ╰─┴─╯
-    thick,
-    // ┏━┳━┓
-    // ┃.┃.┃
-    // ┣━╋━┫
-    // ┃.┃.┃
-    // ┗━┻━┛
-    double
-	// ╔═╦═╗
-    // ║.║.║
-    // ╠═╬═╣
-    // ║.║.║
-    // ╚═╩═╝
+    Plain, /* . .
+            *
+            * . .
+            *
+            * */
+    Retro, /* +-+-+
+            * |.|.|
+            * +-+-+
+            * |.|.|
+            * +-+-+
+            * */
+    Thin, /* ┌─┬─┐
+           * │.│.│
+           * ├─┼─┤
+           * │.│.│
+           * └─┴─┘
+           * */
+    Rounded, /* ╭─┬─╮
+              * │.│.│
+              * ├─┼─┤
+              * │.│.│
+              * ╰─┴─╯
+              * */
+    Thick, /* ┏━┳━┓
+            * ┃.┃.┃
+            * ┣━╋━┫
+            * ┃.┃.┃
+            * ┗━┻━┛
+            * */
+    Double, /* ╔═╦═╗
+             * ║.║.║
+             * ╠═╬═╣
+             * ║.║.║
+             * ╚═╩═╝
+             * */
 }
 
 impl BoxStyle {
-    fn top_row(self, pos: &Position, cell_width: usize) -> String {
-        match self {
+    fn top_row(&self, pos: &Position, cell_width: usize) -> String {
+        match *self {
             BoxStyle::Plain => String::new(),
             _ => String::new(),
         }
     }
-    fn padding_row(self, pos: &Position, cell_width: usize) -> String {
-        match self {
+    fn padding_row(&self, pos: &Position, cell_width: usize) -> String {
+        match *self {
             BoxStyle::Plain => self.value_row(pos, cell_width, ""),
             _ => String::new(),
         }
     }
-    fn value_row(self, pos: &Position, cell_width: usize, content: &str) -> String {
+    fn value_row(&self, pos: &Position, cell_width: usize, content: &str) -> String {
         let pad = Pad::new(cell_width, content.graphemes(true).count());
         let mut ret = std::iter::repeat(' ').take(pad.before).collect::<String>() + content +
                       &std::iter::repeat(' ').take(pad.after).collect::<String>();
@@ -368,13 +353,13 @@ impl BoxStyle {
             Position::BottomRight => ret + "\n",
             _ => ret,
         };
-        match self {
+        match *self {
             BoxStyle::Plain => ret,
             _ => String::new(),
         }
     }
-    fn bottom_row(self, pos: &Position, cell_width: usize) -> String {
-        match self {
+    fn bottom_row(&self, pos: &Position, cell_width: usize) -> String {
+        match *self {
             BoxStyle::Plain => String::new(),
             _ => String::new(),
         }
@@ -402,15 +387,32 @@ impl MatrixDisplay {
         self.n_rows() * self.fmt.cell_h
     }
     pub fn print<Out: Write>(&mut self, out: &mut Out) {
+        let style = BoxStyle::Plain;
         self.mat
             .enumerate_cells()
-            .iter()
-            .map(|&(ref cell, ref pos)| {
-                let style = BoxStyle::Plain;
-                write!(out,
-                       "{}",
-                       style.value_row(pos, self.fmt.cell_w, &cell.clone().value.to_string()))
-                    .unwrap();
+            .chunks(self.n_cols())
+            .into_iter()
+            .flat_map(|row| {
+                row.into_iter()
+                    .inspect(|&&(_, ref pos)| {
+                        write!(out, "{}", style.top_row(pos, self.fmt.cell_w)).unwrap();
+                    })
+                    .collect::<Vec<_>>()
+                    .into_iter()
+                    .inspect(|&&(ref cell, ref pos)| {
+                        write!(out,
+                               "{}",
+                               style.value_row(pos,
+                                               self.fmt.cell_w,
+                                               &cell.clone().value.to_string()))
+                            .unwrap();
+                    })
+                    .collect::<Vec<_>>()
+                    .into_iter()
+                    .inspect(|&&(ref cell, ref pos)| {
+                        write!(out, "{}", style.bottom_row(pos, self.fmt.cell_w)).unwrap();
+                    })
+                    .collect::<Vec<_>>()
             })
             .collect::<Vec<_>>();
     }
