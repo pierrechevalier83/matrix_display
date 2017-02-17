@@ -483,7 +483,7 @@ impl BoxStyle {
             BoxStyle::Double => '║',
         }
     }
-    fn top_row(&self, pos: &Position, cell_width: usize) -> String {
+    fn top_cell(&self, pos: &Position, cell_width: usize) -> String {
         if pos.top() {
             self.cell(self.top_left_corner(),
                       self.top_intersection(),
@@ -503,7 +503,7 @@ impl BoxStyle {
 
         }
     }
-    fn bottom_row(&self, pos: &Position, cell_width: usize) -> String {
+    fn bottom_cell(&self, pos: &Position, cell_width: usize) -> String {
         if pos.bottom() {
             self.cell(self.bottom_left_corner(),
                       self.bottom_intersection(),
@@ -513,13 +513,13 @@ impl BoxStyle {
                       pos,
                       cell_width)
         } else {
-             String::new()
+            String::new()
         }
     }
-    fn padding_row(&self, pos: &Position, cell_width: usize) -> String {
-        self.value_row(pos, cell_width, "")
+    fn padding_cell(&self, pos: &Position, cell_width: usize) -> String {
+        self.value_cell(pos, cell_width, "")
     }
-    fn value_row(&self, pos: &Position, cell_width: usize, content: &str) -> String {
+    fn value_cell(&self, pos: &Position, cell_width: usize, content: &str) -> String {
         self.cell(self.vertical_border(),
                   self.vertical_border(),
                   self.vertical_border(),
@@ -550,7 +550,6 @@ impl BoxStyle {
         }
         cell
     }
-
 }
 
 pub struct MatrixDisplay {
@@ -573,6 +572,38 @@ impl MatrixDisplay {
     pub fn height(&self) -> usize {
         self.n_rows() * self.fmt.cell_h
     }
+    fn print_top<Out: Write>(&self, out: &mut Out, style: &BoxStyle, row: &[(Cell, Position)]) {
+        for &(_, ref pos) in row {
+            write!(out, "{}", style.top_cell(pos, self.fmt.cell_w)).unwrap();
+        }
+    }
+    fn print_vertical_pad<Out: Write>(&self,
+                                      out: &mut Out,
+                                      style: &BoxStyle,
+                                      row: &[(Cell, Position)],
+                                      pad: usize) {
+        for _ in 0..pad {
+            for &(_, ref pos) in row {
+                write!(out, "{}", style.padding_cell(pos, self.fmt.cell_w)).unwrap();
+            }
+        }
+    }
+    fn print_value_row<Out: Write>(&self,
+                                   out: &mut Out,
+                                   style: &BoxStyle,
+                                   row: &[(Cell, Position)]) {
+        for &(ref cell, ref pos) in row {
+            write!(out,
+                   "{}",
+                   style.value_cell(pos, self.fmt.cell_w, &cell.clone().value.to_string()))
+                .unwrap();
+        }
+    }
+    fn print_bottom<Out: Write>(&self, out: &mut Out, style: &BoxStyle, row: &[(Cell, Position)]) {
+        for &(_, ref pos) in row {
+            write!(out, "{}", style.bottom_cell(pos, self.fmt.cell_w)).unwrap();
+        }
+    }
     pub fn print<Out: Write>(&mut self, out: &mut Out, style: &BoxStyle) {
         let vertical_pad = Pad::new(self.fmt.cell_h, 1);
         self.mat
@@ -580,28 +611,11 @@ impl MatrixDisplay {
             .chunks(self.n_cols())
             .into_iter()
             .flat_map(|row| {
-                for &(_, ref pos) in row {
-                    write!(out, "{}", style.top_row(pos, self.fmt.cell_w)).unwrap();
-                }
-                for _ in 0..vertical_pad.before {
-                    for &(_, ref pos) in row {
-                        write!(out, "{}", style.padding_row(pos, self.fmt.cell_w)).unwrap();
-                    }
-                }
-                for &(ref cell, ref pos) in row {
-                    write!(out,
-                           "{}",
-                           style.value_row(pos, self.fmt.cell_w, &cell.clone().value.to_string()))
-                        .unwrap();
-                }
-                for _ in 0..vertical_pad.after {
-                    for &(_, ref pos) in row {
-                        write!(out, "{}", style.padding_row(pos, self.fmt.cell_w)).unwrap();
-                    }
-                }
-                for &(_, ref pos) in row {
-                    write!(out, "{}", style.bottom_row(pos, self.fmt.cell_w)).unwrap();
-                }
+                self.print_top(out, style, row);
+                self.print_vertical_pad(out, style, row, vertical_pad.before);
+                self.print_value_row(out, style, row);
+                self.print_vertical_pad(out, style, row, vertical_pad.after);
+                self.print_bottom(out, style, row);
                 row
             })
             .collect::<Vec<_>>();
