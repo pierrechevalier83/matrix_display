@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/pierrechevalier83/matrix_display.svg?branch=master)](https://travis-ci.org/pierrechevalier83/matrix_display))
+[![Build Status](https://travis-ci.org/pierrechevalier83/matrix_display.svg?branch=master)](https://travis-ci.org/pierrechevalier83/matrix_display)
 
 Matrix Display
 --------------

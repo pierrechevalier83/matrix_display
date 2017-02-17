@@ -14,8 +14,7 @@ before_script:
 script:
 - |
   travis-cargo build &&
-  travis-cargo test &&
-  travis-cargo run --example chess
+  travis-cargo test
 after_success:
 - travis-cargo coveralls --no-sudo
 notifications:
