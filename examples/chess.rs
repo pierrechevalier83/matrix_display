@@ -14,11 +14,12 @@ fn main() {
         .iter()
         .enumerate()
 		.map(|(i, x)| {
-		    let mut ansi_bg = 0;
+            let ansi_fg = 28;
+			let mut ansi_bg = 0;
 		    if i % 2 + (i / 8) % 2 == 1 {
 			    ansi_bg = 7;
 			}
-		    Cell::new(x.clone(), 0, ansi_bg)
+		    Cell::new(x.clone(), ansi_fg, ansi_bg)
 			})
         .collect::<Vec<_>>();
     let data = Matrix::new(8, board);
