@@ -1,5 +1,5 @@
 [![Build Status](https://travis-ci.org/pierrechevalier83/matrix_display.svg?branch=master)](https://travis-ci.org/pierrechevalier83/matrix_display)
-
+[![Coverage Status](https://coveralls.io/repos/github/pierrechevalier83/matrix_display/badge.svg?branch=master)](https://coveralls.io/github/pierrechevalier83/matrix_display?branch=master)
 Matrix Display
 --------------
 A simple rust library to visualize 2D matrixes in rust.
