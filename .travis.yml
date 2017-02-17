@@ -22,7 +22,7 @@ addons:
     - libelf-dev
     - libdw-dev
 after_success:
-- travis-cargo coveralls --no-sudo
+- travis-cargo coveralls --no-sudo --verify
 notifications:
   email:
     on_success: never
