@@ -38,7 +38,8 @@ fn main() {
 		    if i % 2 + (i / 8) % 2 == 1 {
 			    ansi_bg = 7;
 			}
-		    Cell::new(x.clone(), 0, ansi_bg)
+			let ansi_fg = 28;
+		    Cell::new(x.clone(), 28, ansi_bg)
 			})
         .collect::<Vec<_>>();
     let data = Matrix::new(8, board);
