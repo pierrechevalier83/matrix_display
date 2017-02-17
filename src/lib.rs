@@ -47,6 +47,41 @@ pub enum Position {
     Middle,
 }
 
+impl Position {
+    fn top(&self) -> bool {
+        match *self {
+            Position::TopLeft => true,
+            Position::Top => true,
+            Position::TopRight => true,
+            _ => false,
+        }
+    }
+    fn left(&self) -> bool {
+        match *self {
+            Position::TopLeft => true,
+            Position::Left => true,
+            Position::BottomLeft => true,
+            _ => false,
+        }
+    }
+    fn right(&self) -> bool {
+        match *self {
+            Position::TopRight => true,
+            Position::Right => true,
+            Position::BottomRight => true,
+            _ => false,
+        }
+    }
+    fn bottom(&self) -> bool {
+        match *self {
+            Position::BottomLeft => true,
+            Position::Bottom => true,
+            Position::BottomRight => true,
+            _ => false,
+        }
+    }
+}
+
 #[cfg(test)]
 mod matrix_tests {
     use super::Cell;
@@ -330,40 +365,192 @@ pub enum BoxStyle {
              * */
 }
 
+fn horizontal_pad(width: usize, s: &str, c: char) -> String {
+    let pad = Pad::new(width, s.graphemes(true).count());
+    std::iter::repeat(c).take(pad.before).collect::<String>() + s +
+    &std::iter::repeat(c).take(pad.after).collect::<String>()
+}
+
+
 impl BoxStyle {
+    fn top_left_corner(&self) -> char {
+        match *self {
+            BoxStyle::Plain => ' ',
+            BoxStyle::Retro => '+',
+            BoxStyle::Thin => '┌',
+            BoxStyle::Rounded => '╭',
+            BoxStyle::Thick => '┏',
+            BoxStyle::Double => '╔',
+        }
+    }
+    fn top_right_corner(&self) -> char {
+        match *self {
+            BoxStyle::Plain => ' ',
+            BoxStyle::Retro => '+',
+            BoxStyle::Thin => '┐',
+            BoxStyle::Rounded => '╮',
+            BoxStyle::Thick => '┓',
+            BoxStyle::Double => '╗',
+        }
+    }
+    fn bottom_left_corner(&self) -> char {
+        match *self {
+            BoxStyle::Plain => ' ',
+            BoxStyle::Retro => '+',
+            BoxStyle::Thin => '└',
+            BoxStyle::Rounded => '╰',
+            BoxStyle::Thick => '┗',
+            BoxStyle::Double => '╚',
+        }
+    }
+    fn bottom_right_corner(&self) -> char {
+        match *self {
+            BoxStyle::Plain => ' ',
+            BoxStyle::Retro => '+',
+            BoxStyle::Thin => '┘',
+            BoxStyle::Rounded => '╯',
+            BoxStyle::Thick => '┛',
+            BoxStyle::Double => '╝',
+        }
+    }
+    fn horizontal_border(&self) -> char {
+        match *self {
+            BoxStyle::Plain => ' ',
+            BoxStyle::Retro => '-',
+            BoxStyle::Thin => '─',
+            BoxStyle::Rounded => '─',
+            BoxStyle::Thick => '━',
+            BoxStyle::Double => '═',
+        }
+    }
+    fn top_intersection(&self) -> char {
+        match *self {
+            BoxStyle::Plain => ' ',
+            BoxStyle::Retro => '+',
+            BoxStyle::Thin => '┬',
+            BoxStyle::Rounded => '┬',
+            BoxStyle::Thick => '┳',
+            BoxStyle::Double => '╦',
+        }
+    }
+    fn left_intersection(&self) -> char {
+        match *self {
+            BoxStyle::Plain => ' ',
+            BoxStyle::Retro => '+',
+            BoxStyle::Thin => '├',
+            BoxStyle::Rounded => '├',
+            BoxStyle::Thick => '┣',
+            BoxStyle::Double => '╠',
+        }
+    }
+    fn right_intersection(&self) -> char {
+        match *self {
+            BoxStyle::Plain => ' ',
+            BoxStyle::Retro => '+',
+            BoxStyle::Thin => '┤',
+            BoxStyle::Rounded => '┤',
+            BoxStyle::Thick => '┫',
+            BoxStyle::Double => '╣',
+        }
+    }
+    fn bottom_intersection(&self) -> char {
+        match *self {
+            BoxStyle::Plain => ' ',
+            BoxStyle::Retro => '+',
+            BoxStyle::Thin => '┴',
+            BoxStyle::Rounded => '┴',
+            BoxStyle::Thick => '┻',
+            BoxStyle::Double => '╩',
+        }
+    }
+    fn intersection(&self) -> char {
+        match *self {
+            BoxStyle::Plain => ' ',
+            BoxStyle::Retro => '+',
+            BoxStyle::Thin => '┼',
+            BoxStyle::Rounded => '┼',
+            BoxStyle::Thick => '╋',
+            BoxStyle::Double => '╬',
+        }
+    }
+    fn vertical_border(&self) -> char {
+        match *self {
+            BoxStyle::Plain => ' ',
+            BoxStyle::Retro => '│',
+            BoxStyle::Thin => '│',
+            BoxStyle::Rounded => '│',
+            BoxStyle::Thick => '┃',
+            BoxStyle::Double => '║',
+        }
+    }
     fn top_row(&self, pos: &Position, cell_width: usize) -> String {
-        match *self {
-            BoxStyle::Plain => "\n".to_string(),
-            _ => String::new(),
-        }
-    }
-    fn padding_row(&self, pos: &Position, cell_width: usize) -> String {
-        match *self {
-            BoxStyle::Plain => "\n".to_string(),
-            _ => String::new(),
-        }
-    }
-    fn value_row(&self, pos: &Position, cell_width: usize, content: &str) -> String {
-        let pad = Pad::new(cell_width, content.graphemes(true).count());
-        let mut ret = std::iter::repeat(' ').take(pad.before).collect::<String>() + content +
-                      &std::iter::repeat(' ').take(pad.after).collect::<String>();
-        ret = match *pos {
-            Position::Right => ret + "\n",
-            Position::TopRight => ret + "\n",
-            Position::BottomRight => ret + "\n",
-            _ => ret,
-        };
-        match *self {
-            BoxStyle::Plain => ret,
-            _ => String::new(),
+        if pos.top() {
+            self.cell(self.top_left_corner(),
+                      self.top_intersection(),
+                      self.top_right_corner(),
+                      self.horizontal_border(),
+                      "",
+                      pos,
+                      cell_width)
+        } else {
+            self.cell(self.left_intersection(),
+                      self.intersection(),
+                      self.right_intersection(),
+                      self.horizontal_border(),
+                      "",
+                      pos,
+                      cell_width)
+
         }
     }
     fn bottom_row(&self, pos: &Position, cell_width: usize) -> String {
-        match *self {
-            BoxStyle::Plain => self.value_row(pos, cell_width, ""),
-            _ => String::new(),
+        if pos.bottom() {
+            self.cell(self.bottom_left_corner(),
+                      self.bottom_intersection(),
+                      self.bottom_right_corner(),
+                      self.horizontal_border(),
+                      "",
+                      pos,
+                      cell_width)
+        } else {
+             String::new()
         }
     }
+    fn padding_row(&self, pos: &Position, cell_width: usize) -> String {
+        self.value_row(pos, cell_width, "")
+    }
+    fn value_row(&self, pos: &Position, cell_width: usize, content: &str) -> String {
+        self.cell(self.vertical_border(),
+                  self.vertical_border(),
+                  self.vertical_border(),
+                  ' ',
+                  content,
+                  pos,
+                  cell_width)
+    }
+    fn cell(&self,
+            left: char,
+            middle: char,
+            right: char,
+            fill: char,
+            content: &str,
+            pos: &Position,
+            width: usize)
+            -> String {
+        let mut cell = String::new();
+        if pos.left() {
+            cell += &left.to_string();
+        } else {
+            cell += &middle.to_string();
+        }
+        cell += &horizontal_pad(width, content, fill);
+        if pos.right() {
+            cell += &right.to_string();
+            cell += "\n";
+        }
+        cell
+    }
+
 }
 
 pub struct MatrixDisplay {
@@ -386,53 +573,36 @@ impl MatrixDisplay {
     pub fn height(&self) -> usize {
         self.n_rows() * self.fmt.cell_h
     }
-    pub fn print<Out: Write>(&mut self, out: &mut Out) {
-        let style = BoxStyle::Plain;
-        let mut vertical_pad = Pad::new(self.fmt.cell_h, 1);
-		self.mat
+    pub fn print<Out: Write>(&mut self, out: &mut Out, style: &BoxStyle) {
+        let vertical_pad = Pad::new(self.fmt.cell_h, 1);
+        self.mat
             .enumerate_cells()
             .chunks(self.n_cols())
             .into_iter()
             .flat_map(|row| {
-                row.into_iter()
-                    .inspect(|&&(_, ref pos)| {
-					    if vertical_pad.before >= 1 {
-                            write!(out, "{}", style.top_row(pos, self.fmt.cell_w)).unwrap();
-						    vertical_pad.before -= 1;
-                        }
-					})
-                    .collect::<Vec<_>>()
-                    .into_iter()
-                    .inspect(|&&(ref cell, ref pos)| {
-					   while vertical_pad.before > 0 {
-                            write!(out, "{}", style.padding_row(pos, self.fmt.cell_w)).unwrap();
-						    vertical_pad.before -= 1;
-					   } 
-					})
-                    .collect::<Vec<_>>()
-                    .into_iter()
-                    .inspect(|&&(ref cell, ref pos)| {
-                        write!(out,
-                               "{}",
-                               style.value_row(pos,
-                                               self.fmt.cell_w,
-                                               &cell.clone().value.to_string()))
-                            .unwrap();
-                    })
-                    .collect::<Vec<_>>()
-                    .into_iter()
-                    .inspect(|&&(ref cell, ref pos)| {
-					   while vertical_pad.after > 1 {
-                            write!(out, "{}", style.padding_row(pos, self.fmt.cell_w)).unwrap();
-						    vertical_pad.after -= 1;
-					   } 
-					})
-                    .collect::<Vec<_>>()
-                    .into_iter()
-                    .inspect(|&&(ref cell, ref pos)| {
-                        write!(out, "{}", style.bottom_row(pos, self.fmt.cell_w)).unwrap();
-                    })
-                    .collect::<Vec<_>>()
+                for &(_, ref pos) in row {
+                    write!(out, "{}", style.top_row(pos, self.fmt.cell_w)).unwrap();
+                }
+                for _ in 0..vertical_pad.before {
+                    for &(_, ref pos) in row {
+                        write!(out, "{}", style.padding_row(pos, self.fmt.cell_w)).unwrap();
+                    }
+                }
+                for &(ref cell, ref pos) in row {
+                    write!(out,
+                           "{}",
+                           style.value_row(pos, self.fmt.cell_w, &cell.clone().value.to_string()))
+                        .unwrap();
+                }
+                for _ in 0..vertical_pad.after {
+                    for &(_, ref pos) in row {
+                        write!(out, "{}", style.padding_row(pos, self.fmt.cell_w)).unwrap();
+                    }
+                }
+                for &(_, ref pos) in row {
+                    write!(out, "{}", style.bottom_row(pos, self.fmt.cell_w)).unwrap();
+                }
+                row
             })
             .collect::<Vec<_>>();
     }
