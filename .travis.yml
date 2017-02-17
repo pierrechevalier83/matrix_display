@@ -15,6 +15,12 @@ script:
 - |
   travis-cargo build &&
   travis-cargo test
+addons:
+  apt:
+    packages:
+    - libcurl4-openssl-dev
+    - libelf-dev
+    - libdw-dev travis-cargo test
 after_success:
 - travis-cargo coveralls --no-sudo
 notifications:
