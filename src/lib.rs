@@ -476,7 +476,7 @@ impl BoxStyle {
     fn vertical_border(&self) -> char {
         match *self {
             BoxStyle::Plain => ' ',
-            BoxStyle::Retro => '│',
+            BoxStyle::Retro => '|',
             BoxStyle::Thin => '│',
             BoxStyle::Rounded => '│',
             BoxStyle::Thick => '┃',
