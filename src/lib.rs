@@ -246,7 +246,7 @@ impl<T> Matrix<T>
             Position::Middle
         }
     }
-    pub fn enumerate_cells(&mut self) -> Vec<(Cell<T>, Position)> {
+    pub fn enumerate_cells(&self) -> Vec<(Cell<T>, Position)> {
         self.cells
             .clone()
             .into_iter()
@@ -679,7 +679,7 @@ impl<T> MatrixDisplay<T>
             write!(out, "{}", style.bottom_cell(pos, self.fmt.cell_w)).unwrap();
         }
     }
-    pub fn print<Out: Write>(&mut self, out: &mut Out, style: &BoxStyle) {
+    pub fn print<Out: Write>(&self, out: &mut Out, style: &BoxStyle) {
         let vertical_pad = Pad::new(self.fmt.cell_h, 1);
         self.mat
             .enumerate_cells()

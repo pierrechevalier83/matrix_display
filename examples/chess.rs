@@ -23,7 +23,7 @@ fn main() {
 			})
         .collect::<Vec<_>>();
     let data = Matrix::new(8, board);
-    let mut display = MatrixDisplay::new(format, data);
+    let display = MatrixDisplay::new(format, data);
     display.print(&mut std::io::stdout(), &BoxStyle::Rounded);
     println!();
 }
