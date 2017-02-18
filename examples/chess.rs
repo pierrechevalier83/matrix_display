@@ -19,7 +19,7 @@ fn main() {
 		    if i % 2 + (i / 8) % 2 == 1 {
 			    ansi_bg = 7;
 			}
-		    Cell::new(x.clone(), ansi_fg, ansi_bg)
+		    cell::Cell::new(x.clone(), ansi_fg, ansi_bg)
 			})
         .collect::<Vec<_>>();
     let data = Matrix::new(8, board);

@@ -6,7 +6,7 @@ fn main() {
     let colour_theme = vec![247, 78, 222, 220, 214, 208, 202, 196, 162, 160, 126, 90, 88, 54, 53, 52];
     let board = (0..16)
         .map(|x| {
-            Cell::new(2_f64.powi(x + 1),
+            cell::Cell::new(2_f64.powi(x + 1),
                       7,
                       *colour_theme.get(x as usize).unwrap() as u8)
         })
