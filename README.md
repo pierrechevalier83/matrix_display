@@ -15,6 +15,7 @@ Build
 Run
 ---
 - `cargo run --example chess`
+- `cargo run --example 2048`
 
 Example: visualising a chess board
 ----------------------------------
@@ -24,7 +25,7 @@ extern crate matrix_display;
 use matrix_display::*;
 
 fn main() {
-    let format = Format::new(3, 1); //default();
+    let format = Format::new(7, 3);
 	let board = vec!['♜', '♞', '♝', '♛', '♚', '♝', '♞', '♜',
 	                 '♟', '♟', '♟', '♟', '♟', '♟', '♟', '♟',
 					 ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ',
@@ -47,6 +48,6 @@ fn main() {
     let data = Matrix::new(8, board);
     let mut display = MatrixDisplay::new(format, data);
     display.print(&mut std::io::stdout(), &BoxStyle::Rounded);
-    println!();
 }
 ```
+
