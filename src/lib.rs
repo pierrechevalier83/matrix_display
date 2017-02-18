@@ -31,26 +31,26 @@ pub struct AnsiColor {
 
 impl Default for AnsiColor {
     fn default() -> AnsiColor {
-	    AnsiColor {
-		    fg: 7,
-            bg: 0,
-		}
-	}
+        AnsiColor { fg: 7, bg: 0 }
+    }
 }
 
 #[derive(Clone, Debug, PartialEq)]
-pub struct Cell {
-    pub value: char,
+pub struct Cell<T>
+    where T: Clone,
+          T: ToString
+{
+    pub value: T,
     pub color: AnsiColor,
 }
-impl Cell {
-    pub fn new(val: char, fg: u8, bg: u8) -> Cell {
+impl<T> Cell<T>
+    where T: Clone,
+          T: ToString
+{
+    pub fn new(val: T, fg: u8, bg: u8) -> Cell<T> {
         Cell {
             value: val,
-            color: AnsiColor {
-			    fg: fg,
-				bg: bg,
-			}
+            color: AnsiColor { fg: fg, bg: bg },
         }
     }
 }
@@ -124,7 +124,9 @@ mod matrix_tests {
         // 6,  7,  8,
         //
         let n = 3;
-        let v = (0..11).map(|_| Cell::new(' ', AnsiColor::default().fg, AnsiColor::default().bg)).collect::<Vec<_>>();
+        let v = (0..11)
+            .map(|_| Cell::new(' ', AnsiColor::default().fg, AnsiColor::default().bg))
+            .collect::<Vec<_>>();
         let m = Matrix::new(n, v.clone());
         assert_eq!(Position::TopLeft, m.from_index(0));
         assert_eq!(Position::Top, m.from_index(1));
@@ -145,7 +147,9 @@ mod matrix_tests {
         // 9, 10, 11
         //
         let n = 3;
-        let v = (0..12).map(|_| Cell::new(' ', AnsiColor::default().fg, AnsiColor::default().bg)).collect::<Vec<_>>();
+        let v = (0..12)
+            .map(|_| Cell::new(' ', AnsiColor::default().fg, AnsiColor::default().bg))
+            .collect::<Vec<_>>();
         let m = Matrix::new(n, v.clone());
         assert_eq!(Position::TopLeft, m.from_index(0));
         assert_eq!(Position::Top, m.from_index(1));
@@ -167,7 +171,9 @@ mod matrix_tests {
         // 8, 9, 10, 11
         //
         let n = 4;
-        let v = (0..12).map(|_| Cell::new(' ', AnsiColor::default().fg, AnsiColor::default().bg)).collect::<Vec<_>>();
+        let v = (0..12)
+            .map(|_| Cell::new(' ', AnsiColor::default().fg, AnsiColor::default().bg))
+            .collect::<Vec<_>>();
         let m = Matrix::new(n, v.clone());
         assert_eq!(Position::TopLeft, m.from_index(0));
         assert_eq!(Position::Top, m.from_index(1));
@@ -184,12 +190,18 @@ mod matrix_tests {
     }
 }
 
-pub struct Matrix {
+pub struct Matrix<T>
+    where T: Clone,
+          T: ToString
+{
     n_cols: usize,
-    cells: Vec<Cell>,
+    cells: Vec<Cell<T>>,
 }
-impl Matrix {
-    pub fn new(n_cols: usize, cells: Vec<Cell>) -> Matrix {
+impl<T> Matrix<T>
+    where T: Clone,
+          T: ToString
+{
+    pub fn new(n_cols: usize, cells: Vec<Cell<T>>) -> Matrix<T> {
         Matrix {
             n_cols: n_cols,
             cells: cells,
@@ -234,7 +246,7 @@ impl Matrix {
             Position::Middle
         }
     }
-    pub fn enumerate_cells(&mut self) -> Vec<(Cell, Position)> {
+    pub fn enumerate_cells(&mut self) -> Vec<(Cell<T>, Position)> {
         self.cells
             .clone()
             .into_iter()
@@ -336,14 +348,24 @@ mod matrix_display_tests {
     #[test]
     fn width() {
         let f = Format::new(5, 7);
-        let m = Matrix::new(3, (0..24).map(|_| Cell::new(' ', AnsiColor::default().fg, AnsiColor::default().bg)).collect::<Vec<_>>());
+        let m = Matrix::new(3,
+                            (0..24)
+                                .map(|_| {
+                                    Cell::new(' ', AnsiColor::default().fg, AnsiColor::default().bg)
+                                })
+                                .collect::<Vec<_>>());
         let d = MatrixDisplay::new(f, m);
         assert_eq!(3 * 5, d.width());
     }
     #[test]
     fn height() {
         let f = Format::new(5, 7);
-        let m = Matrix::new(3, (0..24).map(|_| Cell::new(' ', AnsiColor::default().fg, AnsiColor::default().bg)).collect::<Vec<_>>());
+        let m = Matrix::new(3,
+                            (0..24)
+                                .map(|_| {
+                                    Cell::new(' ', AnsiColor::default().fg, AnsiColor::default().bg)
+                                })
+                                .collect::<Vec<_>>());
         let d = MatrixDisplay::new(f, m);
         assert_eq!(8 * 7, d.height());
     }
@@ -515,7 +537,7 @@ impl BoxStyle {
                       "",
                       pos,
                       cell_width,
-					  &AnsiColor::default())
+                      &AnsiColor::default())
         } else {
             self.cell(self.left_intersection(),
                       self.intersection(),
@@ -524,7 +546,7 @@ impl BoxStyle {
                       "",
                       pos,
                       cell_width,
-					  &AnsiColor::default())
+                      &AnsiColor::default())
         }
     }
     fn bottom_cell(&self, pos: &Position, cell_width: usize) -> String {
@@ -536,7 +558,7 @@ impl BoxStyle {
                       "",
                       pos,
                       cell_width,
-					  &AnsiColor::default())
+                      &AnsiColor::default())
         } else {
             String::new()
         }
@@ -544,7 +566,12 @@ impl BoxStyle {
     fn padding_cell(&self, pos: &Position, cell_width: usize, color: &AnsiColor) -> String {
         self.value_cell(pos, cell_width, "", color)
     }
-    fn value_cell(&self, pos: &Position, cell_width: usize, content: &str, color: &AnsiColor) -> String {
+    fn value_cell(&self,
+                  pos: &Position,
+                  cell_width: usize,
+                  content: &str,
+                  color: &AnsiColor)
+                  -> String {
         self.cell(self.vertical_border(),
                   self.vertical_border(),
                   self.vertical_border(),
@@ -552,7 +579,7 @@ impl BoxStyle {
                   content,
                   pos,
                   cell_width,
-				  color)
+                  color)
     }
     fn cell(&self,
             left: char,
@@ -562,15 +589,15 @@ impl BoxStyle {
             content: &str,
             pos: &Position,
             width: usize,
-			color: &AnsiColor)
+            color: &AnsiColor)
             -> String {
         let mut left_border = String::new();
-		if pos.left() {
+        if pos.left() {
             left_border += &left.to_string();
         } else {
             left_border += &middle.to_string();
         }
-		let inside = horizontal_pad(width, content, fill);
+        let inside = horizontal_pad(width, content, fill);
 
         let mut right_border = String::new();
         if pos.right() {
@@ -585,12 +612,18 @@ impl BoxStyle {
     }
 }
 
-pub struct MatrixDisplay {
+pub struct MatrixDisplay<T>
+    where T: Clone,
+          T: ToString
+{
     fmt: Format,
-    mat: Matrix,
+    mat: Matrix<T>,
 }
-impl MatrixDisplay {
-    pub fn new(f: Format, m: Matrix) -> MatrixDisplay {
+impl<T> MatrixDisplay<T>
+    where T: Clone,
+          T: ToString
+{
+    pub fn new(f: Format, m: Matrix<T>) -> MatrixDisplay<T> {
         MatrixDisplay { fmt: f, mat: m }
     }
     fn n_rows(&self) -> usize {
@@ -605,7 +638,7 @@ impl MatrixDisplay {
     pub fn height(&self) -> usize {
         self.n_rows() * self.fmt.cell_h
     }
-    fn print_top<Out: Write>(&self, out: &mut Out, style: &BoxStyle, row: &[(Cell, Position)]) {
+    fn print_top<Out: Write>(&self, out: &mut Out, style: &BoxStyle, row: &[(Cell<T>, Position)]) {
         for &(_, ref pos) in row {
             write!(out, "{}", style.top_cell(pos, self.fmt.cell_w)).unwrap();
         }
@@ -613,26 +646,35 @@ impl MatrixDisplay {
     fn print_vertical_pad<Out: Write>(&self,
                                       out: &mut Out,
                                       style: &BoxStyle,
-                                      row: &[(Cell, Position)],
+                                      row: &[(Cell<T>, Position)],
                                       pad: usize) {
         for _ in 0..pad {
             for &(ref cell, ref pos) in row {
-                write!(out, "{}", style.padding_cell(pos, self.fmt.cell_w, &cell.color)).unwrap();
+                write!(out,
+                       "{}",
+                       style.padding_cell(pos, self.fmt.cell_w, &cell.color))
+                    .unwrap();
             }
         }
     }
     fn print_value_row<Out: Write>(&self,
                                    out: &mut Out,
                                    style: &BoxStyle,
-                                   row: &[(Cell, Position)]) {
+                                   row: &[(Cell<T>, Position)]) {
         for &(ref cell, ref pos) in row {
             write!(out,
                    "{}",
-                   style.value_cell(pos, self.fmt.cell_w, &cell.clone().value.to_string(), &cell.color))
+                   style.value_cell(pos,
+                                    self.fmt.cell_w,
+                                    &cell.clone().value.to_string(),
+                                    &cell.color))
                 .unwrap();
         }
     }
-    fn print_bottom<Out: Write>(&self, out: &mut Out, style: &BoxStyle, row: &[(Cell, Position)]) {
+    fn print_bottom<Out: Write>(&self,
+                                out: &mut Out,
+                                style: &BoxStyle,
+                                row: &[(Cell<T>, Position)]) {
         for &(_, ref pos) in row {
             write!(out, "{}", style.bottom_cell(pos, self.fmt.cell_w)).unwrap();
         }
