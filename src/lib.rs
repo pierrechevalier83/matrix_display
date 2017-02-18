@@ -1,7 +1,9 @@
 pub mod cell;
+mod position;
 
 use cell::AnsiColor;
 use cell::Cell;
+use position::Position;
 
 extern crate unicode_segmentation;
 extern crate ansi_term;
@@ -10,61 +12,12 @@ use unicode_segmentation::UnicodeSegmentation;
 use ansi_term::Colour::Fixed;
 use std::io::Write;
 
-
-#[derive(Debug, PartialEq)]
-pub enum Position {
-    Top,
-    Left,
-    Right,
-    Bottom,
-    TopLeft,
-    TopRight,
-    BottomLeft,
-    BottomRight,
-    Middle,
-}
-
-impl Position {
-    fn top(&self) -> bool {
-        match *self {
-            Position::TopLeft => true,
-            Position::Top => true,
-            Position::TopRight => true,
-            _ => false,
-        }
-    }
-    fn left(&self) -> bool {
-        match *self {
-            Position::TopLeft => true,
-            Position::Left => true,
-            Position::BottomLeft => true,
-            _ => false,
-        }
-    }
-    fn right(&self) -> bool {
-        match *self {
-            Position::TopRight => true,
-            Position::Right => true,
-            Position::BottomRight => true,
-            _ => false,
-        }
-    }
-    fn bottom(&self) -> bool {
-        match *self {
-            Position::BottomLeft => true,
-            Position::Bottom => true,
-            Position::BottomRight => true,
-            _ => false,
-        }
-    }
-}
-
 #[cfg(test)]
 mod matrix_tests {
     use cell::AnsiColor;
     use cell::Cell;
     use super::Matrix;
-    use super::Position;
+    use position::Position;
     #[test]
     fn constructor() {
         let n = 4;
