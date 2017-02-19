@@ -21,36 +21,36 @@ mod cell_tests {
 
 mod cell {
 
-#[derive(Clone, Debug, PartialEq)]
-pub struct AnsiColor {
-    pub fg: u8,
-    pub bg: u8,
-}
-
-impl Default for AnsiColor {
-    fn default() -> AnsiColor {
-        AnsiColor { fg: 7, bg: 0 }
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct AnsiColor {
+        pub fg: u8,
+        pub bg: u8,
     }
-}
 
-
-#[derive(Clone, Debug, PartialEq)]
-pub struct Cell<T>
-    where T: Clone,
-          T: ToString
-{
-    pub value: T,
-    pub color: AnsiColor,
-}
-impl<T> Cell<T>
-    where T: Clone,
-          T: ToString
-{
-    pub fn new(val: T, fg: u8, bg: u8) -> Cell<T> {
-        Cell {
-            value: val,
-            color: AnsiColor { fg: fg, bg: bg },
+    impl Default for AnsiColor {
+        fn default() -> AnsiColor {
+            AnsiColor { fg: 7, bg: 0 }
         }
     }
-}
+
+
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct Cell<T>
+        where T: Clone,
+              T: ToString
+    {
+        pub value: T,
+        pub color: AnsiColor,
+    }
+    impl<T> Cell<T>
+        where T: Clone,
+              T: ToString
+    {
+        pub fn new(val: T, fg: u8, bg: u8) -> Cell<T> {
+            Cell {
+                value: val,
+                color: AnsiColor { fg: fg, bg: bg },
+            }
+        }
+    }
 }
