@@ -22,7 +22,7 @@ fn main() {
 		    cell::Cell::new(x.clone(), ansi_fg, ansi_bg)
 			})
         .collect::<Vec<_>>();
-    let data = Matrix::new(8, board);
+    let data = matrix::Matrix::new(8, board);
     let display = MatrixDisplay::new(format, data);
     display.print(&mut std::io::stdout(), &BoxStyle::Rounded);
 }

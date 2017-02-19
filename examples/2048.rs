@@ -11,7 +11,7 @@ fn main() {
                       *colour_theme.get(x as usize).unwrap() as u8)
         })
         .collect::<Vec<_>>();
-    let data = Matrix::new(4, board);
+    let data = matrix::Matrix::new(4, board);
     let display = MatrixDisplay::new(format, data);
     display.print(&mut std::io::stdout(), &BoxStyle::Thick);
 }
