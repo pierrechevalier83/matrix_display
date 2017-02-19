@@ -100,17 +100,15 @@ mod matrix_tests {
 }
 
 pub struct Matrix<T>
-    where T: Clone,
-          T: ToString
+    where T: Clone
 {
     n_cols: usize,
-    cells: Vec<Cell<T>>,
+    cells: Vec<T>,
 }
 impl<T> Matrix<T>
-    where T: Clone,
-          T: ToString
+    where T: Clone
 {
-    pub fn new(n_cols: usize, cells: Vec<Cell<T>>) -> Matrix<T> {
+    pub fn new(n_cols: usize, cells: Vec<T>) -> Matrix<T> {
         Matrix {
             n_cols: n_cols,
             cells: cells,
@@ -155,7 +153,7 @@ impl<T> Matrix<T>
             Position::Middle
         }
     }
-    pub fn enumerate_cells(&self) -> Vec<(Cell<T>, Position)> {
+    pub fn enumerate_cells(&self) -> Vec<(T, Position)> {
         self.cells
             .clone()
             .into_iter()
@@ -526,13 +524,13 @@ pub struct MatrixDisplay<T>
           T: ToString
 {
     fmt: Format,
-    mat: Matrix<T>,
+    mat: Matrix<Cell<T>>,
 }
 impl<T> MatrixDisplay<T>
     where T: Clone,
           T: ToString
 {
-    pub fn new(f: Format, m: Matrix<T>) -> MatrixDisplay<T> {
+    pub fn new(f: Format, m: Matrix<Cell<T>>) -> MatrixDisplay<T> {
         MatrixDisplay { fmt: f, mat: m }
     }
     fn n_rows(&self) -> usize {
