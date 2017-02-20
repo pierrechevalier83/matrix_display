@@ -1,6 +1,7 @@
 pub mod cell;
 pub mod matrix;
 mod pad;
+pub mod style;
 
 use cell::AnsiColor;
 use cell::Cell;
@@ -8,6 +9,7 @@ use matrix::position::Position;
 use matrix::Matrix;
 use pad::Pad;
 use pad::horizontal_pad;
+use style::BordersStyle;
 
 extern crate ansi_term;
 
@@ -79,158 +81,6 @@ mod matrix_display_tests {
                                 .collect::<Vec<_>>());
         let d = MatrixDisplay::new(f, m);
         assert_eq!(8 * 7, d.height());
-    }
-}
-
-pub enum BordersStyle {
-    Plain, /*
-            * . .
-            *
-            * . .
-            *
-            * */
-    Retro, /* +-+-+
-            * |.|.|
-            * +-+-+
-            * |.|.|
-            * +-+-+
-            * */
-    Thin, /* ┌─┬─┐
-           * │.│.│
-           * ├─┼─┤
-           * │.│.│
-           * └─┴─┘
-           * */
-    Rounded, /* ╭─┬─╮
-              * │.│.│
-              * ├─┼─┤
-              * │.│.│
-              * ╰─┴─╯
-              * */
-    Thick, /* ┏━┳━┓
-            * ┃.┃.┃
-            * ┣━╋━┫
-            * ┃.┃.┃
-            * ┗━┻━┛
-            * */
-    Double, /* ╔═╦═╗
-             * ║.║.║
-             * ╠═╬═╣
-             * ║.║.║
-             * ╚═╩═╝
-             * */
-}
-
-impl BordersStyle {
-    fn top_left_corner(&self) -> char {
-        match *self {
-            BordersStyle::Plain => ' ',
-            BordersStyle::Retro => '+',
-            BordersStyle::Thin => '┌',
-            BordersStyle::Rounded => '╭',
-            BordersStyle::Thick => '┏',
-            BordersStyle::Double => '╔',
-        }
-    }
-    fn top_right_corner(&self) -> char {
-        match *self {
-            BordersStyle::Plain => ' ',
-            BordersStyle::Retro => '+',
-            BordersStyle::Thin => '┐',
-            BordersStyle::Rounded => '╮',
-            BordersStyle::Thick => '┓',
-            BordersStyle::Double => '╗',
-        }
-    }
-    fn bottom_left_corner(&self) -> char {
-        match *self {
-            BordersStyle::Plain => ' ',
-            BordersStyle::Retro => '+',
-            BordersStyle::Thin => '└',
-            BordersStyle::Rounded => '╰',
-            BordersStyle::Thick => '┗',
-            BordersStyle::Double => '╚',
-        }
-    }
-    fn bottom_right_corner(&self) -> char {
-        match *self {
-            BordersStyle::Plain => ' ',
-            BordersStyle::Retro => '+',
-            BordersStyle::Thin => '┘',
-            BordersStyle::Rounded => '╯',
-            BordersStyle::Thick => '┛',
-            BordersStyle::Double => '╝',
-        }
-    }
-    fn horizontal_border(&self) -> char {
-        match *self {
-            BordersStyle::Plain => ' ',
-            BordersStyle::Retro => '-',
-            BordersStyle::Thin => '─',
-            BordersStyle::Rounded => '─',
-            BordersStyle::Thick => '━',
-            BordersStyle::Double => '═',
-        }
-    }
-    fn top_intersection(&self) -> char {
-        match *self {
-            BordersStyle::Plain => ' ',
-            BordersStyle::Retro => '+',
-            BordersStyle::Thin => '┬',
-            BordersStyle::Rounded => '┬',
-            BordersStyle::Thick => '┳',
-            BordersStyle::Double => '╦',
-        }
-    }
-    fn left_intersection(&self) -> char {
-        match *self {
-            BordersStyle::Plain => ' ',
-            BordersStyle::Retro => '+',
-            BordersStyle::Thin => '├',
-            BordersStyle::Rounded => '├',
-            BordersStyle::Thick => '┣',
-            BordersStyle::Double => '╠',
-        }
-    }
-    fn right_intersection(&self) -> char {
-        match *self {
-            BordersStyle::Plain => ' ',
-            BordersStyle::Retro => '+',
-            BordersStyle::Thin => '┤',
-            BordersStyle::Rounded => '┤',
-            BordersStyle::Thick => '┫',
-            BordersStyle::Double => '╣',
-        }
-    }
-    fn bottom_intersection(&self) -> char {
-        match *self {
-            BordersStyle::Plain => ' ',
-            BordersStyle::Retro => '+',
-            BordersStyle::Thin => '┴',
-            BordersStyle::Rounded => '┴',
-            BordersStyle::Thick => '┻',
-            BordersStyle::Double => '╩',
-        }
-    }
-    fn intersection(&self) -> char {
-        match *self {
-            BordersStyle::Plain => ' ',
-            BordersStyle::Retro => '+',
-            BordersStyle::Thin => '┼',
-            BordersStyle::Rounded => '┼',
-            BordersStyle::Thick => '╋',
-            BordersStyle::Double => '╬',
-        }
-    }
-    fn vertical_border(&self) -> char {
-        match *self {
-            BordersStyle::Plain => ' ',
-            BordersStyle::Retro => '|',
-            BordersStyle::Thin => '│',
-            BordersStyle::Rounded => '│',
-            BordersStyle::Thick => '┃',
-            BordersStyle::Double => '║',
-        }
     }
 }
 
