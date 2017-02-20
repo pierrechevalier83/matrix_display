@@ -84,13 +84,13 @@ mod matrix_display_tests {
     }
 }
 
-struct CellStyle<'a> {
+struct CellDisplay<'a> {
     borders: &'a BordersStyle,
 }
 
-impl<'a> CellStyle<'a> {
-    fn with_borders(b: &'a BordersStyle) -> CellStyle {
-        CellStyle { borders: b }
+impl<'a> CellDisplay<'a> {
+    fn with_borders(b: &'a BordersStyle) -> CellDisplay {
+        CellDisplay { borders: b }
     }
     fn top_cell(&self, pos: &Position, cell_width: usize) -> String {
         if pos.top() {
@@ -209,7 +209,7 @@ impl<T> MatrixDisplay<T>
         for &(_, ref pos) in row {
             write!(out,
                    "{}",
-                   CellStyle::with_borders(borders).top_cell(pos, self.fmt.cell_w))
+                   CellDisplay::with_borders(borders).top_cell(pos, self.fmt.cell_w))
                 .unwrap();
         }
     }
@@ -222,7 +222,7 @@ impl<T> MatrixDisplay<T>
             for &(ref cell, ref pos) in row {
                 write!(out,
                        "{}",
-                       CellStyle::with_borders(borders)
+                       CellDisplay::with_borders(borders)
                            .padding_cell(pos, self.fmt.cell_w, &cell.color))
                     .unwrap();
             }
@@ -235,7 +235,7 @@ impl<T> MatrixDisplay<T>
         for &(ref cell, ref pos) in row {
             write!(out,
                    "{}",
-                   CellStyle::with_borders(borders).value_cell(pos,
+                   CellDisplay::with_borders(borders).value_cell(pos,
                                                                self.fmt.cell_w,
                                                                &cell.clone().value.to_string(),
                                                                &cell.color))
@@ -249,7 +249,7 @@ impl<T> MatrixDisplay<T>
         for &(_, ref pos) in row {
             write!(out,
                    "{}",
-                   CellStyle::with_borders(borders).bottom_cell(pos, self.fmt.cell_w))
+                   CellDisplay::with_borders(borders).bottom_cell(pos, self.fmt.cell_w))
                 .unwrap();
         }
     }
