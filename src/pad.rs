@@ -41,25 +41,25 @@ mod pad_tests {
 
 mod pad {
 
-use pad::unicode_segmentation::UnicodeSegmentation;
-use std;
+    use pad::unicode_segmentation::UnicodeSegmentation;
+    use std;
 
-pub struct Pad {
-    pub before: usize,
-    pub after: usize,
-}
-impl Pad {
-    pub fn new(total: usize, content: usize) -> Pad {
-        Pad {
-            before: (total - content) / 2 + (total - content) % 2,
-            after: (total - content) / 2,
+    pub struct Pad {
+        pub before: usize,
+        pub after: usize,
+    }
+    impl Pad {
+        pub fn new(total: usize, content: usize) -> Pad {
+            Pad {
+                before: (total - content) / 2 + (total - content) % 2,
+                after: (total - content) / 2,
+            }
         }
     }
-}
 
-pub fn horizontal_pad(width: usize, s: &str, c: char) -> String {
-    let pad = Pad::new(width, s.graphemes(true).count());
-    std::iter::repeat(c).take(pad.before).collect::<String>() + s +
-    &std::iter::repeat(c).take(pad.after).collect::<String>()
-}
+    pub fn horizontal_pad(width: usize, s: &str, c: char) -> String {
+        let pad = Pad::new(width, s.graphemes(true).count());
+        std::iter::repeat(c).take(pad.before).collect::<String>() + s +
+        &std::iter::repeat(c).take(pad.after).collect::<String>()
+    }
 }
