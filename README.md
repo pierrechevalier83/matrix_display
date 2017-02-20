@@ -37,17 +37,17 @@ fn main() {
         .iter()
         .enumerate()
 		.map(|(i, x)| {
-		    let mut ansi_bg = 0;
+            let ansi_fg = 28;
+			let mut ansi_bg = 0;
 		    if i % 2 + (i / 8) % 2 == 1 {
 			    ansi_bg = 7;
 			}
-			let ansi_fg = 28;
-		    cell::Cell::new(x.clone(), 28, ansi_bg)
+		    cell::Cell::new(x.clone(), ansi_fg, ansi_bg)
 			})
         .collect::<Vec<_>>();
-    let data = Matrix::new(8, board);
-    let mut display = MatrixDisplay::new(format, data);
-    display.print(&mut std::io::stdout(), &BoxStyle::Rounded);
+    let data = matrix::Matrix::new(8, board);
+    let display = MatrixDisplay::new(format, data);
+    display.print(&mut std::io::stdout(), &style::BordersStyle::Rounded);
 }
 ```
 ![alt tag](https://github.com/pierrechevalier83/matrix_display/blob/master/screenshots/chess.png)
@@ -69,9 +69,9 @@ fn main() {
                       *colour_theme.get(x as usize).unwrap() as u8)
         })
         .collect::<Vec<_>>();
-    let data = Matrix::new(4, board);
+    let data = matrix::Matrix::new(4, board);
     let display = MatrixDisplay::new(format, data);
-    display.print(&mut std::io::stdout(), &BoxStyle::Thick);
+    display.print(&mut std::io::stdout(), &style::BordersStyle::Thick);
 }
 ```
 
