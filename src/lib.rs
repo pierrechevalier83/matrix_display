@@ -82,9 +82,9 @@ mod matrix_display_tests {
     }
 }
 
-pub enum BoxStyle {
+pub enum BordersStyle {
     Plain, /*
-	        * . .
+            * . .
             *
             * . .
             *
@@ -121,132 +121,142 @@ pub enum BoxStyle {
              * */
 }
 
-impl BoxStyle {
+impl BordersStyle {
     fn top_left_corner(&self) -> char {
         match *self {
-            BoxStyle::Plain => ' ',
-            BoxStyle::Retro => '+',
-            BoxStyle::Thin => '┌',
-            BoxStyle::Rounded => '╭',
-            BoxStyle::Thick => '┏',
-            BoxStyle::Double => '╔',
+            BordersStyle::Plain => ' ',
+            BordersStyle::Retro => '+',
+            BordersStyle::Thin => '┌',
+            BordersStyle::Rounded => '╭',
+            BordersStyle::Thick => '┏',
+            BordersStyle::Double => '╔',
         }
     }
     fn top_right_corner(&self) -> char {
         match *self {
-            BoxStyle::Plain => ' ',
-            BoxStyle::Retro => '+',
-            BoxStyle::Thin => '┐',
-            BoxStyle::Rounded => '╮',
-            BoxStyle::Thick => '┓',
-            BoxStyle::Double => '╗',
+            BordersStyle::Plain => ' ',
+            BordersStyle::Retro => '+',
+            BordersStyle::Thin => '┐',
+            BordersStyle::Rounded => '╮',
+            BordersStyle::Thick => '┓',
+            BordersStyle::Double => '╗',
         }
     }
     fn bottom_left_corner(&self) -> char {
         match *self {
-            BoxStyle::Plain => ' ',
-            BoxStyle::Retro => '+',
-            BoxStyle::Thin => '└',
-            BoxStyle::Rounded => '╰',
-            BoxStyle::Thick => '┗',
-            BoxStyle::Double => '╚',
+            BordersStyle::Plain => ' ',
+            BordersStyle::Retro => '+',
+            BordersStyle::Thin => '└',
+            BordersStyle::Rounded => '╰',
+            BordersStyle::Thick => '┗',
+            BordersStyle::Double => '╚',
         }
     }
     fn bottom_right_corner(&self) -> char {
         match *self {
-            BoxStyle::Plain => ' ',
-            BoxStyle::Retro => '+',
-            BoxStyle::Thin => '┘',
-            BoxStyle::Rounded => '╯',
-            BoxStyle::Thick => '┛',
-            BoxStyle::Double => '╝',
+            BordersStyle::Plain => ' ',
+            BordersStyle::Retro => '+',
+            BordersStyle::Thin => '┘',
+            BordersStyle::Rounded => '╯',
+            BordersStyle::Thick => '┛',
+            BordersStyle::Double => '╝',
         }
     }
     fn horizontal_border(&self) -> char {
         match *self {
-            BoxStyle::Plain => ' ',
-            BoxStyle::Retro => '-',
-            BoxStyle::Thin => '─',
-            BoxStyle::Rounded => '─',
-            BoxStyle::Thick => '━',
-            BoxStyle::Double => '═',
+            BordersStyle::Plain => ' ',
+            BordersStyle::Retro => '-',
+            BordersStyle::Thin => '─',
+            BordersStyle::Rounded => '─',
+            BordersStyle::Thick => '━',
+            BordersStyle::Double => '═',
         }
     }
     fn top_intersection(&self) -> char {
         match *self {
-            BoxStyle::Plain => ' ',
-            BoxStyle::Retro => '+',
-            BoxStyle::Thin => '┬',
-            BoxStyle::Rounded => '┬',
-            BoxStyle::Thick => '┳',
-            BoxStyle::Double => '╦',
+            BordersStyle::Plain => ' ',
+            BordersStyle::Retro => '+',
+            BordersStyle::Thin => '┬',
+            BordersStyle::Rounded => '┬',
+            BordersStyle::Thick => '┳',
+            BordersStyle::Double => '╦',
         }
     }
     fn left_intersection(&self) -> char {
         match *self {
-            BoxStyle::Plain => ' ',
-            BoxStyle::Retro => '+',
-            BoxStyle::Thin => '├',
-            BoxStyle::Rounded => '├',
-            BoxStyle::Thick => '┣',
-            BoxStyle::Double => '╠',
+            BordersStyle::Plain => ' ',
+            BordersStyle::Retro => '+',
+            BordersStyle::Thin => '├',
+            BordersStyle::Rounded => '├',
+            BordersStyle::Thick => '┣',
+            BordersStyle::Double => '╠',
         }
     }
     fn right_intersection(&self) -> char {
         match *self {
-            BoxStyle::Plain => ' ',
-            BoxStyle::Retro => '+',
-            BoxStyle::Thin => '┤',
-            BoxStyle::Rounded => '┤',
-            BoxStyle::Thick => '┫',
-            BoxStyle::Double => '╣',
+            BordersStyle::Plain => ' ',
+            BordersStyle::Retro => '+',
+            BordersStyle::Thin => '┤',
+            BordersStyle::Rounded => '┤',
+            BordersStyle::Thick => '┫',
+            BordersStyle::Double => '╣',
         }
     }
     fn bottom_intersection(&self) -> char {
         match *self {
-            BoxStyle::Plain => ' ',
-            BoxStyle::Retro => '+',
-            BoxStyle::Thin => '┴',
-            BoxStyle::Rounded => '┴',
-            BoxStyle::Thick => '┻',
-            BoxStyle::Double => '╩',
+            BordersStyle::Plain => ' ',
+            BordersStyle::Retro => '+',
+            BordersStyle::Thin => '┴',
+            BordersStyle::Rounded => '┴',
+            BordersStyle::Thick => '┻',
+            BordersStyle::Double => '╩',
         }
     }
     fn intersection(&self) -> char {
         match *self {
-            BoxStyle::Plain => ' ',
-            BoxStyle::Retro => '+',
-            BoxStyle::Thin => '┼',
-            BoxStyle::Rounded => '┼',
-            BoxStyle::Thick => '╋',
-            BoxStyle::Double => '╬',
+            BordersStyle::Plain => ' ',
+            BordersStyle::Retro => '+',
+            BordersStyle::Thin => '┼',
+            BordersStyle::Rounded => '┼',
+            BordersStyle::Thick => '╋',
+            BordersStyle::Double => '╬',
         }
     }
     fn vertical_border(&self) -> char {
         match *self {
-            BoxStyle::Plain => ' ',
-            BoxStyle::Retro => '|',
-            BoxStyle::Thin => '│',
-            BoxStyle::Rounded => '│',
-            BoxStyle::Thick => '┃',
-            BoxStyle::Double => '║',
+            BordersStyle::Plain => ' ',
+            BordersStyle::Retro => '|',
+            BordersStyle::Thin => '│',
+            BordersStyle::Rounded => '│',
+            BordersStyle::Thick => '┃',
+            BordersStyle::Double => '║',
         }
+    }
+}
+
+struct CellStyle<'a> {
+    borders: &'a BordersStyle,
+}
+
+impl<'a> CellStyle<'a> {
+    fn with_borders(b: &'a BordersStyle) -> CellStyle {
+        CellStyle { borders: b }
     }
     fn top_cell(&self, pos: &Position, cell_width: usize) -> String {
         if pos.top() {
-            self.cell(self.top_left_corner(),
-                      self.top_intersection(),
-                      self.top_right_corner(),
-                      self.horizontal_border(),
+            self.cell(self.borders.top_left_corner(),
+                      self.borders.top_intersection(),
+                      self.borders.top_right_corner(),
+                      self.borders.horizontal_border(),
                       "",
                       pos,
                       cell_width,
                       &AnsiColor::default())
         } else {
-            self.cell(self.left_intersection(),
-                      self.intersection(),
-                      self.right_intersection(),
-                      self.horizontal_border(),
+            self.cell(self.borders.left_intersection(),
+                      self.borders.intersection(),
+                      self.borders.right_intersection(),
+                      self.borders.horizontal_border(),
                       "",
                       pos,
                       cell_width,
@@ -255,10 +265,10 @@ impl BoxStyle {
     }
     fn bottom_cell(&self, pos: &Position, cell_width: usize) -> String {
         if pos.bottom() {
-            self.cell(self.bottom_left_corner(),
-                      self.bottom_intersection(),
-                      self.bottom_right_corner(),
-                      self.horizontal_border(),
+            self.cell(self.borders.bottom_left_corner(),
+                      self.borders.bottom_intersection(),
+                      self.borders.bottom_right_corner(),
+                      self.borders.horizontal_border(),
                       "",
                       pos,
                       cell_width,
@@ -276,9 +286,9 @@ impl BoxStyle {
                   content: &str,
                   color: &AnsiColor)
                   -> String {
-        self.cell(self.vertical_border(),
-                  self.vertical_border(),
-                  self.vertical_border(),
+        self.cell(self.borders.vertical_border(),
+                  self.borders.vertical_border(),
+                  self.borders.vertical_border(),
                   ' ',
                   content,
                   pos,
@@ -342,59 +352,69 @@ impl<T> MatrixDisplay<T>
     pub fn height(&self) -> usize {
         self.n_rows() * self.fmt.cell_h
     }
-    fn print_top<Out: Write>(&self, out: &mut Out, style: &BoxStyle, row: &[(Cell<T>, Position)]) {
+    fn print_top<Out: Write>(&self,
+                             out: &mut Out,
+                             borders: &BordersStyle,
+                             row: &[(Cell<T>, Position)]) {
         for &(_, ref pos) in row {
-            write!(out, "{}", style.top_cell(pos, self.fmt.cell_w)).unwrap();
+            write!(out,
+                   "{}",
+                   CellStyle::with_borders(borders).top_cell(pos, self.fmt.cell_w))
+                .unwrap();
         }
     }
     fn print_vertical_pad<Out: Write>(&self,
                                       out: &mut Out,
-                                      style: &BoxStyle,
+                                      borders: &BordersStyle,
                                       row: &[(Cell<T>, Position)],
                                       pad: usize) {
         for _ in 0..pad {
             for &(ref cell, ref pos) in row {
                 write!(out,
                        "{}",
-                       style.padding_cell(pos, self.fmt.cell_w, &cell.color))
+                       CellStyle::with_borders(borders)
+                           .padding_cell(pos, self.fmt.cell_w, &cell.color))
                     .unwrap();
             }
         }
     }
     fn print_value_row<Out: Write>(&self,
                                    out: &mut Out,
-                                   style: &BoxStyle,
+                                   borders: &BordersStyle,
                                    row: &[(Cell<T>, Position)]) {
         for &(ref cell, ref pos) in row {
             write!(out,
                    "{}",
-                   style.value_cell(pos,
-                                    self.fmt.cell_w,
-                                    &cell.clone().value.to_string(),
-                                    &cell.color))
+                   CellStyle::with_borders(borders).value_cell(pos,
+                                                               self.fmt.cell_w,
+                                                               &cell.clone().value.to_string(),
+                                                               &cell.color))
                 .unwrap();
         }
     }
     fn print_bottom<Out: Write>(&self,
                                 out: &mut Out,
-                                style: &BoxStyle,
+                                borders: &BordersStyle,
                                 row: &[(Cell<T>, Position)]) {
         for &(_, ref pos) in row {
-            write!(out, "{}", style.bottom_cell(pos, self.fmt.cell_w)).unwrap();
+            write!(out,
+                   "{}",
+                   CellStyle::with_borders(borders).bottom_cell(pos, self.fmt.cell_w))
+                .unwrap();
         }
     }
-    pub fn print<Out: Write>(&self, out: &mut Out, style: &BoxStyle) {
+    pub fn print<Out: Write>(&self, out: &mut Out, borders: &BordersStyle) {
         let vertical_pad = Pad::new(self.fmt.cell_h, 1);
         self.mat
             .enumerate_cells()
             .chunks(self.n_cols())
             .into_iter()
             .flat_map(|row| {
-                self.print_top(out, style, row);
-                self.print_vertical_pad(out, style, row, vertical_pad.before);
-                self.print_value_row(out, style, row);
-                self.print_vertical_pad(out, style, row, vertical_pad.after);
-                self.print_bottom(out, style, row);
+                self.print_top(out, borders, row);
+                self.print_vertical_pad(out, borders, row, vertical_pad.before);
+                self.print_value_row(out, borders, row);
+                self.print_vertical_pad(out, borders, row, vertical_pad.after);
+                self.print_bottom(out, borders, row);
                 row
             })
             .collect::<Vec<_>>();

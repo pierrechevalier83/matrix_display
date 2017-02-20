@@ -24,5 +24,5 @@ fn main() {
         .collect::<Vec<_>>();
     let data = matrix::Matrix::new(8, board);
     let display = MatrixDisplay::new(format, data);
-    display.print(&mut std::io::stdout(), &BoxStyle::Rounded);
+    display.print(&mut std::io::stdout(), &BordersStyle::Rounded);
 }
