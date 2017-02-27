@@ -1,7 +1,9 @@
 [package]
 name = "matrix_display"
+description = "A library to display a matrix in command line with pretty unicode separators"
 version = "0.1.0"
 authors = ["Pierre Chevalier <pierrechevalier83@gmail.com>"]
+license = "MIT License"
 
 [dependencies]
 ansi_term= "*"
