@@ -166,7 +166,7 @@ impl<'a> CellDisplay<'a> {
         let mut right_border = String::new();
         if pos.right() {
             right_border += &right.to_string();
-            right_border += "\n";
+            right_border += "\r\n";
         }
         let plain = AnsiColor::default();
 
