@@ -128,7 +128,7 @@ impl<'a> CellDisplay<'a> {
         }
     }
     fn padding_cell(&self, pos: &Position, cell_width: usize, color: &AnsiColor) -> String {
-        self.value_cell(pos, cell_width, "", color)
+        self.value_cell(pos, cell_width, " ", color)
     }
     fn value_cell(&self,
                   pos: &Position,
@@ -162,11 +162,12 @@ impl<'a> CellDisplay<'a> {
             left_border += &middle.to_string();
         }
         let inside = horizontal_pad(width, content, fill);
-
         let mut right_border = String::new();
         if pos.right() {
             right_border += &right.to_string();
-            right_border += "\r\n";
+            if self.borders != &BordersStyle::None || content != "" {
+                right_border += "\r\n";
+            }
         }
         let plain = AnsiColor::default();
 
@@ -236,9 +237,9 @@ impl<T> MatrixDisplay<T>
             write!(out,
                    "{}",
                    CellDisplay::with_borders(borders).value_cell(pos,
-                                                               self.fmt.cell_w,
-                                                               &cell.clone().value.to_string(),
-                                                               &cell.color))
+                                                                 self.fmt.cell_w,
+                                                                 &cell.clone().value.to_string(),
+                                                                 &cell.color))
                 .unwrap();
         }
     }
