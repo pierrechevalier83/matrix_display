@@ -77,6 +77,8 @@ fn main() {
 
 ![alt tag](https://github.com/pierrechevalier83/matrix_display/blob/master/screenshots/2048.png)
 
+For a working version of the game, see [2048-rs](https://github.com/pierrechevalier83/2048-rs)
+
 Example: visualising a 256 colors palette
 -----------------------------------------
 
