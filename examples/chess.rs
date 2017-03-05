@@ -15,7 +15,7 @@ fn main() {
         .iter()
         .enumerate()
         .map(|(i, x)| {
-            let ansi_fg = 28;
+            let ansi_fg = 33;
             let mut ansi_bg = 0;
             if i % 2 + (i / 8) % 2 == 1 {
                 ansi_bg = 7;
