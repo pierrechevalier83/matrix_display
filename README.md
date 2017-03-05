@@ -47,7 +47,7 @@ fn main() {
         .collect::<Vec<_>>();
     let data = matrix::Matrix::new(8, board);
     let display = MatrixDisplay::new(format, data);
-    display.print(&mut std::io::stdout(), &style::BordersStyle::Rounded);
+    display.print(&mut std::io::stdout(), &style::BordersStyle::None);
 }
 ```
 ![alt tag](https://github.com/pierrechevalier83/matrix_display/blob/master/screenshots/chess.png)
