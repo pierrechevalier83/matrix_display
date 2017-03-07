@@ -37,7 +37,7 @@ fn main() {
         .iter()
         .enumerate()
 		.map(|(i, x)| {
-            let ansi_fg = 28;
+            let ansi_fg = 33;
 			let mut ansi_bg = 0;
 		    if i % 2 + (i / 8) % 2 == 1 {
 			    ansi_bg = 7;
@@ -47,10 +47,13 @@ fn main() {
         .collect::<Vec<_>>();
     let data = matrix::Matrix::new(8, board);
     let display = MatrixDisplay::new(format, data);
+	display.cell_at_cursor_position((13, 6)).color.bg = 10;
     display.print(&mut std::io::stdout(), &style::BordersStyle::None);
 }
 ```
 ![alt tag](https://github.com/pierrechevalier83/matrix_display/blob/master/screenshots/chess.png)
+
+For a working version of the game, see [chess-rs](https://github.com/pierrechevalier83/chess-rs)
 
 Example: visualising a 2048 game
 --------------------------------
