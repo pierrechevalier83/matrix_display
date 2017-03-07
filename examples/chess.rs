@@ -24,6 +24,7 @@ fn main() {
         })
         .collect::<Vec<_>>();
     let data = matrix::Matrix::new(8, board);
-    let display = MatrixDisplay::new(format, data);
+    let mut display = MatrixDisplay::new(format, data);
+	display.cell_at_cursor_position((13, 6)).color.bg = 10;
     display.print(&mut std::io::stdout(), &style::BordersStyle::None);
 }
