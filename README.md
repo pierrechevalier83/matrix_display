@@ -16,6 +16,7 @@ Run
 ---
 - `cargo run --example chess`
 - `cargo run --example 2048`
+- `cargo run --example palette`
 
 Example: visualising a chess board
 ----------------------------------
