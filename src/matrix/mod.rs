@@ -110,7 +110,10 @@ impl<T> Matrix<T>
     pub fn n_cols(&self) -> usize {
         self.n_cols
     }
-    fn is_top(&self, index: usize) -> bool {
+	pub fn at(&mut self, (x, y): (usize, usize)) -> &mut T {
+        &mut self.cells[x + self.n_cols * y]	
+	} 
+	fn is_top(&self, index: usize) -> bool {
         index < self.n_cols()
     }
     fn is_left(&self, index: usize) -> bool {

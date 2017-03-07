@@ -177,6 +177,10 @@ impl<'a> CellDisplay<'a> {
     }
 }
 
+fn cursor_to_index(x: usize, cell_dim: usize, n_cells: usize) -> usize {
+    (std::cmp::min(x, n_cells * cell_dim) - 1) / cell_dim
+}
+
 pub struct MatrixDisplay<T>
     where T: Clone,
           T: ToString
@@ -270,4 +274,10 @@ impl<T> MatrixDisplay<T>
             })
             .collect::<Vec<_>>();
     }
+
+    pub fn cell_at_cursor_position(&mut self, (x, y): (usize, usize)) -> &mut Cell<T> {
+        let col = cursor_to_index(x, self.fmt.cell_w, self.mat.n_cols());
+        let row = cursor_to_index(y as usize, self.fmt.cell_h, self.mat.n_rows());
+        self.mat.at((col, row))	
+	}
 }
