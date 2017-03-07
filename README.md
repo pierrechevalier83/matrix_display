@@ -100,3 +100,5 @@ fn main() {
 ```
 
 ![alt tag](https://github.com/pierrechevalier83/matrix_display/blob/master/screenshots/palette.png)
+
+For a self contained implementation, see [palette-rs](https://github.com/pierrechevalier83/palette-rs)
