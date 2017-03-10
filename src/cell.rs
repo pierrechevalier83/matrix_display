@@ -1,3 +1,8 @@
+//! Stores data to be printed by MatrixDisplay plus colour metada
+//!
+//! - The data type itself is generic. Anything that implements the ToString trait can do
+//! - The foreground and background color are individually configurable for each cell
+
 pub use self::cell::AnsiColor;
 pub use self::cell::Cell;
 
@@ -19,12 +24,8 @@ mod cell_tests {
     }
 }
 
-mod cell {
-    //! Stores data to be printed by MatrixDisplay plus colour metada
-	//!
-	//! - The data type itself is generic. Anything that implements the ToString trait can do
-	//! - The foreground and background color are individually configurable for each cell
 
+mod cell {
 	/// A foreground and background color's ansi code
 	///
 	/// # Example:
@@ -35,7 +36,6 @@ mod cell {
         pub fg: u8,
         pub bg: u8,
     }
-
     impl Default for AnsiColor {
         fn default() -> AnsiColor {
             AnsiColor { fg: 7, bg: 0 }
