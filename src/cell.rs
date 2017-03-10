@@ -1,6 +1,6 @@
 //! Stores data to be printed by MatrixDisplay plus colour metada
 //!
-//! - The data type itself is generic. Anything that implements the ToString trait can do
+//! - The data type itself is generic. Anything that implements the ToString and the Clone traits can do
 //! - The foreground and background color are individually configurable for each cell
 
 pub use self::cell::AnsiColor;
