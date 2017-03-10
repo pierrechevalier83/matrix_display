@@ -33,6 +33,13 @@ mod format_tests {
     }
 }
 
+/// Format of a cell in a matrix
+///
+/// Decide of the cell width and the cell height.
+/// The matrix will pad its cells according to a Format.
+///
+/// Example:
+/// `let format = Format::new(7,3)`
 pub struct Format {
     pub cell_w: usize,
     pub cell_h: usize,
@@ -181,6 +188,18 @@ fn cursor_to_index(x: usize, cell_dim: usize, n_cells: usize) -> usize {
     (std::cmp::min(x, n_cells * cell_dim) - 1) / cell_dim
 }
 
+/// Stores a matrix of data and offers a way to pretty print it
+///
+/// #Example: visualising a 256 colors palette:
+/// ```
+/// let format = Format::new(5,1);
+/// let board = (0..256)
+///        .map(|x| cell::Cell::new(x, 0, x as u8))
+///     .collect::<Vec<_>>();
+/// let data = matrix::Matrix::new(8, board);
+/// let display = MatrixDisplay::new(format, data);
+/// display.print(&mut std::io::stdout(), &style::BordersStyle::Thin);
+/// ```
 pub struct MatrixDisplay<T>
     where T: Clone,
           T: ToString
@@ -192,6 +211,10 @@ impl<T> MatrixDisplay<T>
     where T: Clone,
           T: ToString
 {
+    /// Construct a matrix display
+	///
+	/// f: the format of a cell (width, height)
+	/// m: the data (Matrix<Cell>)
     pub fn new(f: Format, m: Matrix<Cell<T>>) -> MatrixDisplay<T> {
         MatrixDisplay { fmt: f, mat: m }
     }
@@ -201,9 +224,11 @@ impl<T> MatrixDisplay<T>
     fn n_cols(&self) -> usize {
         self.mat.n_cols()
     }
+	/// The matrix's width in number of characters
     pub fn width(&self) -> usize {
         self.n_cols() * self.fmt.cell_w
     }
+	/// The matrix's height in number of characters
     pub fn height(&self) -> usize {
         self.n_rows() * self.fmt.cell_h
     }
@@ -258,7 +283,11 @@ impl<T> MatrixDisplay<T>
                 .unwrap();
         }
     }
-    pub fn print<Out: Write>(&self, out: &mut Out, borders: &BordersStyle) {
+	/// Print a matrix. This is the most important method of this library
+    ///
+	/// Pick a BorderStyle, an output that implements the Write trait and
+	/// you're good to go!
+	pub fn print<Out: Write>(&self, out: &mut Out, borders: &BordersStyle) {
         let vertical_pad = Pad::new(self.fmt.cell_h, 1);
         self.mat
             .enumerate_cells()
@@ -274,7 +303,9 @@ impl<T> MatrixDisplay<T>
             })
             .collect::<Vec<_>>();
     }
-
+    /// Takes a cursor position in characters (x, y) and returns a mutable reference to the corresponding cell
+	///
+	/// This is used to modify a cell that was clicked
     pub fn cell_at_cursor_position(&mut self, (x, y): (usize, usize)) -> &mut Cell<T> {
         let col = cursor_to_index(x, self.fmt.cell_w, self.mat.n_cols());
         let row = cursor_to_index(y as usize, self.fmt.cell_h, self.mat.n_rows());
