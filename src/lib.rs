@@ -1,3 +1,49 @@
+//! A simple library to visualize 2D matrixes in rust.
+//!
+//! - Supports 256 terminal colours using AnsiTerm
+//! - Multiple unicode box character sets supported (plain, retro, thin, rounded, thick, double)
+//!
+//! #Example use cases:
+//! [chess-rs: a chess game](https://github.com/pierrechevalier83/chess-rs)
+//!
+//! [2048-rs: a game of 2048](https://github.com/pierrechevalier83/2048-rs)
+//!
+//! [palette-rs: a 256 colors palette](https://github.com/pierrechevalier83/palette-rs)
+//!
+//! #Example: visualising a chess board
+//!
+//! ```
+//! extern crate matrix_display;
+//! use matrix_display::*;
+//!
+//! fn main() {
+//!     let format = Format::new(7, 3);
+//! 	let board = vec!['♜', '♞', '♝', '♛', '♚', '♝', '♞', '♜',
+//! 	                 '♟', '♟', '♟', '♟', '♟', '♟', '♟', '♟',
+//! 					 ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ',
+//!                      ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ',
+//! 					 ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ',
+//! 					 ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ',
+//! 					 '♖', '♘', '♗', '♕', '♔', '♗', '♘', '♖',
+//! 					 '♙', '♙', '♙', '♙', '♙', '♙', '♙', '♙']
+//!         .iter()
+//!         .enumerate()
+//! 		.map(|(i, x)| {
+//!             let ansi_fg = 33;
+//! 			let mut ansi_bg = 0;
+//! 		    if i % 2 + (i / 8) % 2 == 1 {
+//! 			    ansi_bg = 7;
+//! 			}
+//! 		    cell::Cell::new(x.clone(), ansi_fg, ansi_bg)
+//! 			})
+//!         .collect::<Vec<_>>();
+//!     let data = matrix::Matrix::new(8, board);
+//!     let display = MatrixDisplay::new(format, data);
+//! 	display.cell_at_cursor_position((13, 6)).color.bg = 10;
+//!     display.print(&mut std::io::stdout(), &style::BordersStyle::None);
+//! }
+//! ```
+
 pub mod cell;
 pub mod matrix;
 mod pad;
