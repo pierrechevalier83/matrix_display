@@ -102,18 +102,22 @@ pub struct Matrix<T>
 impl<T> Matrix<T>
     where T: Clone
 {
+    /// Construct a matrix with the number of columns and the data represented as a row-major ordered `Vec`
     pub fn new(n_cols: usize, cells: Vec<T>) -> Matrix<T> {
         Matrix {
             n_cols: n_cols,
             cells: cells,
         }
     }
+	/// Number of rows in the matrix
     pub fn n_rows(&self) -> usize {
         self.cells.len() / self.n_cols()
     }
+	/// Number of columns in the matrix
     pub fn n_cols(&self) -> usize {
         self.n_cols
     }
+	/// Mutably access element at given position (row index, column index)
 	pub fn at(&mut self, (x, y): (usize, usize)) -> &mut T {
         &mut self.cells[x + self.n_cols * y]	
 	} 
@@ -150,6 +154,10 @@ impl<T> Matrix<T>
             Position::Middle
         }
     }
+	/// View data stored in the matrix
+	///
+	/// The returned data is a clone of the data owned by the `Matrix` class and is owned by the caller
+	/// The second element of the returned tuples indicates the position of that element within the matrix
     pub fn enumerate_cells(&self) -> Vec<(T, Position)> {
         self.cells
             .clone()
