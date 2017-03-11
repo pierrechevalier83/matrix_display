@@ -1,49 +1,77 @@
+//! Personalise the border style of your matric display
+//!
+//! We offer a convenient enum to describe different unicode
+//! borders so you don't have to hunt through unicode tables
+//! and copy paste unicode symbols like an animal!
+
 pub use self::style::BordersStyle;
 
 mod style {
-
+    /// An enum that represents different unicode borders styles
+	///
+	/// It provides accessors for specific locations such as top_left_corner to be used by the printing code
     #[derive(PartialEq)]
     pub enum BordersStyle {
-        None, /*
-	        ..
-			..
-		   * */
-        Plain, /*
-                * . .
-                *
-                * . .
-                *
-                * */
-        Retro, /* +-+-+
-                * |.|.|
-                * +-+-+
-                * |.|.|
-                * +-+-+
-                * */
-        Thin, /* ┌─┬─┐
-               * │.│.│
-               * ├─┼─┤
-               * │.│.│
-               * └─┴─┘
-               * */
-        Rounded, /* ╭─┬─╮
-                  * │.│.│
-                  * ├─┼─┤
-                  * │.│.│
-                  * ╰─┴─╯
-                  * */
-        Thick, /* ┏━┳━┓
-                * ┃.┃.┃
-                * ┣━╋━┫
-                * ┃.┃.┃
-                * ┗━┻━┛
-                * */
-        Double, /* ╔═╦═╗
-                 * ║.║.║
-                 * ╠═╬═╣
-                 * ║.║.║
-                 * ╚═╩═╝
-                 * */
+		///✓✓
+		///
+		///✓✓
+        None,
+	    ///
+		///✓✓
+		///
+		///✓✓
+		///
+        Plain,
+	    /// +-+-+
+		///
+        /// |✓|✓|
+		///
+        /// +-+-+
+		///
+        /// |✓|✓|
+		///
+        /// +-+-+
+        Retro,
+        /// ┌─┬─┐
+		///
+        /// │✓│✓│
+		///
+        /// ├─┼─┤
+		///
+        /// │✓│✓│
+		///
+        /// └─┴─┘
+        Thin,
+		/// ╭─┬─╮
+		///
+        /// │✓│✓│
+		///
+        /// ├─┼─┤
+		///
+        /// │✓│✓│
+		///
+        /// ╰─┴─╯
+        Rounded,
+		/// ┏━┳━┓
+		///
+        /// ┃✓┃✓┃
+		///
+        /// ┣━╋━┫
+		///
+        /// ┃✓┃✓┃
+		///
+        /// ┗━┻━┛
+        Thick,
+		/// ╔═╦═╗
+		///
+        /// ║✓║✓║
+		///
+        /// ╠═╬═╣
+		///
+        /// ║✓║✓║
+		///
+        /// ╚═╩═╝
+		Double,
     }
 
     impl BordersStyle {
