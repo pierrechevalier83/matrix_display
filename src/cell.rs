@@ -29,7 +29,7 @@ mod cell {
 	/// A foreground and background color's ansi code
 	///
 	/// # Example:
-	/// `AnsiColor{ fg: 7, bg: 0 }`
+	/// `matrix_display::cell::AnsiColor{ fg: 7, bg: 0 }`
 	/// represents a white on dark color
     #[derive(Clone, Debug, PartialEq)]
     pub struct AnsiColor {
@@ -65,7 +65,7 @@ mod cell {
 	/// 	    if i % 2 + (i / 8) % 2 == 1 {
 	/// 		    ansi_bg = 7;
 	/// 		}
-	/// 	    cell::Cell::new(x.clone(), ansi_fg, ansi_bg)
+	/// 	    matrix_display::cell::Cell::new(x.clone(), ansi_fg, ansi_bg)
 	/// 		})
     ///     .collect::<Vec<_>>();
 	/// ```

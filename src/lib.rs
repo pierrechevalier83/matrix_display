@@ -39,7 +39,7 @@ mod format_tests {
 /// The matrix will pad its cells according to a Format.
 ///
 /// Example:
-/// `let format = Format::new(7,3)`
+/// `let format = matrix_display::Format::new(7,3)`
 pub struct Format {
     pub cell_w: usize,
     pub cell_h: usize,
@@ -192,6 +192,7 @@ fn cursor_to_index(x: usize, cell_dim: usize, n_cells: usize) -> usize {
 ///
 /// #Example: visualising a 256 colors palette:
 /// ```
+/// use matrix_display::*;
 /// let format = Format::new(5,1);
 /// let board = (0..256)
 ///        .map(|x| cell::Cell::new(x, 0, x as u8))
