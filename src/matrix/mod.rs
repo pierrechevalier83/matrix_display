@@ -1,4 +1,8 @@
-
+//! Provides `Matrix` which stores a matrix of arbitrary data
+//!
+//! Data is stored as a vector in row major order and a usize representing the number of columns
+//! Data can be accessed for reading through the `enumerate_cells` function
+//! That function returns a vector of a clone of each cell and its `Position`
 pub mod position;
 use self::position::Position;
 
@@ -125,7 +129,7 @@ impl<T> Matrix<T>
     fn is_bottom(&self, index: usize) -> bool {
         index >= (self.n_rows() - 1) * self.n_cols()
     }
-    pub fn from_index(&self, index: usize) -> position::Position {
+    fn from_index(&self, index: usize) -> position::Position {
         if self.is_top(index) && self.is_left(index) {
             Position::TopLeft
         } else if self.is_top(index) && self.is_right(index) {
