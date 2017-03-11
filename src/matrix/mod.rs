@@ -93,6 +93,10 @@ mod matrix_tests {
     }
 }
 
+/// Stores a matrix of arbitrary data
+///
+/// Gives mutable access to cell at given position
+/// Gives owned clone of data with position of each cell within the matrix
 pub struct Matrix<T>
     where T: Clone
 {
