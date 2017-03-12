@@ -7,6 +7,10 @@ A simple rust library to visualize 2D matrixes in rust.
 - Supports 256 terminal colours using AnsiTerm
 - Multiple unicode box character sets supported (plain, retro, thin, rounded, thick, double)
 
+Documentation
+-------------
+[Click here to access the documentation](https://pierrechevalier83.github.io/matrix_display/)
+
 Build
 -----
 - `git clone git@github.com:pierrechevalier83/matrix_display.git`
