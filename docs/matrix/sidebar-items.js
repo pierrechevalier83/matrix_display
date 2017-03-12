@@ -1,0 +1,1 @@
+initSidebarItems({"mod":[["position","A simple human readable way of defining a position within a box"]],"struct":[["Matrix","Stores a matrix of arbitrary data"]]});

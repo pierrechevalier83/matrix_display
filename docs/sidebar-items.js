@@ -1,0 +1,1 @@
+initSidebarItems({"mod":[["cell","Stores data to be printed by MatrixDisplay plus colour metada"],["matrix","Provides `Matrix` which stores a matrix of arbitrary data"],["style","Personalise the border style of your matric display"]],"struct":[["Format","Format of a cell in a matrix"],["MatrixDisplay","Stores a matrix of data and offers a way to pretty print it"]]});

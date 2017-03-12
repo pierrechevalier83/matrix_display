@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["AnsiColor","A foreground and background color's ansi code"],["Cell","A Matrix Cell that owns some data, a background color and a foreground color"]]});
