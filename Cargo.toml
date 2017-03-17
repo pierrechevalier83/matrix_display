@@ -7,4 +7,4 @@ license = "MIT"
 
 [dependencies]
 ansi_term= "0.9"
-unicode-segmentation = "1.1"
+unicode-width = "0.1"
