@@ -1,13 +1,13 @@
 pub use self::pad::Pad;
 pub use self::pad::horizontal_pad;
 
-extern crate unicode_segmentation;
+extern crate unicode_width;
 
 
 
 #[cfg(test)]
 mod pad_tests {
-    use super::Pad;
+    use super::{ Pad, horizontal_pad };
     #[test]
     pub fn adds_up_to_correct_size() {
         let pad = Pad::new(12, 3);
@@ -37,11 +37,21 @@ mod pad_tests {
         assert_eq!(0, pad.before);
         assert_eq!(0, pad.after);
     }
+    #[test]
+    pub fn pad_ascii() {
+        let output = horizontal_pad(8, "ascii", ' ');
+        assert_eq!(output, "  ascii ");
+    }
+    #[test]
+    pub fn pad_cjk() {
+        let output = horizontal_pad(8, "中文", ' ');
+        assert_eq!(output, "  中文  ");
+    }
 }
 
 mod pad {
 
-    use pad::unicode_segmentation::UnicodeSegmentation;
+    use pad::unicode_width::{ UnicodeWidthStr, UnicodeWidthChar };
     use std;
 
     pub struct Pad {
@@ -57,8 +67,12 @@ mod pad {
         }
     }
 
+    /// ## Panic When:
+    /// - pad char width > 1.
     pub fn horizontal_pad(width: usize, s: &str, c: char) -> String {
-        let pad = Pad::new(width, s.graphemes(true).count());
+        assert!(c.width().unwrap_or(0) <= 1, "{:?} width > 1", c);
+
+        let pad = Pad::new(width, s.width());
         std::iter::repeat(c).take(pad.before).collect::<String>() + s +
         &std::iter::repeat(c).take(pad.after).collect::<String>()
     }
