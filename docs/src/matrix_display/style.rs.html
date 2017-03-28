@@ -9,6 +9,7 @@
 
     <title>style.rs.html -- source</title>
 
+    <link rel="stylesheet" type="text/css" href="../../normalize.css">
     <link rel="stylesheet" type="text/css" href="../../rustdoc.css">
     <link rel="stylesheet" type="text/css" href="../../main.css">
     
@@ -242,203 +243,203 @@
 <span id="198">198</span>
 <span id="199">199</span>
 <span id="200">200</span>
-</pre><pre class='rust '>
-<span class='doccomment'>//! Personalise the border style of your matric display</span>
-<span class='doccomment'>//!</span>
-<span class='doccomment'>//! We offer a convenient enum to describe different unicode</span>
-<span class='doccomment'>//! borders so you don&#39;t have to hunt through unicode tables</span>
-<span class='doccomment'>//! and copy paste unicode symbols like an animal!</span>
+</pre><pre class="rust ">
+<span class="doccomment">//! Personalise the border style of your matric display</span>
+<span class="doccomment">//!</span>
+<span class="doccomment">//! We offer a convenient enum to describe different unicode</span>
+<span class="doccomment">//! borders so you don&#39;t have to hunt through unicode tables</span>
+<span class="doccomment">//! and copy paste unicode symbols like an animal!</span>
 
-<span class='kw'>pub</span> <span class='kw'>use</span> <span class='self'>self</span>::<span class='ident'>style</span>::<span class='ident'>BordersStyle</span>;
+<span class="kw">pub</span> <span class="kw">use</span> <span class="self">self</span>::<span class="ident">style</span>::<span class="ident">BordersStyle</span>;
 
-<span class='kw'>mod</span> <span class='ident'>style</span> {
-    <span class='doccomment'>/// An enum that represents different unicode borders styles</span>
-	<span class='doccomment'>///</span>
-	<span class='doccomment'>/// It provides accessors for specific locations such as top_left_corner to be used by the printing code</span>
-    <span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>PartialEq</span>)]</span>
-    <span class='kw'>pub</span> <span class='kw'>enum</span> <span class='ident'>BordersStyle</span> {
-		<span class='doccomment'>///✓✓</span>
-		<span class='doccomment'>///</span>
-		<span class='doccomment'>///✓✓</span>
-        <span class='prelude-val'>None</span>,
-	    <span class='doccomment'>///</span>
-		<span class='doccomment'>///✓✓</span>
-		<span class='doccomment'>///</span>
-		<span class='doccomment'>///✓✓</span>
-		<span class='doccomment'>///</span>
-        <span class='ident'>Plain</span>,
-	    <span class='doccomment'>/// +-+-+</span>
-		<span class='doccomment'>///</span>
-        <span class='doccomment'>/// |✓|✓|</span>
-		<span class='doccomment'>///</span>
-        <span class='doccomment'>/// +-+-+</span>
-		<span class='doccomment'>///</span>
-        <span class='doccomment'>/// |✓|✓|</span>
-		<span class='doccomment'>///</span>
-        <span class='doccomment'>/// +-+-+</span>
-        <span class='ident'>Retro</span>,
-        <span class='doccomment'>/// ┌─┬─┐</span>
-		<span class='doccomment'>///</span>
-        <span class='doccomment'>/// │✓│✓│</span>
-		<span class='doccomment'>///</span>
-        <span class='doccomment'>/// ├─┼─┤</span>
-		<span class='doccomment'>///</span>
-        <span class='doccomment'>/// │✓│✓│</span>
-		<span class='doccomment'>///</span>
-        <span class='doccomment'>/// └─┴─┘</span>
-        <span class='ident'>Thin</span>,
-		<span class='doccomment'>/// ╭─┬─╮</span>
-		<span class='doccomment'>///</span>
-        <span class='doccomment'>/// │✓│✓│</span>
-		<span class='doccomment'>///</span>
-        <span class='doccomment'>/// ├─┼─┤</span>
-		<span class='doccomment'>///</span>
-        <span class='doccomment'>/// │✓│✓│</span>
-		<span class='doccomment'>///</span>
-        <span class='doccomment'>/// ╰─┴─╯</span>
-        <span class='ident'>Rounded</span>,
-		<span class='doccomment'>/// ┏━┳━┓</span>
-		<span class='doccomment'>///</span>
-        <span class='doccomment'>/// ┃✓┃✓┃</span>
-		<span class='doccomment'>///</span>
-        <span class='doccomment'>/// ┣━╋━┫</span>
-		<span class='doccomment'>///</span>
-        <span class='doccomment'>/// ┃✓┃✓┃</span>
-		<span class='doccomment'>///</span>
-        <span class='doccomment'>/// ┗━┻━┛</span>
-        <span class='ident'>Thick</span>,
-		<span class='doccomment'>/// ╔═╦═╗</span>
-		<span class='doccomment'>///</span>
-        <span class='doccomment'>/// ║✓║✓║</span>
-		<span class='doccomment'>///</span>
-        <span class='doccomment'>/// ╠═╬═╣</span>
-		<span class='doccomment'>///</span>
-        <span class='doccomment'>/// ║✓║✓║</span>
-		<span class='doccomment'>///</span>
-        <span class='doccomment'>/// ╚═╩═╝</span>
-		<span class='ident'>Double</span>,
+<span class="kw">mod</span> <span class="ident">style</span> {
+    <span class="doccomment">/// An enum that represents different unicode borders styles</span>
+	<span class="doccomment">///</span>
+	<span class="doccomment">/// It provides accessors for specific locations such as top_left_corner to be used by the printing code</span>
+    <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">PartialEq</span>)]</span>
+    <span class="kw">pub</span> <span class="kw">enum</span> <span class="ident">BordersStyle</span> {
+		<span class="doccomment">///✓✓</span>
+		<span class="doccomment">///</span>
+		<span class="doccomment">///✓✓</span>
+        <span class="prelude-val">None</span>,
+	    <span class="doccomment">///</span>
+		<span class="doccomment">///✓✓</span>
+		<span class="doccomment">///</span>
+		<span class="doccomment">///✓✓</span>
+		<span class="doccomment">///</span>
+        <span class="ident">Plain</span>,
+	    <span class="doccomment">/// +-+-+</span>
+		<span class="doccomment">///</span>
+        <span class="doccomment">/// |✓|✓|</span>
+		<span class="doccomment">///</span>
+        <span class="doccomment">/// +-+-+</span>
+		<span class="doccomment">///</span>
+        <span class="doccomment">/// |✓|✓|</span>
+		<span class="doccomment">///</span>
+        <span class="doccomment">/// +-+-+</span>
+        <span class="ident">Retro</span>,
+        <span class="doccomment">/// ┌─┬─┐</span>
+		<span class="doccomment">///</span>
+        <span class="doccomment">/// │✓│✓│</span>
+		<span class="doccomment">///</span>
+        <span class="doccomment">/// ├─┼─┤</span>
+		<span class="doccomment">///</span>
+        <span class="doccomment">/// │✓│✓│</span>
+		<span class="doccomment">///</span>
+        <span class="doccomment">/// └─┴─┘</span>
+        <span class="ident">Thin</span>,
+		<span class="doccomment">/// ╭─┬─╮</span>
+		<span class="doccomment">///</span>
+        <span class="doccomment">/// │✓│✓│</span>
+		<span class="doccomment">///</span>
+        <span class="doccomment">/// ├─┼─┤</span>
+		<span class="doccomment">///</span>
+        <span class="doccomment">/// │✓│✓│</span>
+		<span class="doccomment">///</span>
+        <span class="doccomment">/// ╰─┴─╯</span>
+        <span class="ident">Rounded</span>,
+		<span class="doccomment">/// ┏━┳━┓</span>
+		<span class="doccomment">///</span>
+        <span class="doccomment">/// ┃✓┃✓┃</span>
+		<span class="doccomment">///</span>
+        <span class="doccomment">/// ┣━╋━┫</span>
+		<span class="doccomment">///</span>
+        <span class="doccomment">/// ┃✓┃✓┃</span>
+		<span class="doccomment">///</span>
+        <span class="doccomment">/// ┗━┻━┛</span>
+        <span class="ident">Thick</span>,
+		<span class="doccomment">/// ╔═╦═╗</span>
+		<span class="doccomment">///</span>
+        <span class="doccomment">/// ║✓║✓║</span>
+		<span class="doccomment">///</span>
+        <span class="doccomment">/// ╠═╬═╣</span>
+		<span class="doccomment">///</span>
+        <span class="doccomment">/// ║✓║✓║</span>
+		<span class="doccomment">///</span>
+        <span class="doccomment">/// ╚═╩═╝</span>
+		<span class="ident">Double</span>,
     }
 
-    <span class='kw'>impl</span> <span class='ident'>BordersStyle</span> {
-        <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>top_left_corner</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='ident'>char</span> {
-            <span class='kw'>match</span> <span class='op'>*</span><span class='self'>self</span> {
-                <span class='ident'>BordersStyle</span>::<span class='prelude-val'>None</span> <span class='op'>=&gt;</span> <span class='string'>&#39;\0&#39;</span>,
-                <span class='ident'>BordersStyle</span>::<span class='ident'>Plain</span> <span class='op'>=&gt;</span> <span class='string'>&#39; &#39;</span>,
-                <span class='ident'>BordersStyle</span>::<span class='ident'>Retro</span> <span class='op'>=&gt;</span> <span class='string'>&#39;+&#39;</span>,
-                <span class='ident'>BordersStyle</span>::<span class='ident'>Thin</span> <span class='op'>=&gt;</span> <span class='string'>&#39;┌&#39;</span>,
-                <span class='ident'>BordersStyle</span>::<span class='ident'>Rounded</span> <span class='op'>=&gt;</span> <span class='string'>&#39;╭&#39;</span>,
-                <span class='ident'>BordersStyle</span>::<span class='ident'>Thick</span> <span class='op'>=&gt;</span> <span class='string'>&#39;┏&#39;</span>,
-                <span class='ident'>BordersStyle</span>::<span class='ident'>Double</span> <span class='op'>=&gt;</span> <span class='string'>&#39;╔&#39;</span>,
+    <span class="kw">impl</span> <span class="ident">BordersStyle</span> {
+        <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">top_left_corner</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-&gt;</span> <span class="ident">char</span> {
+            <span class="kw">match</span> <span class="kw-2">*</span><span class="self">self</span> {
+                <span class="ident">BordersStyle</span>::<span class="prelude-val">None</span> <span class="op">=&gt;</span> <span class="string">&#39;\0&#39;</span>,
+                <span class="ident">BordersStyle</span>::<span class="ident">Plain</span> <span class="op">=&gt;</span> <span class="string">&#39; &#39;</span>,
+                <span class="ident">BordersStyle</span>::<span class="ident">Retro</span> <span class="op">=&gt;</span> <span class="string">&#39;+&#39;</span>,
+                <span class="ident">BordersStyle</span>::<span class="ident">Thin</span> <span class="op">=&gt;</span> <span class="string">&#39;┌&#39;</span>,
+                <span class="ident">BordersStyle</span>::<span class="ident">Rounded</span> <span class="op">=&gt;</span> <span class="string">&#39;╭&#39;</span>,
+                <span class="ident">BordersStyle</span>::<span class="ident">Thick</span> <span class="op">=&gt;</span> <span class="string">&#39;┏&#39;</span>,
+                <span class="ident">BordersStyle</span>::<span class="ident">Double</span> <span class="op">=&gt;</span> <span class="string">&#39;╔&#39;</span>,
             }
         }
-        <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>top_right_corner</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='ident'>char</span> {
-            <span class='kw'>match</span> <span class='op'>*</span><span class='self'>self</span> {
-                <span class='ident'>BordersStyle</span>::<span class='prelude-val'>None</span> <span class='op'>=&gt;</span> <span class='string'>&#39;\0&#39;</span>,
-                <span class='ident'>BordersStyle</span>::<span class='ident'>Plain</span> <span class='op'>=&gt;</span> <span class='string'>&#39; &#39;</span>,
-                <span class='ident'>BordersStyle</span>::<span class='ident'>Retro</span> <span class='op'>=&gt;</span> <span class='string'>&#39;+&#39;</span>,
-                <span class='ident'>BordersStyle</span>::<span class='ident'>Thin</span> <span class='op'>=&gt;</span> <span class='string'>&#39;┐&#39;</span>,
-                <span class='ident'>BordersStyle</span>::<span class='ident'>Rounded</span> <span class='op'>=&gt;</span> <span class='string'>&#39;╮&#39;</span>,
-                <span class='ident'>BordersStyle</span>::<span class='ident'>Thick</span> <span class='op'>=&gt;</span> <span class='string'>&#39;┓&#39;</span>,
-                <span class='ident'>BordersStyle</span>::<span class='ident'>Double</span> <span class='op'>=&gt;</span> <span class='string'>&#39;╗&#39;</span>,
+        <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">top_right_corner</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-&gt;</span> <span class="ident">char</span> {
+            <span class="kw">match</span> <span class="kw-2">*</span><span class="self">self</span> {
+                <span class="ident">BordersStyle</span>::<span class="prelude-val">None</span> <span class="op">=&gt;</span> <span class="string">&#39;\0&#39;</span>,
+                <span class="ident">BordersStyle</span>::<span class="ident">Plain</span> <span class="op">=&gt;</span> <span class="string">&#39; &#39;</span>,
+                <span class="ident">BordersStyle</span>::<span class="ident">Retro</span> <span class="op">=&gt;</span> <span class="string">&#39;+&#39;</span>,
+                <span class="ident">BordersStyle</span>::<span class="ident">Thin</span> <span class="op">=&gt;</span> <span class="string">&#39;┐&#39;</span>,
+                <span class="ident">BordersStyle</span>::<span class="ident">Rounded</span> <span class="op">=&gt;</span> <span class="string">&#39;╮&#39;</span>,
+                <span class="ident">BordersStyle</span>::<span class="ident">Thick</span> <span class="op">=&gt;</span> <span class="string">&#39;┓&#39;</span>,
+                <span class="ident">BordersStyle</span>::<span class="ident">Double</span> <span class="op">=&gt;</span> <span class="string">&#39;╗&#39;</span>,
             }
         }
-        <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>bottom_left_corner</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='ident'>char</span> {
-            <span class='kw'>match</span> <span class='op'>*</span><span class='self'>self</span> {
-                <span class='ident'>BordersStyle</span>::<span class='prelude-val'>None</span> <span class='op'>=&gt;</span> <span class='string'>&#39;\0&#39;</span>,
-                <span class='ident'>BordersStyle</span>::<span class='ident'>Plain</span> <span class='op'>=&gt;</span> <span class='string'>&#39; &#39;</span>,
-                <span class='ident'>BordersStyle</span>::<span class='ident'>Retro</span> <span class='op'>=&gt;</span> <span class='string'>&#39;+&#39;</span>,
-                <span class='ident'>BordersStyle</span>::<span class='ident'>Thin</span> <span class='op'>=&gt;</span> <span class='string'>&#39;└&#39;</span>,
-                <span class='ident'>BordersStyle</span>::<span class='ident'>Rounded</span> <span class='op'>=&gt;</span> <span class='string'>&#39;╰&#39;</span>,
-                <span class='ident'>BordersStyle</span>::<span class='ident'>Thick</span> <span class='op'>=&gt;</span> <span class='string'>&#39;┗&#39;</span>,
-                <span class='ident'>BordersStyle</span>::<span class='ident'>Double</span> <span class='op'>=&gt;</span> <span class='string'>&#39;╚&#39;</span>,
+        <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">bottom_left_corner</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-&gt;</span> <span class="ident">char</span> {
+            <span class="kw">match</span> <span class="kw-2">*</span><span class="self">self</span> {
+                <span class="ident">BordersStyle</span>::<span class="prelude-val">None</span> <span class="op">=&gt;</span> <span class="string">&#39;\0&#39;</span>,
+                <span class="ident">BordersStyle</span>::<span class="ident">Plain</span> <span class="op">=&gt;</span> <span class="string">&#39; &#39;</span>,
+                <span class="ident">BordersStyle</span>::<span class="ident">Retro</span> <span class="op">=&gt;</span> <span class="string">&#39;+&#39;</span>,
+                <span class="ident">BordersStyle</span>::<span class="ident">Thin</span> <span class="op">=&gt;</span> <span class="string">&#39;└&#39;</span>,
+                <span class="ident">BordersStyle</span>::<span class="ident">Rounded</span> <span class="op">=&gt;</span> <span class="string">&#39;╰&#39;</span>,
+                <span class="ident">BordersStyle</span>::<span class="ident">Thick</span> <span class="op">=&gt;</span> <span class="string">&#39;┗&#39;</span>,
+                <span class="ident">BordersStyle</span>::<span class="ident">Double</span> <span class="op">=&gt;</span> <span class="string">&#39;╚&#39;</span>,
             }
         }
-        <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>bottom_right_corner</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='ident'>char</span> {
-            <span class='kw'>match</span> <span class='op'>*</span><span class='self'>self</span> {
-                <span class='ident'>BordersStyle</span>::<span class='prelude-val'>None</span> <span class='op'>=&gt;</span> <span class='string'>&#39;\0&#39;</span>,
-                <span class='ident'>BordersStyle</span>::<span class='ident'>Plain</span> <span class='op'>=&gt;</span> <span class='string'>&#39; &#39;</span>,
-                <span class='ident'>BordersStyle</span>::<span class='ident'>Retro</span> <span class='op'>=&gt;</span> <span class='string'>&#39;+&#39;</span>,
-                <span class='ident'>BordersStyle</span>::<span class='ident'>Thin</span> <span class='op'>=&gt;</span> <span class='string'>&#39;┘&#39;</span>,
-                <span class='ident'>BordersStyle</span>::<span class='ident'>Rounded</span> <span class='op'>=&gt;</span> <span class='string'>&#39;╯&#39;</span>,
-                <span class='ident'>BordersStyle</span>::<span class='ident'>Thick</span> <span class='op'>=&gt;</span> <span class='string'>&#39;┛&#39;</span>,
-                <span class='ident'>BordersStyle</span>::<span class='ident'>Double</span> <span class='op'>=&gt;</span> <span class='string'>&#39;╝&#39;</span>,
+        <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">bottom_right_corner</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-&gt;</span> <span class="ident">char</span> {
+            <span class="kw">match</span> <span class="kw-2">*</span><span class="self">self</span> {
+                <span class="ident">BordersStyle</span>::<span class="prelude-val">None</span> <span class="op">=&gt;</span> <span class="string">&#39;\0&#39;</span>,
+                <span class="ident">BordersStyle</span>::<span class="ident">Plain</span> <span class="op">=&gt;</span> <span class="string">&#39; &#39;</span>,
+                <span class="ident">BordersStyle</span>::<span class="ident">Retro</span> <span class="op">=&gt;</span> <span class="string">&#39;+&#39;</span>,
+                <span class="ident">BordersStyle</span>::<span class="ident">Thin</span> <span class="op">=&gt;</span> <span class="string">&#39;┘&#39;</span>,
+                <span class="ident">BordersStyle</span>::<span class="ident">Rounded</span> <span class="op">=&gt;</span> <span class="string">&#39;╯&#39;</span>,
+                <span class="ident">BordersStyle</span>::<span class="ident">Thick</span> <span class="op">=&gt;</span> <span class="string">&#39;┛&#39;</span>,
+                <span class="ident">BordersStyle</span>::<span class="ident">Double</span> <span class="op">=&gt;</span> <span class="string">&#39;╝&#39;</span>,
             }
         }
-        <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>horizontal_border</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='ident'>char</span> {
-            <span class='kw'>match</span> <span class='op'>*</span><span class='self'>self</span> {
-                <span class='ident'>BordersStyle</span>::<span class='prelude-val'>None</span> <span class='op'>=&gt;</span> <span class='string'>&#39;\0&#39;</span>,
-                <span class='ident'>BordersStyle</span>::<span class='ident'>Plain</span> <span class='op'>=&gt;</span> <span class='string'>&#39; &#39;</span>,
-                <span class='ident'>BordersStyle</span>::<span class='ident'>Retro</span> <span class='op'>=&gt;</span> <span class='string'>&#39;-&#39;</span>,
-                <span class='ident'>BordersStyle</span>::<span class='ident'>Thin</span> <span class='op'>=&gt;</span> <span class='string'>&#39;─&#39;</span>,
-                <span class='ident'>BordersStyle</span>::<span class='ident'>Rounded</span> <span class='op'>=&gt;</span> <span class='string'>&#39;─&#39;</span>,
-                <span class='ident'>BordersStyle</span>::<span class='ident'>Thick</span> <span class='op'>=&gt;</span> <span class='string'>&#39;━&#39;</span>,
-                <span class='ident'>BordersStyle</span>::<span class='ident'>Double</span> <span class='op'>=&gt;</span> <span class='string'>&#39;═&#39;</span>,
+        <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">horizontal_border</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-&gt;</span> <span class="ident">char</span> {
+            <span class="kw">match</span> <span class="kw-2">*</span><span class="self">self</span> {
+                <span class="ident">BordersStyle</span>::<span class="prelude-val">None</span> <span class="op">=&gt;</span> <span class="string">&#39;\0&#39;</span>,
+                <span class="ident">BordersStyle</span>::<span class="ident">Plain</span> <span class="op">=&gt;</span> <span class="string">&#39; &#39;</span>,
+                <span class="ident">BordersStyle</span>::<span class="ident">Retro</span> <span class="op">=&gt;</span> <span class="string">&#39;-&#39;</span>,
+                <span class="ident">BordersStyle</span>::<span class="ident">Thin</span> <span class="op">=&gt;</span> <span class="string">&#39;─&#39;</span>,
+                <span class="ident">BordersStyle</span>::<span class="ident">Rounded</span> <span class="op">=&gt;</span> <span class="string">&#39;─&#39;</span>,
+                <span class="ident">BordersStyle</span>::<span class="ident">Thick</span> <span class="op">=&gt;</span> <span class="string">&#39;━&#39;</span>,
+                <span class="ident">BordersStyle</span>::<span class="ident">Double</span> <span class="op">=&gt;</span> <span class="string">&#39;═&#39;</span>,
             }
         }
-        <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>top_intersection</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='ident'>char</span> {
-            <span class='kw'>match</span> <span class='op'>*</span><span class='self'>self</span> {
-                <span class='ident'>BordersStyle</span>::<span class='prelude-val'>None</span> <span class='op'>=&gt;</span> <span class='string'>&#39;\0&#39;</span>,
-                <span class='ident'>BordersStyle</span>::<span class='ident'>Plain</span> <span class='op'>=&gt;</span> <span class='string'>&#39; &#39;</span>,
-                <span class='ident'>BordersStyle</span>::<span class='ident'>Retro</span> <span class='op'>=&gt;</span> <span class='string'>&#39;+&#39;</span>,
-                <span class='ident'>BordersStyle</span>::<span class='ident'>Thin</span> <span class='op'>=&gt;</span> <span class='string'>&#39;┬&#39;</span>,
-                <span class='ident'>BordersStyle</span>::<span class='ident'>Rounded</span> <span class='op'>=&gt;</span> <span class='string'>&#39;┬&#39;</span>,
-                <span class='ident'>BordersStyle</span>::<span class='ident'>Thick</span> <span class='op'>=&gt;</span> <span class='string'>&#39;┳&#39;</span>,
-                <span class='ident'>BordersStyle</span>::<span class='ident'>Double</span> <span class='op'>=&gt;</span> <span class='string'>&#39;╦&#39;</span>,
+        <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">top_intersection</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-&gt;</span> <span class="ident">char</span> {
+            <span class="kw">match</span> <span class="kw-2">*</span><span class="self">self</span> {
+                <span class="ident">BordersStyle</span>::<span class="prelude-val">None</span> <span class="op">=&gt;</span> <span class="string">&#39;\0&#39;</span>,
+                <span class="ident">BordersStyle</span>::<span class="ident">Plain</span> <span class="op">=&gt;</span> <span class="string">&#39; &#39;</span>,
+                <span class="ident">BordersStyle</span>::<span class="ident">Retro</span> <span class="op">=&gt;</span> <span class="string">&#39;+&#39;</span>,
+                <span class="ident">BordersStyle</span>::<span class="ident">Thin</span> <span class="op">=&gt;</span> <span class="string">&#39;┬&#39;</span>,
+                <span class="ident">BordersStyle</span>::<span class="ident">Rounded</span> <span class="op">=&gt;</span> <span class="string">&#39;┬&#39;</span>,
+                <span class="ident">BordersStyle</span>::<span class="ident">Thick</span> <span class="op">=&gt;</span> <span class="string">&#39;┳&#39;</span>,
+                <span class="ident">BordersStyle</span>::<span class="ident">Double</span> <span class="op">=&gt;</span> <span class="string">&#39;╦&#39;</span>,
             }
         }
-        <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>left_intersection</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='ident'>char</span> {
-            <span class='kw'>match</span> <span class='op'>*</span><span class='self'>self</span> {
-                <span class='ident'>BordersStyle</span>::<span class='prelude-val'>None</span> <span class='op'>=&gt;</span> <span class='string'>&#39;\0&#39;</span>,
-                <span class='ident'>BordersStyle</span>::<span class='ident'>Plain</span> <span class='op'>=&gt;</span> <span class='string'>&#39; &#39;</span>,
-                <span class='ident'>BordersStyle</span>::<span class='ident'>Retro</span> <span class='op'>=&gt;</span> <span class='string'>&#39;+&#39;</span>,
-                <span class='ident'>BordersStyle</span>::<span class='ident'>Thin</span> <span class='op'>=&gt;</span> <span class='string'>&#39;├&#39;</span>,
-                <span class='ident'>BordersStyle</span>::<span class='ident'>Rounded</span> <span class='op'>=&gt;</span> <span class='string'>&#39;├&#39;</span>,
-                <span class='ident'>BordersStyle</span>::<span class='ident'>Thick</span> <span class='op'>=&gt;</span> <span class='string'>&#39;┣&#39;</span>,
-                <span class='ident'>BordersStyle</span>::<span class='ident'>Double</span> <span class='op'>=&gt;</span> <span class='string'>&#39;╠&#39;</span>,
+        <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">left_intersection</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-&gt;</span> <span class="ident">char</span> {
+            <span class="kw">match</span> <span class="kw-2">*</span><span class="self">self</span> {
+                <span class="ident">BordersStyle</span>::<span class="prelude-val">None</span> <span class="op">=&gt;</span> <span class="string">&#39;\0&#39;</span>,
+                <span class="ident">BordersStyle</span>::<span class="ident">Plain</span> <span class="op">=&gt;</span> <span class="string">&#39; &#39;</span>,
+                <span class="ident">BordersStyle</span>::<span class="ident">Retro</span> <span class="op">=&gt;</span> <span class="string">&#39;+&#39;</span>,
+                <span class="ident">BordersStyle</span>::<span class="ident">Thin</span> <span class="op">=&gt;</span> <span class="string">&#39;├&#39;</span>,
+                <span class="ident">BordersStyle</span>::<span class="ident">Rounded</span> <span class="op">=&gt;</span> <span class="string">&#39;├&#39;</span>,
+                <span class="ident">BordersStyle</span>::<span class="ident">Thick</span> <span class="op">=&gt;</span> <span class="string">&#39;┣&#39;</span>,
+                <span class="ident">BordersStyle</span>::<span class="ident">Double</span> <span class="op">=&gt;</span> <span class="string">&#39;╠&#39;</span>,
             }
         }
-        <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>right_intersection</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='ident'>char</span> {
-            <span class='kw'>match</span> <span class='op'>*</span><span class='self'>self</span> {
-                <span class='ident'>BordersStyle</span>::<span class='prelude-val'>None</span> <span class='op'>=&gt;</span> <span class='string'>&#39;\0&#39;</span>,
-                <span class='ident'>BordersStyle</span>::<span class='ident'>Plain</span> <span class='op'>=&gt;</span> <span class='string'>&#39; &#39;</span>,
-                <span class='ident'>BordersStyle</span>::<span class='ident'>Retro</span> <span class='op'>=&gt;</span> <span class='string'>&#39;+&#39;</span>,
-                <span class='ident'>BordersStyle</span>::<span class='ident'>Thin</span> <span class='op'>=&gt;</span> <span class='string'>&#39;┤&#39;</span>,
-                <span class='ident'>BordersStyle</span>::<span class='ident'>Rounded</span> <span class='op'>=&gt;</span> <span class='string'>&#39;┤&#39;</span>,
-                <span class='ident'>BordersStyle</span>::<span class='ident'>Thick</span> <span class='op'>=&gt;</span> <span class='string'>&#39;┫&#39;</span>,
-                <span class='ident'>BordersStyle</span>::<span class='ident'>Double</span> <span class='op'>=&gt;</span> <span class='string'>&#39;╣&#39;</span>,
+        <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">right_intersection</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-&gt;</span> <span class="ident">char</span> {
+            <span class="kw">match</span> <span class="kw-2">*</span><span class="self">self</span> {
+                <span class="ident">BordersStyle</span>::<span class="prelude-val">None</span> <span class="op">=&gt;</span> <span class="string">&#39;\0&#39;</span>,
+                <span class="ident">BordersStyle</span>::<span class="ident">Plain</span> <span class="op">=&gt;</span> <span class="string">&#39; &#39;</span>,
+                <span class="ident">BordersStyle</span>::<span class="ident">Retro</span> <span class="op">=&gt;</span> <span class="string">&#39;+&#39;</span>,
+                <span class="ident">BordersStyle</span>::<span class="ident">Thin</span> <span class="op">=&gt;</span> <span class="string">&#39;┤&#39;</span>,
+                <span class="ident">BordersStyle</span>::<span class="ident">Rounded</span> <span class="op">=&gt;</span> <span class="string">&#39;┤&#39;</span>,
+                <span class="ident">BordersStyle</span>::<span class="ident">Thick</span> <span class="op">=&gt;</span> <span class="string">&#39;┫&#39;</span>,
+                <span class="ident">BordersStyle</span>::<span class="ident">Double</span> <span class="op">=&gt;</span> <span class="string">&#39;╣&#39;</span>,
             }
         }
-        <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>bottom_intersection</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='ident'>char</span> {
-            <span class='kw'>match</span> <span class='op'>*</span><span class='self'>self</span> {
-                <span class='ident'>BordersStyle</span>::<span class='prelude-val'>None</span> <span class='op'>=&gt;</span> <span class='string'>&#39;\0&#39;</span>,
-                <span class='ident'>BordersStyle</span>::<span class='ident'>Plain</span> <span class='op'>=&gt;</span> <span class='string'>&#39; &#39;</span>,
-                <span class='ident'>BordersStyle</span>::<span class='ident'>Retro</span> <span class='op'>=&gt;</span> <span class='string'>&#39;+&#39;</span>,
-                <span class='ident'>BordersStyle</span>::<span class='ident'>Thin</span> <span class='op'>=&gt;</span> <span class='string'>&#39;┴&#39;</span>,
-                <span class='ident'>BordersStyle</span>::<span class='ident'>Rounded</span> <span class='op'>=&gt;</span> <span class='string'>&#39;┴&#39;</span>,
-                <span class='ident'>BordersStyle</span>::<span class='ident'>Thick</span> <span class='op'>=&gt;</span> <span class='string'>&#39;┻&#39;</span>,
-                <span class='ident'>BordersStyle</span>::<span class='ident'>Double</span> <span class='op'>=&gt;</span> <span class='string'>&#39;╩&#39;</span>,
+        <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">bottom_intersection</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-&gt;</span> <span class="ident">char</span> {
+            <span class="kw">match</span> <span class="kw-2">*</span><span class="self">self</span> {
+                <span class="ident">BordersStyle</span>::<span class="prelude-val">None</span> <span class="op">=&gt;</span> <span class="string">&#39;\0&#39;</span>,
+                <span class="ident">BordersStyle</span>::<span class="ident">Plain</span> <span class="op">=&gt;</span> <span class="string">&#39; &#39;</span>,
+                <span class="ident">BordersStyle</span>::<span class="ident">Retro</span> <span class="op">=&gt;</span> <span class="string">&#39;+&#39;</span>,
+                <span class="ident">BordersStyle</span>::<span class="ident">Thin</span> <span class="op">=&gt;</span> <span class="string">&#39;┴&#39;</span>,
+                <span class="ident">BordersStyle</span>::<span class="ident">Rounded</span> <span class="op">=&gt;</span> <span class="string">&#39;┴&#39;</span>,
+                <span class="ident">BordersStyle</span>::<span class="ident">Thick</span> <span class="op">=&gt;</span> <span class="string">&#39;┻&#39;</span>,
+                <span class="ident">BordersStyle</span>::<span class="ident">Double</span> <span class="op">=&gt;</span> <span class="string">&#39;╩&#39;</span>,
             }
         }
-        <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>intersection</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='ident'>char</span> {
-            <span class='kw'>match</span> <span class='op'>*</span><span class='self'>self</span> {
-                <span class='ident'>BordersStyle</span>::<span class='prelude-val'>None</span> <span class='op'>=&gt;</span> <span class='string'>&#39;\0&#39;</span>,
-                <span class='ident'>BordersStyle</span>::<span class='ident'>Plain</span> <span class='op'>=&gt;</span> <span class='string'>&#39; &#39;</span>,
-                <span class='ident'>BordersStyle</span>::<span class='ident'>Retro</span> <span class='op'>=&gt;</span> <span class='string'>&#39;+&#39;</span>,
-                <span class='ident'>BordersStyle</span>::<span class='ident'>Thin</span> <span class='op'>=&gt;</span> <span class='string'>&#39;┼&#39;</span>,
-                <span class='ident'>BordersStyle</span>::<span class='ident'>Rounded</span> <span class='op'>=&gt;</span> <span class='string'>&#39;┼&#39;</span>,
-                <span class='ident'>BordersStyle</span>::<span class='ident'>Thick</span> <span class='op'>=&gt;</span> <span class='string'>&#39;╋&#39;</span>,
-                <span class='ident'>BordersStyle</span>::<span class='ident'>Double</span> <span class='op'>=&gt;</span> <span class='string'>&#39;╬&#39;</span>,
+        <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">intersection</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-&gt;</span> <span class="ident">char</span> {
+            <span class="kw">match</span> <span class="kw-2">*</span><span class="self">self</span> {
+                <span class="ident">BordersStyle</span>::<span class="prelude-val">None</span> <span class="op">=&gt;</span> <span class="string">&#39;\0&#39;</span>,
+                <span class="ident">BordersStyle</span>::<span class="ident">Plain</span> <span class="op">=&gt;</span> <span class="string">&#39; &#39;</span>,
+                <span class="ident">BordersStyle</span>::<span class="ident">Retro</span> <span class="op">=&gt;</span> <span class="string">&#39;+&#39;</span>,
+                <span class="ident">BordersStyle</span>::<span class="ident">Thin</span> <span class="op">=&gt;</span> <span class="string">&#39;┼&#39;</span>,
+                <span class="ident">BordersStyle</span>::<span class="ident">Rounded</span> <span class="op">=&gt;</span> <span class="string">&#39;┼&#39;</span>,
+                <span class="ident">BordersStyle</span>::<span class="ident">Thick</span> <span class="op">=&gt;</span> <span class="string">&#39;╋&#39;</span>,
+                <span class="ident">BordersStyle</span>::<span class="ident">Double</span> <span class="op">=&gt;</span> <span class="string">&#39;╬&#39;</span>,
             }
         }
-        <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>vertical_border</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='ident'>char</span> {
-            <span class='kw'>match</span> <span class='op'>*</span><span class='self'>self</span> {
-                <span class='ident'>BordersStyle</span>::<span class='prelude-val'>None</span> <span class='op'>=&gt;</span> <span class='string'>&#39;\0&#39;</span>,
-                <span class='ident'>BordersStyle</span>::<span class='ident'>Plain</span> <span class='op'>=&gt;</span> <span class='string'>&#39; &#39;</span>,
-                <span class='ident'>BordersStyle</span>::<span class='ident'>Retro</span> <span class='op'>=&gt;</span> <span class='string'>&#39;|&#39;</span>,
-                <span class='ident'>BordersStyle</span>::<span class='ident'>Thin</span> <span class='op'>=&gt;</span> <span class='string'>&#39;│&#39;</span>,
-                <span class='ident'>BordersStyle</span>::<span class='ident'>Rounded</span> <span class='op'>=&gt;</span> <span class='string'>&#39;│&#39;</span>,
-                <span class='ident'>BordersStyle</span>::<span class='ident'>Thick</span> <span class='op'>=&gt;</span> <span class='string'>&#39;┃&#39;</span>,
-                <span class='ident'>BordersStyle</span>::<span class='ident'>Double</span> <span class='op'>=&gt;</span> <span class='string'>&#39;║&#39;</span>,
+        <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">vertical_border</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-&gt;</span> <span class="ident">char</span> {
+            <span class="kw">match</span> <span class="kw-2">*</span><span class="self">self</span> {
+                <span class="ident">BordersStyle</span>::<span class="prelude-val">None</span> <span class="op">=&gt;</span> <span class="string">&#39;\0&#39;</span>,
+                <span class="ident">BordersStyle</span>::<span class="ident">Plain</span> <span class="op">=&gt;</span> <span class="string">&#39; &#39;</span>,
+                <span class="ident">BordersStyle</span>::<span class="ident">Retro</span> <span class="op">=&gt;</span> <span class="string">&#39;|&#39;</span>,
+                <span class="ident">BordersStyle</span>::<span class="ident">Thin</span> <span class="op">=&gt;</span> <span class="string">&#39;│&#39;</span>,
+                <span class="ident">BordersStyle</span>::<span class="ident">Rounded</span> <span class="op">=&gt;</span> <span class="string">&#39;│&#39;</span>,
+                <span class="ident">BordersStyle</span>::<span class="ident">Thick</span> <span class="op">=&gt;</span> <span class="string">&#39;┃&#39;</span>,
+                <span class="ident">BordersStyle</span>::<span class="ident">Double</span> <span class="op">=&gt;</span> <span class="string">&#39;║&#39;</span>,
             }
         }
     }

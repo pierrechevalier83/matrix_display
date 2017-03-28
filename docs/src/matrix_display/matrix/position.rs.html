@@ -9,6 +9,7 @@
 
     <title>position.rs.html -- source</title>
 
+    <link rel="stylesheet" type="text/css" href="../../../normalize.css">
     <link rel="stylesheet" type="text/css" href="../../../rustdoc.css">
     <link rel="stylesheet" type="text/css" href="../../../main.css">
     
@@ -104,65 +105,65 @@
 <span id="60">60</span>
 <span id="61">61</span>
 <span id="62">62</span>
-</pre><pre class='rust '>
-<span class='doccomment'>//! A simple human readable way of defining a position within a box</span>
-<span class='kw'>pub</span> <span class='kw'>use</span> <span class='self'>self</span>::<span class='ident'>position</span>::<span class='ident'>Position</span>;
+</pre><pre class="rust ">
+<span class="doccomment">//! A simple human readable way of defining a position within a box</span>
+<span class="kw">pub</span> <span class="kw">use</span> <span class="self">self</span>::<span class="ident">position</span>::<span class="ident">Position</span>;
 
-<span class='kw'>mod</span> <span class='ident'>position</span> {
-    <span class='doccomment'>/// Enum that describes a position within a rectangle</span>
-	<span class='doccomment'>///</span>
-	<span class='doccomment'>/// The position can be accessed at two levels of granularity:</span>
-	<span class='doccomment'>/// The values of the enum denote the exact position (i.e: `BottomLeft`)</span>
-	<span class='doccomment'>/// Helper functions help determine wether that position is part of a given border</span>
-	<span class='doccomment'>/// (i.e: `BottomLeft` is both part of `bottom()` and `left()`)</span>
-    <span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Debug</span>, <span class='ident'>PartialEq</span>)]</span>
-    <span class='kw'>pub</span> <span class='kw'>enum</span> <span class='ident'>Position</span> {
-        <span class='ident'>Top</span>,
-        <span class='ident'>Left</span>,
-        <span class='ident'>Right</span>,
-        <span class='ident'>Bottom</span>,
-        <span class='ident'>TopLeft</span>,
-        <span class='ident'>TopRight</span>,
-        <span class='ident'>BottomLeft</span>,
-        <span class='ident'>BottomRight</span>,
-        <span class='ident'>Middle</span>,
+<span class="kw">mod</span> <span class="ident">position</span> {
+    <span class="doccomment">/// Enum that describes a position within a rectangle</span>
+	<span class="doccomment">///</span>
+	<span class="doccomment">/// The position can be accessed at two levels of granularity:</span>
+	<span class="doccomment">/// The values of the enum denote the exact position (i.e: `BottomLeft`)</span>
+	<span class="doccomment">/// Helper functions help determine wether that position is part of a given border</span>
+	<span class="doccomment">/// (i.e: `BottomLeft` is both part of `bottom()` and `left()`)</span>
+    <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>, <span class="ident">PartialEq</span>)]</span>
+    <span class="kw">pub</span> <span class="kw">enum</span> <span class="ident">Position</span> {
+        <span class="ident">Top</span>,
+        <span class="ident">Left</span>,
+        <span class="ident">Right</span>,
+        <span class="ident">Bottom</span>,
+        <span class="ident">TopLeft</span>,
+        <span class="ident">TopRight</span>,
+        <span class="ident">BottomLeft</span>,
+        <span class="ident">BottomRight</span>,
+        <span class="ident">Middle</span>,
     }
 
-    <span class='kw'>impl</span> <span class='ident'>Position</span> {
-	    <span class='doccomment'>/// Is it part of the top row?</span>
-        <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>top</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='ident'>bool</span> {
-            <span class='kw'>match</span> <span class='op'>*</span><span class='self'>self</span> {
-                <span class='ident'>Position</span>::<span class='ident'>TopLeft</span> <span class='op'>=&gt;</span> <span class='bool-val'>true</span>,
-                <span class='ident'>Position</span>::<span class='ident'>Top</span> <span class='op'>=&gt;</span> <span class='bool-val'>true</span>,
-                <span class='ident'>Position</span>::<span class='ident'>TopRight</span> <span class='op'>=&gt;</span> <span class='bool-val'>true</span>,
-                _ <span class='op'>=&gt;</span> <span class='bool-val'>false</span>,
+    <span class="kw">impl</span> <span class="ident">Position</span> {
+	    <span class="doccomment">/// Is it part of the top row?</span>
+        <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">top</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-&gt;</span> <span class="ident">bool</span> {
+            <span class="kw">match</span> <span class="kw-2">*</span><span class="self">self</span> {
+                <span class="ident">Position</span>::<span class="ident">TopLeft</span> <span class="op">=&gt;</span> <span class="bool-val">true</span>,
+                <span class="ident">Position</span>::<span class="ident">Top</span> <span class="op">=&gt;</span> <span class="bool-val">true</span>,
+                <span class="ident">Position</span>::<span class="ident">TopRight</span> <span class="op">=&gt;</span> <span class="bool-val">true</span>,
+                _ <span class="op">=&gt;</span> <span class="bool-val">false</span>,
             }
         }
-	    <span class='doccomment'>/// Is it part of the leftmost column?</span>
-        <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>left</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='ident'>bool</span> {
-            <span class='kw'>match</span> <span class='op'>*</span><span class='self'>self</span> {
-                <span class='ident'>Position</span>::<span class='ident'>TopLeft</span> <span class='op'>=&gt;</span> <span class='bool-val'>true</span>,
-                <span class='ident'>Position</span>::<span class='ident'>Left</span> <span class='op'>=&gt;</span> <span class='bool-val'>true</span>,
-                <span class='ident'>Position</span>::<span class='ident'>BottomLeft</span> <span class='op'>=&gt;</span> <span class='bool-val'>true</span>,
-                _ <span class='op'>=&gt;</span> <span class='bool-val'>false</span>,
+	    <span class="doccomment">/// Is it part of the leftmost column?</span>
+        <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">left</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-&gt;</span> <span class="ident">bool</span> {
+            <span class="kw">match</span> <span class="kw-2">*</span><span class="self">self</span> {
+                <span class="ident">Position</span>::<span class="ident">TopLeft</span> <span class="op">=&gt;</span> <span class="bool-val">true</span>,
+                <span class="ident">Position</span>::<span class="ident">Left</span> <span class="op">=&gt;</span> <span class="bool-val">true</span>,
+                <span class="ident">Position</span>::<span class="ident">BottomLeft</span> <span class="op">=&gt;</span> <span class="bool-val">true</span>,
+                _ <span class="op">=&gt;</span> <span class="bool-val">false</span>,
             }
         }
-	    <span class='doccomment'>/// Is it part of the rightmost column?</span>
-        <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>right</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='ident'>bool</span> {
-            <span class='kw'>match</span> <span class='op'>*</span><span class='self'>self</span> {
-                <span class='ident'>Position</span>::<span class='ident'>TopRight</span> <span class='op'>=&gt;</span> <span class='bool-val'>true</span>,
-                <span class='ident'>Position</span>::<span class='ident'>Right</span> <span class='op'>=&gt;</span> <span class='bool-val'>true</span>,
-                <span class='ident'>Position</span>::<span class='ident'>BottomRight</span> <span class='op'>=&gt;</span> <span class='bool-val'>true</span>,
-                _ <span class='op'>=&gt;</span> <span class='bool-val'>false</span>,
+	    <span class="doccomment">/// Is it part of the rightmost column?</span>
+        <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">right</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-&gt;</span> <span class="ident">bool</span> {
+            <span class="kw">match</span> <span class="kw-2">*</span><span class="self">self</span> {
+                <span class="ident">Position</span>::<span class="ident">TopRight</span> <span class="op">=&gt;</span> <span class="bool-val">true</span>,
+                <span class="ident">Position</span>::<span class="ident">Right</span> <span class="op">=&gt;</span> <span class="bool-val">true</span>,
+                <span class="ident">Position</span>::<span class="ident">BottomRight</span> <span class="op">=&gt;</span> <span class="bool-val">true</span>,
+                _ <span class="op">=&gt;</span> <span class="bool-val">false</span>,
             }
         }
-	    <span class='doccomment'>/// Is it part of the bottom row?</span>
-        <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>bottom</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='ident'>bool</span> {
-            <span class='kw'>match</span> <span class='op'>*</span><span class='self'>self</span> {
-                <span class='ident'>Position</span>::<span class='ident'>BottomLeft</span> <span class='op'>=&gt;</span> <span class='bool-val'>true</span>,
-                <span class='ident'>Position</span>::<span class='ident'>Bottom</span> <span class='op'>=&gt;</span> <span class='bool-val'>true</span>,
-                <span class='ident'>Position</span>::<span class='ident'>BottomRight</span> <span class='op'>=&gt;</span> <span class='bool-val'>true</span>,
-                _ <span class='op'>=&gt;</span> <span class='bool-val'>false</span>,
+	    <span class="doccomment">/// Is it part of the bottom row?</span>
+        <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">bottom</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-&gt;</span> <span class="ident">bool</span> {
+            <span class="kw">match</span> <span class="kw-2">*</span><span class="self">self</span> {
+                <span class="ident">Position</span>::<span class="ident">BottomLeft</span> <span class="op">=&gt;</span> <span class="bool-val">true</span>,
+                <span class="ident">Position</span>::<span class="ident">Bottom</span> <span class="op">=&gt;</span> <span class="bool-val">true</span>,
+                <span class="ident">Position</span>::<span class="ident">BottomRight</span> <span class="op">=&gt;</span> <span class="bool-val">true</span>,
+                _ <span class="op">=&gt;</span> <span class="bool-val">false</span>,
             }
         }
     }

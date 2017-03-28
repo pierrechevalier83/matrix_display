@@ -9,6 +9,7 @@
 
     <title>matrix_display::matrix::Matrix - Rust</title>
 
+    <link rel="stylesheet" type="text/css" href="../../normalize.css">
     <link rel="stylesheet" type="text/css" href="../../rustdoc.css">
     <link rel="stylesheet" type="text/css" href="../../main.css">
     
@@ -43,25 +44,25 @@
     </nav>
 
     <section id='main' class="content struct">
-<h1 class='fqn'><span class='in-band'>Struct <a href='../index.html'>matrix_display</a>::<wbr><a href='index.html'>matrix</a>::<wbr><a class='struct' href=''>Matrix</a></span><span class='out-of-band'><span id='render-detail'>
+<h1 class='fqn'><span class='in-band'>Struct <a href='../index.html'>matrix_display</a>::<wbr><a href='index.html'>matrix</a>::<wbr><a class="struct" href=''>Matrix</a></span><span class='out-of-band'><span id='render-detail'>
                    <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
                        [<span class='inner'>&#x2212;</span>]
                    </a>
                </span><a class='srclink' href='../../src/matrix_display/matrix/mod.rs.html#100-105' title='goto source code'>[src]</a></span></h1>
-<pre class='rust struct'>pub struct Matrix&lt;T&gt; <span class='where'>where T: <a class='trait' href='https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html' title='core::clone::Clone'>Clone</a></span> { /* fields omitted */ }</pre><div class='docblock'><p>Stores a matrix of arbitrary data</p>
+<pre class='rust struct'>pub struct Matrix&lt;T&gt; <span class="where fmt-newline">where T: <a class="trait" href="https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html" title="trait core::clone::Clone">Clone</a></span> { /* fields omitted */ }</pre><div class='docblock'><p>Stores a matrix of arbitrary data</p>
 
 <p>Gives mutable access to cell at given position
 Gives owned clone of data with position of each cell within the matrix</p>
-</div><h2 id='methods'>Methods</h2><h3 class='impl'><span class='in-band'><code>impl&lt;T&gt; <a class='struct' href='../../matrix_display/matrix/struct.Matrix.html' title='matrix_display::matrix::Matrix'>Matrix</a>&lt;T&gt; <span class='where'>where T: <a class='trait' href='https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html' title='core::clone::Clone'>Clone</a></span></code></span><span class='out-of-band'><div class='ghost'></div><a class='srclink' href='../../src/matrix_display/matrix/mod.rs.html#106-173' title='goto source code'>[src]</a></span></h3>
-<div class='impl-items'><h4 id='method.new' class='method'><span id='new.v' class='invisible'><code>fn <a href='#method.new' class='fnname'>new</a>(n_cols: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.usize.html'>usize</a>, cells: <a class='struct' href='https://doc.rust-lang.org/nightly/collections/vec/struct.Vec.html' title='collections::vec::Vec'>Vec</a>&lt;T&gt;) -&gt; <a class='struct' href='../../matrix_display/matrix/struct.Matrix.html' title='matrix_display::matrix::Matrix'>Matrix</a>&lt;T&gt;</code></span></h4>
+</div><h2 id='methods'>Methods</h2><h3 class='impl'><span class='in-band'><code>impl&lt;T&gt; <a class="struct" href="../../matrix_display/matrix/struct.Matrix.html" title="struct matrix_display::matrix::Matrix">Matrix</a>&lt;T&gt; <span class="where fmt-newline">where T: <a class="trait" href="https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html" title="trait core::clone::Clone">Clone</a></span></code></span><span class='out-of-band'><div class='ghost'></div><a class='srclink' href='../../src/matrix_display/matrix/mod.rs.html#106-173' title='goto source code'>[src]</a></span></h3>
+<div class='impl-items'><h4 id='method.new' class="method"><span id='new.v' class='invisible'><code>fn <a href='#method.new' class='fnname'>new</a>(n_cols: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.usize.html">usize</a>, cells: <a class="struct" href="https://doc.rust-lang.org/nightly/collections/vec/struct.Vec.html" title="struct collections::vec::Vec">Vec</a>&lt;T&gt;) -&gt; <a class="struct" href="../../matrix_display/matrix/struct.Matrix.html" title="struct matrix_display::matrix::Matrix">Matrix</a>&lt;T&gt;</code></span></h4>
 <div class='docblock'><p>Construct a matrix with the number of columns and the data represented as a row-major ordered <code>Vec</code></p>
-</div><h4 id='method.n_rows' class='method'><span id='n_rows.v' class='invisible'><code>fn <a href='#method.n_rows' class='fnname'>n_rows</a>(&amp;self) -&gt; <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.usize.html'>usize</a></code></span></h4>
+</div><h4 id='method.n_rows' class="method"><span id='n_rows.v' class='invisible'><code>fn <a href='#method.n_rows' class='fnname'>n_rows</a>(&amp;self) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.usize.html">usize</a></code></span></h4>
 <div class='docblock'><p>Number of rows in the matrix</p>
-</div><h4 id='method.n_cols' class='method'><span id='n_cols.v' class='invisible'><code>fn <a href='#method.n_cols' class='fnname'>n_cols</a>(&amp;self) -&gt; <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.usize.html'>usize</a></code></span></h4>
+</div><h4 id='method.n_cols' class="method"><span id='n_cols.v' class='invisible'><code>fn <a href='#method.n_cols' class='fnname'>n_cols</a>(&amp;self) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.usize.html">usize</a></code></span></h4>
 <div class='docblock'><p>Number of columns in the matrix</p>
-</div><h4 id='method.at' class='method'><span id='at.v' class='invisible'><code>fn <a href='#method.at' class='fnname'>at</a>(&amp;mut self, (x, y): <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.tuple.html'>(</a><a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.usize.html'>usize</a>, <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.usize.html'>usize</a><a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.tuple.html'>)</a>) -&gt; &amp;mut T</code></span></h4>
+</div><h4 id='method.at' class="method"><span id='at.v' class='invisible'><code>fn <a href='#method.at' class='fnname'>at</a>(&amp;mut self, (x, y): <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.tuple.html">(</a><a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.usize.html">usize</a>, <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.usize.html">usize</a><a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.tuple.html">)</a>) -&gt; &amp;mut T</code></span></h4>
 <div class='docblock'><p>Mutably access element at given position (row index, column index)</p>
-</div><h4 id='method.enumerate_cells' class='method'><span id='enumerate_cells.v' class='invisible'><code>fn <a href='#method.enumerate_cells' class='fnname'>enumerate_cells</a>(&amp;self) -&gt; <a class='struct' href='https://doc.rust-lang.org/nightly/collections/vec/struct.Vec.html' title='collections::vec::Vec'>Vec</a>&lt;<a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.tuple.html'>(</a>T, <a class='enum' href='../../matrix_display/matrix/position/enum.Position.html' title='matrix_display::matrix::position::Position'>Position</a><a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.tuple.html'>)</a>&gt;</code></span></h4>
+</div><h4 id='method.enumerate_cells' class="method"><span id='enumerate_cells.v' class='invisible'><code>fn <a href='#method.enumerate_cells' class='fnname'>enumerate_cells</a>(&amp;self) -&gt; <a class="struct" href="https://doc.rust-lang.org/nightly/collections/vec/struct.Vec.html" title="struct collections::vec::Vec">Vec</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.tuple.html">(</a>T, <a class="enum" href="../../matrix_display/matrix/position/enum.Position.html" title="enum matrix_display::matrix::position::Position">Position</a><a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.tuple.html">)</a>&gt;</code></span></h4>
 <div class='docblock'><p>View data stored in the matrix</p>
 
 <p>The returned data is a clone of the data owned by the <code>Matrix</code> class and is owned by the caller
