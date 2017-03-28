@@ -350,12 +350,17 @@ impl<T> MatrixDisplay<T>
             })
             .collect::<Vec<_>>();
     }
-    /// Takes a cursor position in characters (x, y) and returns a mutable reference to the corresponding cell
-	///
-	/// This is used to modify a cell that was clicked
-    pub fn cell_at_cursor_position(&mut self, (x, y): (usize, usize)) -> &mut Cell<T> {
+    /// Takes a cursor position in (usize, usize) and returns the coordinates of the cell under the cursor
+    pub fn coordinates_at_cursor_position(&self, (x, y): (usize, usize)) -> (usize, usize) {
         let col = cursor_to_index(x, self.fmt.cell_w, self.mat.n_cols());
         let row = cursor_to_index(y as usize, self.fmt.cell_h, self.mat.n_rows());
-        self.mat.at((col, row))	
+         (col, row)
+    }
+    /// Takes a cursor position in characters (x, y) and returns a mutable reference to the corresponding cell
+    ///
+    /// This is used to modify a cell that was clicked
+    pub fn cell_at_cursor_position(&mut self, cursor: (usize, usize)) -> &mut Cell<T> {
+        let coord = self.coordinates_at_cursor_position(cursor);
+        self.mat.at(coord)
 	}
 }
