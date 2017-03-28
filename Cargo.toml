@@ -4,6 +4,8 @@ description = "A library to display a matrix in command line with pretty unicode
 version = "0.5.0"
 authors = ["Pierre Chevalier <pierrechevalier83@gmail.com>"]
 license = "MIT"
+documentation = "https://pierrechevalier83.github.io/matrix_display/"
+repository = "https://github.com/pierrechevalier83/matrix_display"
 
 [dependencies]
 ansi_term= "0.9"
