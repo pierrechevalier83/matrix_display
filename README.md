@@ -107,3 +107,9 @@ fn main() {
 ![alt tag](https://github.com/pierrechevalier83/matrix_display/blob/master/screenshots/palette.png)
 
 For a self contained implementation, see [palette-rs](https://github.com/pierrechevalier83/palette-rs)
+
+TODO
+----
+
+- Leverage fdehau/tui-rs to avoid redrawing the entire screen at every frame
+ - Should help with performance issues with [snake-rs](https://github.com/pierrechevalier83/snake-rs), my snake implementations.
