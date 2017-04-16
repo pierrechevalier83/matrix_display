@@ -216,6 +216,7 @@
 <span id="171">171</span>
 <span id="172">172</span>
 <span id="173">173</span>
+<span id="174">174</span>
 </pre><pre class="rust ">
 <span class="doccomment">//! Provides `Matrix` which stores a matrix of arbitrary data</span>
 <span class="doccomment">//!</span>
@@ -316,6 +317,7 @@
 <span class="doccomment">///</span>
 <span class="doccomment">/// Gives mutable access to cell at given position</span>
 <span class="doccomment">/// Gives owned clone of data with position of each cell within the matrix</span>
+<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>)]</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">Matrix</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>
     <span class="kw">where</span> <span class="ident">T</span>: <span class="ident">Clone</span>
 {

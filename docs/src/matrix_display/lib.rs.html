@@ -409,6 +409,7 @@
 <span id="364">364</span>
 <span id="365">365</span>
 <span id="366">366</span>
+<span id="367">367</span>
 </pre><pre class="rust ">
 <span class="doccomment">//! A simple library to visualize 2D matrixes in rust.</span>
 <span class="doccomment">//!</span>
@@ -449,8 +450,8 @@
 <span class="doccomment">//! 		    cell::Cell::new(x.clone(), ansi_fg, ansi_bg)</span>
 <span class="doccomment">//! 			})</span>
 <span class="doccomment">//!         .collect::&lt;Vec&lt;_&gt;&gt;();</span>
-<span class="doccomment">//!     let data = matrix::Matrix::new(8, board);</span>
-<span class="doccomment">//!     let mut display = MatrixDisplay::new(format, data);</span>
+<span class="doccomment">//!     let mut data = matrix::Matrix::new(8, board);</span>
+<span class="doccomment">//!     let mut display = MatrixDisplay::new(&amp;format, &amp;mut data);</span>
 <span class="doccomment">//! 	display.cell_at_cursor_position((13, 6)).color.bg = 10;</span>
 <span class="doccomment">//!     display.print(&amp;mut std::io::stdout(), &amp;style::BordersStyle::None);</span>
 <span class="doccomment">//! }</span>
@@ -526,25 +527,25 @@
     <span class="attribute">#[<span class="ident">test</span>]</span>
     <span class="kw">fn</span> <span class="ident">width</span>() {
         <span class="kw">let</span> <span class="ident">f</span> <span class="op">=</span> <span class="ident">Format</span>::<span class="ident">new</span>(<span class="number">5</span>, <span class="number">7</span>);
-        <span class="kw">let</span> <span class="ident">m</span> <span class="op">=</span> <span class="ident">Matrix</span>::<span class="ident">new</span>(<span class="number">3</span>,
+        <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">m</span> <span class="op">=</span> <span class="ident">Matrix</span>::<span class="ident">new</span>(<span class="number">3</span>,
                             (<span class="number">0</span>..<span class="number">24</span>)
                                 .<span class="ident">map</span>(<span class="op">|</span>_<span class="op">|</span> {
                                     <span class="ident">Cell</span>::<span class="ident">new</span>(<span class="string">&#39; &#39;</span>, <span class="ident">AnsiColor</span>::<span class="ident">default</span>().<span class="ident">fg</span>, <span class="ident">AnsiColor</span>::<span class="ident">default</span>().<span class="ident">bg</span>)
                                 })
                                 .<span class="ident">collect</span>::<span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span>_<span class="op">&gt;&gt;</span>());
-        <span class="kw">let</span> <span class="ident">d</span> <span class="op">=</span> <span class="ident">MatrixDisplay</span>::<span class="ident">new</span>(<span class="ident">f</span>, <span class="ident">m</span>);
+        <span class="kw">let</span> <span class="ident">d</span> <span class="op">=</span> <span class="ident">MatrixDisplay</span>::<span class="ident">new</span>(<span class="kw-2">&amp;</span><span class="ident">f</span>, <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">m</span>);
         <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="number">3</span> <span class="op">*</span> <span class="number">5</span>, <span class="ident">d</span>.<span class="ident">width</span>());
     }
     <span class="attribute">#[<span class="ident">test</span>]</span>
     <span class="kw">fn</span> <span class="ident">height</span>() {
         <span class="kw">let</span> <span class="ident">f</span> <span class="op">=</span> <span class="ident">Format</span>::<span class="ident">new</span>(<span class="number">5</span>, <span class="number">7</span>);
-        <span class="kw">let</span> <span class="ident">m</span> <span class="op">=</span> <span class="ident">Matrix</span>::<span class="ident">new</span>(<span class="number">3</span>,
+        <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">m</span> <span class="op">=</span> <span class="ident">Matrix</span>::<span class="ident">new</span>(<span class="number">3</span>,
                             (<span class="number">0</span>..<span class="number">24</span>)
                                 .<span class="ident">map</span>(<span class="op">|</span>_<span class="op">|</span> {
                                     <span class="ident">Cell</span>::<span class="ident">new</span>(<span class="string">&#39; &#39;</span>, <span class="ident">AnsiColor</span>::<span class="ident">default</span>().<span class="ident">fg</span>, <span class="ident">AnsiColor</span>::<span class="ident">default</span>().<span class="ident">bg</span>)
                                 })
                                 .<span class="ident">collect</span>::<span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span>_<span class="op">&gt;&gt;</span>());
-        <span class="kw">let</span> <span class="ident">d</span> <span class="op">=</span> <span class="ident">MatrixDisplay</span>::<span class="ident">new</span>(<span class="ident">f</span>, <span class="ident">m</span>);
+        <span class="kw">let</span> <span class="ident">d</span> <span class="op">=</span> <span class="ident">MatrixDisplay</span>::<span class="ident">new</span>(<span class="kw-2">&amp;</span><span class="ident">f</span>, <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">m</span>);
         <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="number">8</span> <span class="op">*</span> <span class="number">7</span>, <span class="ident">d</span>.<span class="ident">height</span>());
     }
 }
@@ -655,26 +656,26 @@
 <span class="doccomment">/// let board = (0..256)</span>
 <span class="doccomment">///        .map(|x| cell::Cell::new(x, 0, x as u8))</span>
 <span class="doccomment">///     .collect::&lt;Vec&lt;_&gt;&gt;();</span>
-<span class="doccomment">/// let data = matrix::Matrix::new(8, board);</span>
-<span class="doccomment">/// let display = MatrixDisplay::new(format, data);</span>
+<span class="doccomment">/// let mut data = matrix::Matrix::new(8, board);</span>
+<span class="doccomment">/// let display = MatrixDisplay::new(&amp;format, &amp;mut data);</span>
 <span class="doccomment">/// display.print(&amp;mut std::io::stdout(), &amp;style::BordersStyle::Thin);</span>
 <span class="doccomment">/// ```</span>
-<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">MatrixDisplay</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>
+<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">MatrixDisplay</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span>, <span class="ident">T</span><span class="op">&gt;</span>
     <span class="kw">where</span> <span class="ident">T</span>: <span class="ident">Clone</span>,
-          <span class="ident">T</span>: <span class="ident">ToString</span>
+          <span class="ident">T</span>: <span class="ident">ToString</span> <span class="op">+</span> <span class="lifetime">&#39;a</span>
 {
-    <span class="ident">fmt</span>: <span class="ident">Format</span>,
-    <span class="ident">mat</span>: <span class="ident">Matrix</span><span class="op">&lt;</span><span class="ident">Cell</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;&gt;</span>,
+    <span class="ident">fmt</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">Format</span>,
+    <span class="ident">mat</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="kw-2">mut</span> <span class="ident">Matrix</span><span class="op">&lt;</span><span class="ident">Cell</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;&gt;</span>,
 }
-<span class="kw">impl</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span> <span class="ident">MatrixDisplay</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>
+<span class="kw">impl</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span>, <span class="ident">T</span><span class="op">&gt;</span> <span class="ident">MatrixDisplay</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span>, <span class="ident">T</span><span class="op">&gt;</span>
     <span class="kw">where</span> <span class="ident">T</span>: <span class="ident">Clone</span>,
-          <span class="ident">T</span>: <span class="ident">ToString</span>
+          <span class="ident">T</span>: <span class="ident">ToString</span> <span class="op">+</span> <span class="lifetime">&#39;a</span>
 {
     <span class="doccomment">/// Construct a matrix display</span>
 	<span class="doccomment">///</span>
 	<span class="doccomment">/// f: the format of a cell (width, height)</span>
-	<span class="doccomment">/// m: the data (Matrix&lt;Cell&gt;)</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">f</span>: <span class="ident">Format</span>, <span class="ident">m</span>: <span class="ident">Matrix</span><span class="op">&lt;</span><span class="ident">Cell</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;&gt;</span>) <span class="op">-&gt;</span> <span class="ident">MatrixDisplay</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span> {
+	<span class="doccomment">/// m: a reference to the data (&amp;Matrix&lt;Cell&gt;)</span>
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">f</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">Format</span>, <span class="ident">m</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="kw-2">mut</span> <span class="ident">Matrix</span><span class="op">&lt;</span><span class="ident">Cell</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;&gt;</span>) <span class="op">-&gt;</span> <span class="ident">MatrixDisplay</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span>, <span class="ident">T</span><span class="op">&gt;</span> {
         <span class="ident">MatrixDisplay</span> { <span class="ident">fmt</span>: <span class="ident">f</span>, <span class="ident">mat</span>: <span class="ident">m</span> }
     }
     <span class="kw">fn</span> <span class="ident">n_rows</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-&gt;</span> <span class="ident">usize</span> {
@@ -776,6 +777,7 @@
         <span class="self">self</span>.<span class="ident">mat</span>.<span class="ident">at</span>(<span class="ident">coord</span>)
 	}
 }
+
 </pre>
 </section>
     <section id='search' class="content hidden"></section>
