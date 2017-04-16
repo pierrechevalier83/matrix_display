@@ -247,22 +247,22 @@ fn cursor_to_index(x: usize, cell_dim: usize, n_cells: usize) -> usize {
 /// let display = MatrixDisplay::new(format, data);
 /// display.print(&mut std::io::stdout(), &style::BordersStyle::Thin);
 /// ```
-pub struct MatrixDisplay<T>
+pub struct MatrixDisplay<'a, T>
     where T: Clone,
-          T: ToString
+          T: ToString + 'a
 {
-    fmt: Format,
-    mat: Matrix<Cell<T>>,
+    fmt: &'a Format,
+    mat: &'a mut Matrix<Cell<T>>,
 }
-impl<T> MatrixDisplay<T>
+impl<'a, T> MatrixDisplay<'a, T>
     where T: Clone,
-          T: ToString
+          T: ToString + 'a
 {
     /// Construct a matrix display
 	///
 	/// f: the format of a cell (width, height)
-	/// m: the data (Matrix<Cell>)
-    pub fn new(f: Format, m: Matrix<Cell<T>>) -> MatrixDisplay<T> {
+	/// m: a reference to the data (&Matrix<Cell>)
+    pub fn new(f: &'a Format, m: &'a mut Matrix<Cell<T>>) -> MatrixDisplay<'a, T> {
         MatrixDisplay { fmt: f, mat: m }
     }
     fn n_rows(&self) -> usize {
@@ -364,3 +364,4 @@ impl<T> MatrixDisplay<T>
         self.mat.at(coord)
 	}
 }
+

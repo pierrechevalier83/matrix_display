@@ -97,6 +97,7 @@ mod matrix_tests {
 ///
 /// Gives mutable access to cell at given position
 /// Gives owned clone of data with position of each cell within the matrix
+#[derive(Clone)]
 pub struct Matrix<T>
     where T: Clone
 {
