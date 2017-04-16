@@ -37,8 +37,8 @@
 //! 		    cell::Cell::new(x.clone(), ansi_fg, ansi_bg)
 //! 			})
 //!         .collect::<Vec<_>>();
-//!     let data = matrix::Matrix::new(8, board);
-//!     let mut display = MatrixDisplay::new(format, data);
+//!     let mut data = matrix::Matrix::new(8, board);
+//!     let mut display = MatrixDisplay::new(&format, &mut data);
 //! 	display.cell_at_cursor_position((13, 6)).color.bg = 10;
 //!     display.print(&mut std::io::stdout(), &style::BordersStyle::None);
 //! }
@@ -114,25 +114,25 @@ mod matrix_display_tests {
     #[test]
     fn width() {
         let f = Format::new(5, 7);
-        let m = Matrix::new(3,
+        let mut m = Matrix::new(3,
                             (0..24)
                                 .map(|_| {
                                     Cell::new(' ', AnsiColor::default().fg, AnsiColor::default().bg)
                                 })
                                 .collect::<Vec<_>>());
-        let d = MatrixDisplay::new(f, m);
+        let d = MatrixDisplay::new(&f, &mut m);
         assert_eq!(3 * 5, d.width());
     }
     #[test]
     fn height() {
         let f = Format::new(5, 7);
-        let m = Matrix::new(3,
+        let mut m = Matrix::new(3,
                             (0..24)
                                 .map(|_| {
                                     Cell::new(' ', AnsiColor::default().fg, AnsiColor::default().bg)
                                 })
                                 .collect::<Vec<_>>());
-        let d = MatrixDisplay::new(f, m);
+        let d = MatrixDisplay::new(&f, &mut m);
         assert_eq!(8 * 7, d.height());
     }
 }
@@ -243,8 +243,8 @@ fn cursor_to_index(x: usize, cell_dim: usize, n_cells: usize) -> usize {
 /// let board = (0..256)
 ///        .map(|x| cell::Cell::new(x, 0, x as u8))
 ///     .collect::<Vec<_>>();
-/// let data = matrix::Matrix::new(8, board);
-/// let display = MatrixDisplay::new(format, data);
+/// let mut data = matrix::Matrix::new(8, board);
+/// let display = MatrixDisplay::new(&format, &mut data);
 /// display.print(&mut std::io::stdout(), &style::BordersStyle::Thin);
 /// ```
 pub struct MatrixDisplay<'a, T>
