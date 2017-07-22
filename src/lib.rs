@@ -358,13 +358,14 @@ where
             })
             .collect::<Vec<_>>()
     }
-    /// Print a matrix. This is the most important method of this library
+    /// Render a matrix into a Vec<ANSIString>.
     ///
     /// Pick a BorderStyle, an output that implements the Write trait and
     /// you're good to go!
-    pub fn print<Out: Write>(&self, out: &mut Out, borders: &BordersStyle) {
+    /// This approach allows the user to customize how to display the matrix.
+    pub fn render(&self, borders: &BordersStyle) -> Vec<ansi_term::ANSIString<'static>> {
         let vertical_pad = Pad::new(self.fmt.cell_h, 1);
-        let mat = self.mat
+        self.mat
             .enumerate_cells()
             .chunks(self.n_cols())
             .into_iter()
@@ -385,8 +386,14 @@ where
                 all_strings
                 //    row
             })
-            .collect::<Vec<_>>();
-        write!(out, "{}", ansi_term::ANSIStrings(&*mat)).unwrap();
+            .collect::<Vec<_>>()
+    }
+    /// Print a matrix. This is the most important method of this library
+    ///
+    /// Pick a BorderStyle, an output that implements the Write trait and
+    /// you're good to go!
+    pub fn print<Out: Write>(&self, out: &mut Out, borders: &BordersStyle) {
+        write!(out, "{}", ansi_term::ANSIStrings(&*self.render(borders))).unwrap();
     }
     /// Takes a cursor position in (usize, usize) and returns the coordinates of the cell under the cursor
     pub fn coordinates_at_cursor_position(&self, (x, y): (usize, usize)) -> (usize, usize) {
