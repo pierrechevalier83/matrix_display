@@ -321,7 +321,7 @@ where
     ) -> Vec<ansi_term::ANSIString<'static>> {
         row.iter()
             .cycle()
-            .take(pad)
+            .take(pad * row.len())
             .flat_map(|&(ref cell, ref pos)| {
                 CellDisplay::with_borders(borders).padding_cell(pos, self.fmt.cell_w, &cell.color)
             })
