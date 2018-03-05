@@ -117,9 +117,7 @@ mod matrix_display_tests {
         let mut m = Matrix::new(
             3,
             (0..24)
-                .map(|_| {
-                    Cell::new(' ', AnsiColor::default().fg, AnsiColor::default().bg)
-                })
+                .map(|_| Cell::new(' ', AnsiColor::default().fg, AnsiColor::default().bg))
                 .collect::<Vec<_>>(),
         );
         let d = MatrixDisplay::new(&f, &mut m);
@@ -131,9 +129,7 @@ mod matrix_display_tests {
         let mut m = Matrix::new(
             3,
             (0..24)
-                .map(|_| {
-                    Cell::new(' ', AnsiColor::default().fg, AnsiColor::default().bg)
-                })
+                .map(|_| Cell::new(' ', AnsiColor::default().fg, AnsiColor::default().bg))
                 .collect::<Vec<_>>(),
         );
         let d = MatrixDisplay::new(&f, &mut m);
@@ -371,17 +367,9 @@ where
             .into_iter()
             .flat_map(|row| {
                 let mut all_strings = self.print_top(borders, row);
-                all_strings.append(&mut self.print_vertical_pad(
-                    borders,
-                    row,
-                    vertical_pad.before,
-                ));
+                all_strings.append(&mut self.print_vertical_pad(borders, row, vertical_pad.before));
                 all_strings.append(&mut self.print_value_row(borders, row));
-                all_strings.append(&mut self.print_vertical_pad(
-                    borders,
-                    row,
-                    vertical_pad.after,
-                ));
+                all_strings.append(&mut self.print_vertical_pad(borders, row, vertical_pad.after));
                 all_strings.append(&mut self.print_bottom(borders, row));
                 all_strings
                 //    row
