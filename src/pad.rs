@@ -49,7 +49,7 @@ mod pad_tests {
 
 mod pad {
 
-    use pad::unicode_width::{UnicodeWidthChar, UnicodeWidthStr};
+    use crate::pad::unicode_width::{UnicodeWidthChar, UnicodeWidthStr};
     use std;
 
     pub struct Pad {

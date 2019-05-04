@@ -49,13 +49,13 @@ pub mod matrix;
 mod pad;
 pub mod style;
 
-use cell::AnsiColor;
-use cell::Cell;
-use matrix::position::Position;
-use matrix::Matrix;
-use pad::horizontal_pad;
-use pad::Pad;
-use style::BordersStyle;
+use crate::cell::AnsiColor;
+use crate::cell::Cell;
+use crate::matrix::position::Position;
+use crate::matrix::Matrix;
+use crate::pad::horizontal_pad;
+use crate::pad::Pad;
+use crate::style::BordersStyle;
 
 extern crate ansi_term;
 
@@ -108,9 +108,9 @@ impl Default for Format {
 mod matrix_display_tests {
     use super::Format;
     use super::MatrixDisplay;
-    use cell::AnsiColor;
-    use cell::Cell;
-    use matrix::Matrix;
+    use crate::cell::AnsiColor;
+    use crate::cell::Cell;
+    use crate::matrix::Matrix;
     #[test]
     fn width() {
         let f = Format::new(5, 7);

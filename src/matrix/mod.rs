@@ -10,8 +10,8 @@ use self::position::Position;
 mod matrix_tests {
     use super::position::Position;
     use super::Matrix;
-    use cell::AnsiColor;
-    use cell::Cell;
+    use crate::cell::AnsiColor;
+    use crate::cell::Cell;
     #[test]
     fn constructor() {
         let n = 4;
