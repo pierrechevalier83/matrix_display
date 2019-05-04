@@ -8,5 +8,5 @@ documentation = "https://pierrechevalier83.github.io/matrix_display/"
 repository = "https://github.com/pierrechevalier83/matrix_display"
 
 [dependencies]
-ansi_term= "0.11"
-unicode-width= "0.1.4"
+ansi_term= "0.11.0"
+unicode-width= "0.1.5"
