@@ -53,8 +53,8 @@ use cell::AnsiColor;
 use cell::Cell;
 use matrix::position::Position;
 use matrix::Matrix;
-use pad::Pad;
 use pad::horizontal_pad;
+use pad::Pad;
 use style::BordersStyle;
 
 extern crate ansi_term;
@@ -106,11 +106,11 @@ impl Default for Format {
 
 #[cfg(test)]
 mod matrix_display_tests {
-    use cell::Cell;
-    use cell::AnsiColor;
-    use matrix::Matrix;
     use super::Format;
     use super::MatrixDisplay;
+    use cell::AnsiColor;
+    use cell::Cell;
+    use matrix::Matrix;
     #[test]
     fn width() {
         let f = Format::new(5, 7);

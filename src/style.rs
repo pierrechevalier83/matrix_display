@@ -8,70 +8,70 @@ pub use self::style::BordersStyle;
 
 mod style {
     /// An enum that represents different unicode borders styles
-	///
-	/// It provides accessors for specific locations such as top_left_corner to be used by the printing code
+    ///
+    /// It provides accessors for specific locations such as top_left_corner to be used by the printing code
     #[derive(PartialEq)]
     pub enum BordersStyle {
-		///✓✓
-		///
-		///✓✓
+        ///✓✓
+        ///
+        ///✓✓
         None,
-	    ///
-		///✓✓
-		///
-		///✓✓
-		///
+        ///
+        ///✓✓
+        ///
+        ///✓✓
+        ///
         Plain,
-	    /// +-+-+
-		///
-        /// |✓|✓|
-		///
         /// +-+-+
-		///
+        ///
         /// |✓|✓|
-		///
+        ///
+        /// +-+-+
+        ///
+        /// |✓|✓|
+        ///
         /// +-+-+
         Retro,
         /// ┌─┬─┐
-		///
+        ///
         /// │✓│✓│
-		///
+        ///
         /// ├─┼─┤
-		///
+        ///
         /// │✓│✓│
-		///
+        ///
         /// └─┴─┘
         Thin,
-		/// ╭─┬─╮
-		///
+        /// ╭─┬─╮
+        ///
         /// │✓│✓│
-		///
+        ///
         /// ├─┼─┤
-		///
+        ///
         /// │✓│✓│
-		///
+        ///
         /// ╰─┴─╯
         Rounded,
-		/// ┏━┳━┓
-		///
+        /// ┏━┳━┓
+        ///
         /// ┃✓┃✓┃
-		///
+        ///
         /// ┣━╋━┫
-		///
+        ///
         /// ┃✓┃✓┃
-		///
+        ///
         /// ┗━┻━┛
         Thick,
-		/// ╔═╦═╗
-		///
+        /// ╔═╦═╗
+        ///
         /// ║✓║✓║
-		///
+        ///
         /// ╠═╬═╣
-		///
+        ///
         /// ║✓║✓║
-		///
+        ///
         /// ╚═╩═╝
-		Double,
+        Double,
     }
 
     impl BordersStyle {

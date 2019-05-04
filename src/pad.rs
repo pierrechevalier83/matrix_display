@@ -1,13 +1,11 @@
-pub use self::pad::Pad;
 pub use self::pad::horizontal_pad;
+pub use self::pad::Pad;
 
 extern crate unicode_width;
 
-
-
 #[cfg(test)]
 mod pad_tests {
-    use super::{ Pad, horizontal_pad };
+    use super::{horizontal_pad, Pad};
     #[test]
     pub fn adds_up_to_correct_size() {
         let pad = Pad::new(12, 3);
@@ -51,7 +49,7 @@ mod pad_tests {
 
 mod pad {
 
-    use pad::unicode_width::{ UnicodeWidthStr, UnicodeWidthChar };
+    use pad::unicode_width::{UnicodeWidthChar, UnicodeWidthStr};
     use std;
 
     pub struct Pad {
@@ -73,7 +71,8 @@ mod pad {
         assert!(c.width().unwrap_or(0) <= 1, "{:?} width > 1", c);
 
         let pad = Pad::new(width, s.width());
-        std::iter::repeat(c).take(pad.before).collect::<String>() + s +
-        &std::iter::repeat(c).take(pad.after).collect::<String>()
+        std::iter::repeat(c).take(pad.before).collect::<String>()
+            + s
+            + &std::iter::repeat(c).take(pad.after).collect::<String>()
     }
 }
