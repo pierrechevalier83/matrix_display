@@ -1,0 +1,1 @@
+initSidebarItems({"enum":[["Vai","An enum to represent all characters in the Vai block."]]});

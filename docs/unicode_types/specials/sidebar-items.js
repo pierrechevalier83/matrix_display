@@ -1,0 +1,1 @@
+initSidebarItems({"enum":[["Specials","An enum to represent all characters in the Specials block."]]});

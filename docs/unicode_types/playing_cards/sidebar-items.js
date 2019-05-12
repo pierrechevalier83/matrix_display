@@ -1,0 +1,1 @@
+initSidebarItems({"enum":[["PlayingCards","An enum to represent all characters in the PlayingCards block."]]});

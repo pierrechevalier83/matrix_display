@@ -1,0 +1,1 @@
+initSidebarItems({"enum":[["SoraSompeng","An enum to represent all characters in the SoraSompeng block."]]});

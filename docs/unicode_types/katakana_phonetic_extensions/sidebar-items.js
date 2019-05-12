@@ -1,0 +1,1 @@
+initSidebarItems({"enum":[["KatakanaPhoneticExtensions","An enum to represent all characters in the KatakanaPhoneticExtensions block."]]});

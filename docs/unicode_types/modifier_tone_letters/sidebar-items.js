@@ -1,0 +1,1 @@
+initSidebarItems({"enum":[["ModifierToneLetters","An enum to represent all characters in the ModifierToneLetters block."]]});

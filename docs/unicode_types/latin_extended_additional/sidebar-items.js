@@ -1,0 +1,1 @@
+initSidebarItems({"enum":[["LatinExtendedAdditional","An enum to represent all characters in the LatinExtendedAdditional block."]]});

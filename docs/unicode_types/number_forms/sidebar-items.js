@@ -1,0 +1,1 @@
+initSidebarItems({"enum":[["NumberForms","An enum to represent all characters in the NumberForms block."]]});

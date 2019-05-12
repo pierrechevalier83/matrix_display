@@ -1,0 +1,1 @@
+initSidebarItems({"enum":[["VariationSelectorsSupplement","An enum to represent all characters in the VariationSelectorsSupplement block."]]});

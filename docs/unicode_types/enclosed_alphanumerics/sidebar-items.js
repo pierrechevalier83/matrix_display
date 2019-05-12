@@ -1,0 +1,1 @@
+initSidebarItems({"enum":[["EnclosedAlphanumerics","An enum to represent all characters in the EnclosedAlphanumerics block."]]});

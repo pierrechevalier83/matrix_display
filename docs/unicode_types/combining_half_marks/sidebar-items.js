@@ -1,0 +1,1 @@
+initSidebarItems({"enum":[["CombiningHalfMarks","An enum to represent all characters in the CombiningHalfMarks block."]]});

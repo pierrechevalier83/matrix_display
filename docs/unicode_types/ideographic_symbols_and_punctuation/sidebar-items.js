@@ -1,0 +1,1 @@
+initSidebarItems({"enum":[["IdeographicSymbolsandPunctuation","An enum to represent all characters in the IdeographicSymbolsandPunctuation block."]]});

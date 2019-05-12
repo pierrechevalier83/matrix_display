@@ -1,0 +1,1 @@
+initSidebarItems({"enum":[["Medefaidrin","An enum to represent all characters in the Medefaidrin block."]]});

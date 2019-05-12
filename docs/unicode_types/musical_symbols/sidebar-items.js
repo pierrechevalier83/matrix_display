@@ -1,0 +1,1 @@
+initSidebarItems({"enum":[["MusicalSymbols","An enum to represent all characters in the MusicalSymbols block."]]});

@@ -1,0 +1,1 @@
+initSidebarItems({"enum":[["MeroiticCursive","An enum to represent all characters in the MeroiticCursive block."]]});

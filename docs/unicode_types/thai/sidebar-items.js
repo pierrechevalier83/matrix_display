@@ -1,0 +1,1 @@
+initSidebarItems({"enum":[["Thai","An enum to represent all characters in the Thai block."]]});

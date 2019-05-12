@@ -1,0 +1,1 @@
+initSidebarItems({"enum":[["OpticalCharacterRecognition","An enum to represent all characters in the OpticalCharacterRecognition block."]]});

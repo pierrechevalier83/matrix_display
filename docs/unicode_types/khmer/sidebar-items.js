@@ -1,0 +1,1 @@
+initSidebarItems({"enum":[["Khmer","An enum to represent all characters in the Khmer block."]]});

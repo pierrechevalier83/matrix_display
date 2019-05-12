@@ -1,0 +1,1 @@
+initSidebarItems({"enum":[["Gothic","An enum to represent all characters in the Gothic block."]]});

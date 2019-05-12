@@ -1,0 +1,1 @@
+initSidebarItems({"enum":[["Carian","An enum to represent all characters in the Carian block."]]});

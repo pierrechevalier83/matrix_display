@@ -1,0 +1,1 @@
+initSidebarItems({"enum":[["Nabataean","An enum to represent all characters in the Nabataean block."]]});

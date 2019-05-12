@@ -1,0 +1,1 @@
+initSidebarItems({"enum":[["Grantha","An enum to represent all characters in the Grantha block."]]});

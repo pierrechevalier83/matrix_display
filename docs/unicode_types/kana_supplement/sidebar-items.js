@@ -1,0 +1,1 @@
+initSidebarItems({"enum":[["KanaSupplement","An enum to represent all characters in the KanaSupplement block."]]});

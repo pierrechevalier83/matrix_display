@@ -1,0 +1,1 @@
+initSidebarItems({"enum":[["Glagolitic","An enum to represent all characters in the Glagolitic block."]]});

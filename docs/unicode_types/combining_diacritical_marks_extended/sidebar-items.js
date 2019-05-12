@@ -1,0 +1,1 @@
+initSidebarItems({"enum":[["CombiningDiacriticalMarksExtended","An enum to represent all characters in the CombiningDiacriticalMarksExtended block."]]});

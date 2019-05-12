@@ -1,0 +1,1 @@
+initSidebarItems({"enum":[["Ugaritic","An enum to represent all characters in the Ugaritic block."]]});

@@ -1,0 +1,1 @@
+initSidebarItems({"enum":[["BraillePatterns","An enum to represent all characters in the BraillePatterns block."]]});

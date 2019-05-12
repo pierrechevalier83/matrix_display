@@ -1,0 +1,1 @@
+initSidebarItems({"enum":[["UnifiedCanadianAboriginalSyllabicsExtended","An enum to represent all characters in the UnifiedCanadianAboriginalSyllabicsExtended block."]]});

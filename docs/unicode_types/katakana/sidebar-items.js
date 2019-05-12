@@ -1,0 +1,1 @@
+initSidebarItems({"enum":[["Katakana","An enum to represent all characters in the Katakana block."]]});

@@ -1,0 +1,1 @@
+initSidebarItems({"enum":[["Runic","An enum to represent all characters in the Runic block."]]});

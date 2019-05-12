@@ -1,0 +1,1 @@
+initSidebarItems({"enum":[["CJKUnifiedIdeographsExtensionF","An enum to represent all characters in the CJKUnifiedIdeographsExtensionF block."]]});

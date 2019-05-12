@@ -1,0 +1,1 @@
+initSidebarItems({"enum":[["VedicExtensions","An enum to represent all characters in the VedicExtensions block."]]});

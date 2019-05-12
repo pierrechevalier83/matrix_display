@@ -1,0 +1,1 @@
+initSidebarItems({"enum":[["Hiragana","An enum to represent all characters in the Hiragana block."]]});

@@ -1,0 +1,1 @@
+initSidebarItems({"enum":[["HalfwidthandFullwidthForms","An enum to represent all characters in the HalfwidthandFullwidthForms block."]]});

@@ -1,0 +1,1 @@
+initSidebarItems({"enum":[["Kannada","An enum to represent all characters in the Kannada block."]]});

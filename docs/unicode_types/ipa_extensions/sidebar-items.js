@@ -1,0 +1,1 @@
+initSidebarItems({"enum":[["IPAExtensions","An enum to represent all characters in the IPAExtensions block."]]});

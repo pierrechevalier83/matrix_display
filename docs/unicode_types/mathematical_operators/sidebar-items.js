@@ -1,0 +1,1 @@
+initSidebarItems({"enum":[["MathematicalOperators","An enum to represent all characters in the MathematicalOperators block."]]});

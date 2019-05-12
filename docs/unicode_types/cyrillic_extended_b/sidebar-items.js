@@ -1,0 +1,1 @@
+initSidebarItems({"enum":[["CyrillicExtendedB","An enum to represent all characters in the CyrillicExtendedB block."]]});

@@ -1,0 +1,1 @@
+initSidebarItems({"enum":[["VerticalForms","An enum to represent all characters in the VerticalForms block."]]});

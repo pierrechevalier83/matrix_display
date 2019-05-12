@@ -1,0 +1,1 @@
+initSidebarItems({"enum":[["Javanese","An enum to represent all characters in the Javanese block."]]});

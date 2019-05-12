@@ -1,0 +1,1 @@
+initSidebarItems({"enum":[["CJKCompatibilityForms","An enum to represent all characters in the CJKCompatibilityForms block."]]});

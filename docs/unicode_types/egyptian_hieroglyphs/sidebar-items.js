@@ -1,0 +1,1 @@
+initSidebarItems({"enum":[["EgyptianHieroglyphs","An enum to represent all characters in the EgyptianHieroglyphs block."]]});

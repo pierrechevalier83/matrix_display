@@ -1,0 +1,1 @@
+initSidebarItems({"enum":[["SupplementalSymbolsandPictographs","An enum to represent all characters in the SupplementalSymbolsandPictographs block."]]});

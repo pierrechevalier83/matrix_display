@@ -1,0 +1,1 @@
+initSidebarItems({"enum":[["MeroiticHieroglyphs","An enum to represent all characters in the MeroiticHieroglyphs block."]]});

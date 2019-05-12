@@ -1,0 +1,1 @@
+initSidebarItems({"enum":[["HangulCompatibilityJamo","An enum to represent all characters in the HangulCompatibilityJamo block."]]});

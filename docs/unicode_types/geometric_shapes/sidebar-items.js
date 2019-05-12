@@ -1,0 +1,1 @@
+initSidebarItems({"enum":[["GeometricShapes","An enum to represent all characters in the GeometricShapes block."]]});

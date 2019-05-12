@@ -1,0 +1,1 @@
+initSidebarItems({"enum":[["Tags","An enum to represent all characters in the Tags block."]]});

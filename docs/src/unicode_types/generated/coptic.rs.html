@@ -1,0 +1,1111 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source to the Rust file `/home/pierrec/.cargo/registry/src/github.com-1ecc6299db9ec823/unicode_types-0.2.0/src/generated/coptic.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>coptic.rs.html -- source</title><link rel="stylesheet" type="text/css" href="../../../normalize.css"><link rel="stylesheet" type="text/css" href="../../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../../../dark.css"><link rel="stylesheet" type="text/css" href="../../../light.css" id="themeStyle"><script src="../../../storage.js"></script><noscript><link rel="stylesheet" href="../../../noscript.css"></noscript><link rel="shortcut icon" href="../../../favicon.ico"><style type="text/css">#crate-search{background-image:url("../../../down-arrow.svg");}</style></head><body class="rustdoc source"><!--[if lte IE 8]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="sidebar-menu">&#9776;</div><a href='../../../unicode_types/index.html'><img src='../../../rust-logo.png' alt='logo' width='100'></a></nav><div class="theme-picker"><button id="theme-picker" aria-label="Pick another theme!"><img src="../../../brush.svg" width="18" alt="Pick another theme!"></button><div id="theme-choices"></div></div><script src="../../../theme.js"></script><nav class="sub"><form class="search-form js-only"><div class="search-container"><div><select id="crate-search"><option value="All crates">All crates</option></select><input class="search-input" name="search" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"></div><a id="settings-menu" href="../../../settings.html"><img src="../../../wheel.svg" width="18" alt="Change settings"></a></div></form></nav><section id="main" class="content"><pre class="line-numbers"><span id="1">  1</span>
+<span id="2">  2</span>
+<span id="3">  3</span>
+<span id="4">  4</span>
+<span id="5">  5</span>
+<span id="6">  6</span>
+<span id="7">  7</span>
+<span id="8">  8</span>
+<span id="9">  9</span>
+<span id="10"> 10</span>
+<span id="11"> 11</span>
+<span id="12"> 12</span>
+<span id="13"> 13</span>
+<span id="14"> 14</span>
+<span id="15"> 15</span>
+<span id="16"> 16</span>
+<span id="17"> 17</span>
+<span id="18"> 18</span>
+<span id="19"> 19</span>
+<span id="20"> 20</span>
+<span id="21"> 21</span>
+<span id="22"> 22</span>
+<span id="23"> 23</span>
+<span id="24"> 24</span>
+<span id="25"> 25</span>
+<span id="26"> 26</span>
+<span id="27"> 27</span>
+<span id="28"> 28</span>
+<span id="29"> 29</span>
+<span id="30"> 30</span>
+<span id="31"> 31</span>
+<span id="32"> 32</span>
+<span id="33"> 33</span>
+<span id="34"> 34</span>
+<span id="35"> 35</span>
+<span id="36"> 36</span>
+<span id="37"> 37</span>
+<span id="38"> 38</span>
+<span id="39"> 39</span>
+<span id="40"> 40</span>
+<span id="41"> 41</span>
+<span id="42"> 42</span>
+<span id="43"> 43</span>
+<span id="44"> 44</span>
+<span id="45"> 45</span>
+<span id="46"> 46</span>
+<span id="47"> 47</span>
+<span id="48"> 48</span>
+<span id="49"> 49</span>
+<span id="50"> 50</span>
+<span id="51"> 51</span>
+<span id="52"> 52</span>
+<span id="53"> 53</span>
+<span id="54"> 54</span>
+<span id="55"> 55</span>
+<span id="56"> 56</span>
+<span id="57"> 57</span>
+<span id="58"> 58</span>
+<span id="59"> 59</span>
+<span id="60"> 60</span>
+<span id="61"> 61</span>
+<span id="62"> 62</span>
+<span id="63"> 63</span>
+<span id="64"> 64</span>
+<span id="65"> 65</span>
+<span id="66"> 66</span>
+<span id="67"> 67</span>
+<span id="68"> 68</span>
+<span id="69"> 69</span>
+<span id="70"> 70</span>
+<span id="71"> 71</span>
+<span id="72"> 72</span>
+<span id="73"> 73</span>
+<span id="74"> 74</span>
+<span id="75"> 75</span>
+<span id="76"> 76</span>
+<span id="77"> 77</span>
+<span id="78"> 78</span>
+<span id="79"> 79</span>
+<span id="80"> 80</span>
+<span id="81"> 81</span>
+<span id="82"> 82</span>
+<span id="83"> 83</span>
+<span id="84"> 84</span>
+<span id="85"> 85</span>
+<span id="86"> 86</span>
+<span id="87"> 87</span>
+<span id="88"> 88</span>
+<span id="89"> 89</span>
+<span id="90"> 90</span>
+<span id="91"> 91</span>
+<span id="92"> 92</span>
+<span id="93"> 93</span>
+<span id="94"> 94</span>
+<span id="95"> 95</span>
+<span id="96"> 96</span>
+<span id="97"> 97</span>
+<span id="98"> 98</span>
+<span id="99"> 99</span>
+<span id="100">100</span>
+<span id="101">101</span>
+<span id="102">102</span>
+<span id="103">103</span>
+<span id="104">104</span>
+<span id="105">105</span>
+<span id="106">106</span>
+<span id="107">107</span>
+<span id="108">108</span>
+<span id="109">109</span>
+<span id="110">110</span>
+<span id="111">111</span>
+<span id="112">112</span>
+<span id="113">113</span>
+<span id="114">114</span>
+<span id="115">115</span>
+<span id="116">116</span>
+<span id="117">117</span>
+<span id="118">118</span>
+<span id="119">119</span>
+<span id="120">120</span>
+<span id="121">121</span>
+<span id="122">122</span>
+<span id="123">123</span>
+<span id="124">124</span>
+<span id="125">125</span>
+<span id="126">126</span>
+<span id="127">127</span>
+<span id="128">128</span>
+<span id="129">129</span>
+<span id="130">130</span>
+<span id="131">131</span>
+<span id="132">132</span>
+<span id="133">133</span>
+<span id="134">134</span>
+<span id="135">135</span>
+<span id="136">136</span>
+<span id="137">137</span>
+<span id="138">138</span>
+<span id="139">139</span>
+<span id="140">140</span>
+<span id="141">141</span>
+<span id="142">142</span>
+<span id="143">143</span>
+<span id="144">144</span>
+<span id="145">145</span>
+<span id="146">146</span>
+<span id="147">147</span>
+<span id="148">148</span>
+<span id="149">149</span>
+<span id="150">150</span>
+<span id="151">151</span>
+<span id="152">152</span>
+<span id="153">153</span>
+<span id="154">154</span>
+<span id="155">155</span>
+<span id="156">156</span>
+<span id="157">157</span>
+<span id="158">158</span>
+<span id="159">159</span>
+<span id="160">160</span>
+<span id="161">161</span>
+<span id="162">162</span>
+<span id="163">163</span>
+<span id="164">164</span>
+<span id="165">165</span>
+<span id="166">166</span>
+<span id="167">167</span>
+<span id="168">168</span>
+<span id="169">169</span>
+<span id="170">170</span>
+<span id="171">171</span>
+<span id="172">172</span>
+<span id="173">173</span>
+<span id="174">174</span>
+<span id="175">175</span>
+<span id="176">176</span>
+<span id="177">177</span>
+<span id="178">178</span>
+<span id="179">179</span>
+<span id="180">180</span>
+<span id="181">181</span>
+<span id="182">182</span>
+<span id="183">183</span>
+<span id="184">184</span>
+<span id="185">185</span>
+<span id="186">186</span>
+<span id="187">187</span>
+<span id="188">188</span>
+<span id="189">189</span>
+<span id="190">190</span>
+<span id="191">191</span>
+<span id="192">192</span>
+<span id="193">193</span>
+<span id="194">194</span>
+<span id="195">195</span>
+<span id="196">196</span>
+<span id="197">197</span>
+<span id="198">198</span>
+<span id="199">199</span>
+<span id="200">200</span>
+<span id="201">201</span>
+<span id="202">202</span>
+<span id="203">203</span>
+<span id="204">204</span>
+<span id="205">205</span>
+<span id="206">206</span>
+<span id="207">207</span>
+<span id="208">208</span>
+<span id="209">209</span>
+<span id="210">210</span>
+<span id="211">211</span>
+<span id="212">212</span>
+<span id="213">213</span>
+<span id="214">214</span>
+<span id="215">215</span>
+<span id="216">216</span>
+<span id="217">217</span>
+<span id="218">218</span>
+<span id="219">219</span>
+<span id="220">220</span>
+<span id="221">221</span>
+<span id="222">222</span>
+<span id="223">223</span>
+<span id="224">224</span>
+<span id="225">225</span>
+<span id="226">226</span>
+<span id="227">227</span>
+<span id="228">228</span>
+<span id="229">229</span>
+<span id="230">230</span>
+<span id="231">231</span>
+<span id="232">232</span>
+<span id="233">233</span>
+<span id="234">234</span>
+<span id="235">235</span>
+<span id="236">236</span>
+<span id="237">237</span>
+<span id="238">238</span>
+<span id="239">239</span>
+<span id="240">240</span>
+<span id="241">241</span>
+<span id="242">242</span>
+<span id="243">243</span>
+<span id="244">244</span>
+<span id="245">245</span>
+<span id="246">246</span>
+<span id="247">247</span>
+<span id="248">248</span>
+<span id="249">249</span>
+<span id="250">250</span>
+<span id="251">251</span>
+<span id="252">252</span>
+<span id="253">253</span>
+<span id="254">254</span>
+<span id="255">255</span>
+<span id="256">256</span>
+<span id="257">257</span>
+<span id="258">258</span>
+<span id="259">259</span>
+<span id="260">260</span>
+<span id="261">261</span>
+<span id="262">262</span>
+<span id="263">263</span>
+<span id="264">264</span>
+<span id="265">265</span>
+<span id="266">266</span>
+<span id="267">267</span>
+<span id="268">268</span>
+<span id="269">269</span>
+<span id="270">270</span>
+<span id="271">271</span>
+<span id="272">272</span>
+<span id="273">273</span>
+<span id="274">274</span>
+<span id="275">275</span>
+<span id="276">276</span>
+<span id="277">277</span>
+<span id="278">278</span>
+<span id="279">279</span>
+<span id="280">280</span>
+<span id="281">281</span>
+<span id="282">282</span>
+<span id="283">283</span>
+<span id="284">284</span>
+<span id="285">285</span>
+<span id="286">286</span>
+<span id="287">287</span>
+<span id="288">288</span>
+<span id="289">289</span>
+<span id="290">290</span>
+<span id="291">291</span>
+<span id="292">292</span>
+<span id="293">293</span>
+<span id="294">294</span>
+<span id="295">295</span>
+<span id="296">296</span>
+<span id="297">297</span>
+<span id="298">298</span>
+<span id="299">299</span>
+<span id="300">300</span>
+<span id="301">301</span>
+<span id="302">302</span>
+<span id="303">303</span>
+<span id="304">304</span>
+<span id="305">305</span>
+<span id="306">306</span>
+<span id="307">307</span>
+<span id="308">308</span>
+<span id="309">309</span>
+<span id="310">310</span>
+<span id="311">311</span>
+<span id="312">312</span>
+<span id="313">313</span>
+<span id="314">314</span>
+<span id="315">315</span>
+<span id="316">316</span>
+<span id="317">317</span>
+<span id="318">318</span>
+<span id="319">319</span>
+<span id="320">320</span>
+<span id="321">321</span>
+<span id="322">322</span>
+<span id="323">323</span>
+<span id="324">324</span>
+<span id="325">325</span>
+<span id="326">326</span>
+<span id="327">327</span>
+<span id="328">328</span>
+<span id="329">329</span>
+<span id="330">330</span>
+<span id="331">331</span>
+<span id="332">332</span>
+<span id="333">333</span>
+<span id="334">334</span>
+<span id="335">335</span>
+<span id="336">336</span>
+<span id="337">337</span>
+<span id="338">338</span>
+<span id="339">339</span>
+<span id="340">340</span>
+<span id="341">341</span>
+<span id="342">342</span>
+<span id="343">343</span>
+<span id="344">344</span>
+<span id="345">345</span>
+<span id="346">346</span>
+<span id="347">347</span>
+<span id="348">348</span>
+<span id="349">349</span>
+<span id="350">350</span>
+<span id="351">351</span>
+<span id="352">352</span>
+<span id="353">353</span>
+<span id="354">354</span>
+<span id="355">355</span>
+<span id="356">356</span>
+<span id="357">357</span>
+<span id="358">358</span>
+<span id="359">359</span>
+<span id="360">360</span>
+<span id="361">361</span>
+<span id="362">362</span>
+<span id="363">363</span>
+<span id="364">364</span>
+<span id="365">365</span>
+<span id="366">366</span>
+<span id="367">367</span>
+<span id="368">368</span>
+<span id="369">369</span>
+<span id="370">370</span>
+<span id="371">371</span>
+<span id="372">372</span>
+<span id="373">373</span>
+<span id="374">374</span>
+<span id="375">375</span>
+<span id="376">376</span>
+<span id="377">377</span>
+<span id="378">378</span>
+<span id="379">379</span>
+<span id="380">380</span>
+<span id="381">381</span>
+<span id="382">382</span>
+<span id="383">383</span>
+<span id="384">384</span>
+<span id="385">385</span>
+<span id="386">386</span>
+<span id="387">387</span>
+<span id="388">388</span>
+<span id="389">389</span>
+<span id="390">390</span>
+<span id="391">391</span>
+<span id="392">392</span>
+<span id="393">393</span>
+<span id="394">394</span>
+<span id="395">395</span>
+<span id="396">396</span>
+<span id="397">397</span>
+<span id="398">398</span>
+<span id="399">399</span>
+<span id="400">400</span>
+<span id="401">401</span>
+<span id="402">402</span>
+<span id="403">403</span>
+<span id="404">404</span>
+<span id="405">405</span>
+<span id="406">406</span>
+<span id="407">407</span>
+<span id="408">408</span>
+<span id="409">409</span>
+<span id="410">410</span>
+<span id="411">411</span>
+<span id="412">412</span>
+<span id="413">413</span>
+<span id="414">414</span>
+<span id="415">415</span>
+<span id="416">416</span>
+<span id="417">417</span>
+<span id="418">418</span>
+<span id="419">419</span>
+<span id="420">420</span>
+<span id="421">421</span>
+<span id="422">422</span>
+<span id="423">423</span>
+<span id="424">424</span>
+<span id="425">425</span>
+<span id="426">426</span>
+<span id="427">427</span>
+<span id="428">428</span>
+<span id="429">429</span>
+<span id="430">430</span>
+<span id="431">431</span>
+<span id="432">432</span>
+<span id="433">433</span>
+<span id="434">434</span>
+<span id="435">435</span>
+<span id="436">436</span>
+<span id="437">437</span>
+<span id="438">438</span>
+<span id="439">439</span>
+<span id="440">440</span>
+<span id="441">441</span>
+<span id="442">442</span>
+<span id="443">443</span>
+<span id="444">444</span>
+<span id="445">445</span>
+<span id="446">446</span>
+<span id="447">447</span>
+<span id="448">448</span>
+<span id="449">449</span>
+<span id="450">450</span>
+<span id="451">451</span>
+<span id="452">452</span>
+<span id="453">453</span>
+<span id="454">454</span>
+<span id="455">455</span>
+<span id="456">456</span>
+<span id="457">457</span>
+<span id="458">458</span>
+<span id="459">459</span>
+<span id="460">460</span>
+<span id="461">461</span>
+<span id="462">462</span>
+<span id="463">463</span>
+<span id="464">464</span>
+<span id="465">465</span>
+<span id="466">466</span>
+<span id="467">467</span>
+<span id="468">468</span>
+<span id="469">469</span>
+<span id="470">470</span>
+<span id="471">471</span>
+<span id="472">472</span>
+<span id="473">473</span>
+<span id="474">474</span>
+<span id="475">475</span>
+<span id="476">476</span>
+<span id="477">477</span>
+<span id="478">478</span>
+<span id="479">479</span>
+<span id="480">480</span>
+<span id="481">481</span>
+<span id="482">482</span>
+<span id="483">483</span>
+<span id="484">484</span>
+<span id="485">485</span>
+<span id="486">486</span>
+<span id="487">487</span>
+<span id="488">488</span>
+<span id="489">489</span>
+<span id="490">490</span>
+<span id="491">491</span>
+<span id="492">492</span>
+<span id="493">493</span>
+<span id="494">494</span>
+<span id="495">495</span>
+<span id="496">496</span>
+<span id="497">497</span>
+<span id="498">498</span>
+<span id="499">499</span>
+<span id="500">500</span>
+<span id="501">501</span>
+<span id="502">502</span>
+<span id="503">503</span>
+<span id="504">504</span>
+<span id="505">505</span>
+<span id="506">506</span>
+<span id="507">507</span>
+<span id="508">508</span>
+<span id="509">509</span>
+<span id="510">510</span>
+<span id="511">511</span>
+<span id="512">512</span>
+<span id="513">513</span>
+<span id="514">514</span>
+<span id="515">515</span>
+<span id="516">516</span>
+<span id="517">517</span>
+<span id="518">518</span>
+<span id="519">519</span>
+<span id="520">520</span>
+<span id="521">521</span>
+<span id="522">522</span>
+<span id="523">523</span>
+<span id="524">524</span>
+<span id="525">525</span>
+<span id="526">526</span>
+<span id="527">527</span>
+<span id="528">528</span>
+<span id="529">529</span>
+<span id="530">530</span>
+<span id="531">531</span>
+<span id="532">532</span>
+<span id="533">533</span>
+<span id="534">534</span>
+<span id="535">535</span>
+<span id="536">536</span>
+<span id="537">537</span>
+<span id="538">538</span>
+<span id="539">539</span>
+<span id="540">540</span>
+<span id="541">541</span>
+<span id="542">542</span>
+<span id="543">543</span>
+<span id="544">544</span>
+<span id="545">545</span>
+<span id="546">546</span>
+<span id="547">547</span>
+<span id="548">548</span>
+<span id="549">549</span>
+<span id="550">550</span>
+<span id="551">551</span>
+<span id="552">552</span>
+<span id="553">553</span>
+<span id="554">554</span>
+</pre><div class="example-wrap"><pre class="rust ">
+
+<span class="doccomment">/// An enum to represent all characters in the Coptic block.</span>
+<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>, <span class="ident">Clone</span>, <span class="ident">Copy</span>, <span class="ident">Hash</span>, <span class="ident">PartialEq</span>, <span class="ident">Eq</span>)]</span>
+<span class="kw">pub</span> <span class="kw">enum</span> <span class="ident">Coptic</span> {
+    <span class="doccomment">/// \u{2c80}: &#39;Ⲁ&#39;</span>
+    <span class="ident">CapitalLetterAlfa</span>,
+    <span class="doccomment">/// \u{2c81}: &#39;ⲁ&#39;</span>
+    <span class="ident">SmallLetterAlfa</span>,
+    <span class="doccomment">/// \u{2c82}: &#39;Ⲃ&#39;</span>
+    <span class="ident">CapitalLetterVida</span>,
+    <span class="doccomment">/// \u{2c83}: &#39;ⲃ&#39;</span>
+    <span class="ident">SmallLetterVida</span>,
+    <span class="doccomment">/// \u{2c84}: &#39;Ⲅ&#39;</span>
+    <span class="ident">CapitalLetterGamma</span>,
+    <span class="doccomment">/// \u{2c85}: &#39;ⲅ&#39;</span>
+    <span class="ident">SmallLetterGamma</span>,
+    <span class="doccomment">/// \u{2c86}: &#39;Ⲇ&#39;</span>
+    <span class="ident">CapitalLetterDalda</span>,
+    <span class="doccomment">/// \u{2c87}: &#39;ⲇ&#39;</span>
+    <span class="ident">SmallLetterDalda</span>,
+    <span class="doccomment">/// \u{2c88}: &#39;Ⲉ&#39;</span>
+    <span class="ident">CapitalLetterEie</span>,
+    <span class="doccomment">/// \u{2c89}: &#39;ⲉ&#39;</span>
+    <span class="ident">SmallLetterEie</span>,
+    <span class="doccomment">/// \u{2c8a}: &#39;Ⲋ&#39;</span>
+    <span class="ident">CapitalLetterSou</span>,
+    <span class="doccomment">/// \u{2c8b}: &#39;ⲋ&#39;</span>
+    <span class="ident">SmallLetterSou</span>,
+    <span class="doccomment">/// \u{2c8c}: &#39;Ⲍ&#39;</span>
+    <span class="ident">CapitalLetterZata</span>,
+    <span class="doccomment">/// \u{2c8d}: &#39;ⲍ&#39;</span>
+    <span class="ident">SmallLetterZata</span>,
+    <span class="doccomment">/// \u{2c8e}: &#39;Ⲏ&#39;</span>
+    <span class="ident">CapitalLetterHate</span>,
+    <span class="doccomment">/// \u{2c8f}: &#39;ⲏ&#39;</span>
+    <span class="ident">SmallLetterHate</span>,
+    <span class="doccomment">/// \u{2c90}: &#39;Ⲑ&#39;</span>
+    <span class="ident">CapitalLetterThethe</span>,
+    <span class="doccomment">/// \u{2c91}: &#39;ⲑ&#39;</span>
+    <span class="ident">SmallLetterThethe</span>,
+    <span class="doccomment">/// \u{2c92}: &#39;Ⲓ&#39;</span>
+    <span class="ident">CapitalLetterIauda</span>,
+    <span class="doccomment">/// \u{2c93}: &#39;ⲓ&#39;</span>
+    <span class="ident">SmallLetterIauda</span>,
+    <span class="doccomment">/// \u{2c94}: &#39;Ⲕ&#39;</span>
+    <span class="ident">CapitalLetterKapa</span>,
+    <span class="doccomment">/// \u{2c95}: &#39;ⲕ&#39;</span>
+    <span class="ident">SmallLetterKapa</span>,
+    <span class="doccomment">/// \u{2c96}: &#39;Ⲗ&#39;</span>
+    <span class="ident">CapitalLetterLaula</span>,
+    <span class="doccomment">/// \u{2c97}: &#39;ⲗ&#39;</span>
+    <span class="ident">SmallLetterLaula</span>,
+    <span class="doccomment">/// \u{2c98}: &#39;Ⲙ&#39;</span>
+    <span class="ident">CapitalLetterMi</span>,
+    <span class="doccomment">/// \u{2c99}: &#39;ⲙ&#39;</span>
+    <span class="ident">SmallLetterMi</span>,
+    <span class="doccomment">/// \u{2c9a}: &#39;Ⲛ&#39;</span>
+    <span class="ident">CapitalLetterNi</span>,
+    <span class="doccomment">/// \u{2c9b}: &#39;ⲛ&#39;</span>
+    <span class="ident">SmallLetterNi</span>,
+    <span class="doccomment">/// \u{2c9c}: &#39;Ⲝ&#39;</span>
+    <span class="ident">CapitalLetterKsi</span>,
+    <span class="doccomment">/// \u{2c9d}: &#39;ⲝ&#39;</span>
+    <span class="ident">SmallLetterKsi</span>,
+    <span class="doccomment">/// \u{2c9e}: &#39;Ⲟ&#39;</span>
+    <span class="ident">CapitalLetterO</span>,
+    <span class="doccomment">/// \u{2c9f}: &#39;ⲟ&#39;</span>
+    <span class="ident">SmallLetterO</span>,
+    <span class="doccomment">/// \u{2ca0}: &#39;Ⲡ&#39;</span>
+    <span class="ident">CapitalLetterPi</span>,
+    <span class="doccomment">/// \u{2ca1}: &#39;ⲡ&#39;</span>
+    <span class="ident">SmallLetterPi</span>,
+    <span class="doccomment">/// \u{2ca2}: &#39;Ⲣ&#39;</span>
+    <span class="ident">CapitalLetterRo</span>,
+    <span class="doccomment">/// \u{2ca3}: &#39;ⲣ&#39;</span>
+    <span class="ident">SmallLetterRo</span>,
+    <span class="doccomment">/// \u{2ca4}: &#39;Ⲥ&#39;</span>
+    <span class="ident">CapitalLetterSima</span>,
+    <span class="doccomment">/// \u{2ca5}: &#39;ⲥ&#39;</span>
+    <span class="ident">SmallLetterSima</span>,
+    <span class="doccomment">/// \u{2ca6}: &#39;Ⲧ&#39;</span>
+    <span class="ident">CapitalLetterTau</span>,
+    <span class="doccomment">/// \u{2ca7}: &#39;ⲧ&#39;</span>
+    <span class="ident">SmallLetterTau</span>,
+    <span class="doccomment">/// \u{2ca8}: &#39;Ⲩ&#39;</span>
+    <span class="ident">CapitalLetterUa</span>,
+    <span class="doccomment">/// \u{2ca9}: &#39;ⲩ&#39;</span>
+    <span class="ident">SmallLetterUa</span>,
+    <span class="doccomment">/// \u{2caa}: &#39;Ⲫ&#39;</span>
+    <span class="ident">CapitalLetterFi</span>,
+    <span class="doccomment">/// \u{2cab}: &#39;ⲫ&#39;</span>
+    <span class="ident">SmallLetterFi</span>,
+    <span class="doccomment">/// \u{2cac}: &#39;Ⲭ&#39;</span>
+    <span class="ident">CapitalLetterKhi</span>,
+    <span class="doccomment">/// \u{2cad}: &#39;ⲭ&#39;</span>
+    <span class="ident">SmallLetterKhi</span>,
+    <span class="doccomment">/// \u{2cae}: &#39;Ⲯ&#39;</span>
+    <span class="ident">CapitalLetterPsi</span>,
+    <span class="doccomment">/// \u{2caf}: &#39;ⲯ&#39;</span>
+    <span class="ident">SmallLetterPsi</span>,
+    <span class="doccomment">/// \u{2cb0}: &#39;Ⲱ&#39;</span>
+    <span class="ident">CapitalLetterOou</span>,
+    <span class="doccomment">/// \u{2cb1}: &#39;ⲱ&#39;</span>
+    <span class="ident">SmallLetterOou</span>,
+    <span class="doccomment">/// \u{2cb2}: &#39;Ⲳ&#39;</span>
+    <span class="ident">CapitalLetterDialectDashPAlef</span>,
+    <span class="doccomment">/// \u{2cb3}: &#39;ⲳ&#39;</span>
+    <span class="ident">SmallLetterDialectDashPAlef</span>,
+    <span class="doccomment">/// \u{2cb4}: &#39;Ⲵ&#39;</span>
+    <span class="ident">CapitalLetterOldAin</span>,
+    <span class="doccomment">/// \u{2cb5}: &#39;ⲵ&#39;</span>
+    <span class="ident">SmallLetterOldAin</span>,
+    <span class="doccomment">/// \u{2cb6}: &#39;Ⲷ&#39;</span>
+    <span class="ident">CapitalLetterCryptogrammicEie</span>,
+    <span class="doccomment">/// \u{2cb7}: &#39;ⲷ&#39;</span>
+    <span class="ident">SmallLetterCryptogrammicEie</span>,
+    <span class="doccomment">/// \u{2cb8}: &#39;Ⲹ&#39;</span>
+    <span class="ident">CapitalLetterDialectDashPKapa</span>,
+    <span class="doccomment">/// \u{2cb9}: &#39;ⲹ&#39;</span>
+    <span class="ident">SmallLetterDialectDashPKapa</span>,
+    <span class="doccomment">/// \u{2cba}: &#39;Ⲻ&#39;</span>
+    <span class="ident">CapitalLetterDialectDashPNi</span>,
+    <span class="doccomment">/// \u{2cbb}: &#39;ⲻ&#39;</span>
+    <span class="ident">SmallLetterDialectDashPNi</span>,
+    <span class="doccomment">/// \u{2cbc}: &#39;Ⲽ&#39;</span>
+    <span class="ident">CapitalLetterCryptogrammicNi</span>,
+    <span class="doccomment">/// \u{2cbd}: &#39;ⲽ&#39;</span>
+    <span class="ident">SmallLetterCryptogrammicNi</span>,
+    <span class="doccomment">/// \u{2cbe}: &#39;Ⲿ&#39;</span>
+    <span class="ident">CapitalLetterOldOou</span>,
+    <span class="doccomment">/// \u{2cbf}: &#39;ⲿ&#39;</span>
+    <span class="ident">SmallLetterOldOou</span>,
+    <span class="doccomment">/// \u{2cc0}: &#39;Ⳁ&#39;</span>
+    <span class="ident">CapitalLetterSampi</span>,
+    <span class="doccomment">/// \u{2cc1}: &#39;ⳁ&#39;</span>
+    <span class="ident">SmallLetterSampi</span>,
+    <span class="doccomment">/// \u{2cc2}: &#39;Ⳃ&#39;</span>
+    <span class="ident">CapitalLetterCrossedShei</span>,
+    <span class="doccomment">/// \u{2cc3}: &#39;ⳃ&#39;</span>
+    <span class="ident">SmallLetterCrossedShei</span>,
+    <span class="doccomment">/// \u{2cc4}: &#39;Ⳅ&#39;</span>
+    <span class="ident">CapitalLetterOldShei</span>,
+    <span class="doccomment">/// \u{2cc5}: &#39;ⳅ&#39;</span>
+    <span class="ident">SmallLetterOldShei</span>,
+    <span class="doccomment">/// \u{2cc6}: &#39;Ⳇ&#39;</span>
+    <span class="ident">CapitalLetterOldEsh</span>,
+    <span class="doccomment">/// \u{2cc7}: &#39;ⳇ&#39;</span>
+    <span class="ident">SmallLetterOldEsh</span>,
+    <span class="doccomment">/// \u{2cc8}: &#39;Ⳉ&#39;</span>
+    <span class="ident">CapitalLetterAkhmimicKhei</span>,
+    <span class="doccomment">/// \u{2cc9}: &#39;ⳉ&#39;</span>
+    <span class="ident">SmallLetterAkhmimicKhei</span>,
+    <span class="doccomment">/// \u{2cca}: &#39;Ⳋ&#39;</span>
+    <span class="ident">CapitalLetterDialectDashPHori</span>,
+    <span class="doccomment">/// \u{2ccb}: &#39;ⳋ&#39;</span>
+    <span class="ident">SmallLetterDialectDashPHori</span>,
+    <span class="doccomment">/// \u{2ccc}: &#39;Ⳍ&#39;</span>
+    <span class="ident">CapitalLetterOldHori</span>,
+    <span class="doccomment">/// \u{2ccd}: &#39;ⳍ&#39;</span>
+    <span class="ident">SmallLetterOldHori</span>,
+    <span class="doccomment">/// \u{2cce}: &#39;Ⳏ&#39;</span>
+    <span class="ident">CapitalLetterOldHa</span>,
+    <span class="doccomment">/// \u{2ccf}: &#39;ⳏ&#39;</span>
+    <span class="ident">SmallLetterOldHa</span>,
+    <span class="doccomment">/// \u{2cd0}: &#39;Ⳑ&#39;</span>
+    <span class="ident">CapitalLetterLDashShapedHa</span>,
+    <span class="doccomment">/// \u{2cd1}: &#39;ⳑ&#39;</span>
+    <span class="ident">SmallLetterLDashShapedHa</span>,
+    <span class="doccomment">/// \u{2cd2}: &#39;Ⳓ&#39;</span>
+    <span class="ident">CapitalLetterOldHei</span>,
+    <span class="doccomment">/// \u{2cd3}: &#39;ⳓ&#39;</span>
+    <span class="ident">SmallLetterOldHei</span>,
+    <span class="doccomment">/// \u{2cd4}: &#39;Ⳕ&#39;</span>
+    <span class="ident">CapitalLetterOldHat</span>,
+    <span class="doccomment">/// \u{2cd5}: &#39;ⳕ&#39;</span>
+    <span class="ident">SmallLetterOldHat</span>,
+    <span class="doccomment">/// \u{2cd6}: &#39;Ⳗ&#39;</span>
+    <span class="ident">CapitalLetterOldGangia</span>,
+    <span class="doccomment">/// \u{2cd7}: &#39;ⳗ&#39;</span>
+    <span class="ident">SmallLetterOldGangia</span>,
+    <span class="doccomment">/// \u{2cd8}: &#39;Ⳙ&#39;</span>
+    <span class="ident">CapitalLetterOldDja</span>,
+    <span class="doccomment">/// \u{2cd9}: &#39;ⳙ&#39;</span>
+    <span class="ident">SmallLetterOldDja</span>,
+    <span class="doccomment">/// \u{2cda}: &#39;Ⳛ&#39;</span>
+    <span class="ident">CapitalLetterOldShima</span>,
+    <span class="doccomment">/// \u{2cdb}: &#39;ⳛ&#39;</span>
+    <span class="ident">SmallLetterOldShima</span>,
+    <span class="doccomment">/// \u{2cdc}: &#39;Ⳝ&#39;</span>
+    <span class="ident">CapitalLetterOldNubianShima</span>,
+    <span class="doccomment">/// \u{2cdd}: &#39;ⳝ&#39;</span>
+    <span class="ident">SmallLetterOldNubianShima</span>,
+    <span class="doccomment">/// \u{2cde}: &#39;Ⳟ&#39;</span>
+    <span class="ident">CapitalLetterOldNubianNgi</span>,
+    <span class="doccomment">/// \u{2cdf}: &#39;ⳟ&#39;</span>
+    <span class="ident">SmallLetterOldNubianNgi</span>,
+    <span class="doccomment">/// \u{2ce0}: &#39;Ⳡ&#39;</span>
+    <span class="ident">CapitalLetterOldNubianNyi</span>,
+    <span class="doccomment">/// \u{2ce1}: &#39;ⳡ&#39;</span>
+    <span class="ident">SmallLetterOldNubianNyi</span>,
+    <span class="doccomment">/// \u{2ce2}: &#39;Ⳣ&#39;</span>
+    <span class="ident">CapitalLetterOldNubianWau</span>,
+    <span class="doccomment">/// \u{2ce3}: &#39;ⳣ&#39;</span>
+    <span class="ident">SmallLetterOldNubianWau</span>,
+    <span class="doccomment">/// \u{2ce4}: &#39;ⳤ&#39;</span>
+    <span class="ident">SymbolKai</span>,
+    <span class="doccomment">/// \u{2ce5}: &#39;⳥&#39;</span>
+    <span class="ident">SymbolMiRo</span>,
+    <span class="doccomment">/// \u{2ce6}: &#39;⳦&#39;</span>
+    <span class="ident">SymbolPiRo</span>,
+    <span class="doccomment">/// \u{2ce7}: &#39;⳧&#39;</span>
+    <span class="ident">SymbolStauros</span>,
+    <span class="doccomment">/// \u{2ce8}: &#39;⳨&#39;</span>
+    <span class="ident">SymbolTauRo</span>,
+    <span class="doccomment">/// \u{2ce9}: &#39;⳩&#39;</span>
+    <span class="ident">SymbolKhiRo</span>,
+    <span class="doccomment">/// \u{2cea}: &#39;⳪&#39;</span>
+    <span class="ident">SymbolShimaSima</span>,
+    <span class="doccomment">/// \u{2ceb}: &#39;Ⳬ&#39;</span>
+    <span class="ident">CapitalLetterCryptogrammicShei</span>,
+    <span class="doccomment">/// \u{2cec}: &#39;ⳬ&#39;</span>
+    <span class="ident">SmallLetterCryptogrammicShei</span>,
+    <span class="doccomment">/// \u{2ced}: &#39;Ⳮ&#39;</span>
+    <span class="ident">CapitalLetterCryptogrammicGangia</span>,
+    <span class="doccomment">/// \u{2cee}: &#39;ⳮ&#39;</span>
+    <span class="ident">SmallLetterCryptogrammicGangia</span>,
+    <span class="doccomment">/// \u{2cef}: &#39;⳯&#39;</span>
+    <span class="ident">CombiningNiAbove</span>,
+    <span class="doccomment">/// \u{2cf0}: &#39;⳰&#39;</span>
+    <span class="ident">CombiningSpiritusAsper</span>,
+    <span class="doccomment">/// \u{2cf1}: &#39;⳱&#39;</span>
+    <span class="ident">CombiningSpiritusLenis</span>,
+    <span class="doccomment">/// \u{2cf2}: &#39;Ⳳ&#39;</span>
+    <span class="ident">CapitalLetterBohairicKhei</span>,
+    <span class="doccomment">/// \u{2cf3}: &#39;ⳳ&#39;</span>
+    <span class="ident">SmallLetterBohairicKhei</span>,
+    <span class="doccomment">/// \u{2cf9}: &#39;⳹&#39;</span>
+    <span class="ident">OldNubianFullStop</span>,
+    <span class="doccomment">/// \u{2cfa}: &#39;⳺&#39;</span>
+    <span class="ident">OldNubianDirectQuestionMark</span>,
+    <span class="doccomment">/// \u{2cfb}: &#39;⳻&#39;</span>
+    <span class="ident">OldNubianIndirectQuestionMark</span>,
+    <span class="doccomment">/// \u{2cfc}: &#39;⳼&#39;</span>
+    <span class="ident">OldNubianVerseDivider</span>,
+    <span class="doccomment">/// \u{2cfd}: &#39;⳽&#39;</span>
+    <span class="ident">FractionOneHalf</span>,
+    <span class="doccomment">/// \u{2cfe}: &#39;⳾&#39;</span>
+    <span class="ident">FullStop</span>,
+}
+
+<span class="kw">impl</span> <span class="ident">Into</span><span class="op">&lt;</span><span class="ident">char</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">Coptic</span> {
+    <span class="kw">fn</span> <span class="ident">into</span>(<span class="self">self</span>) <span class="op">-&gt;</span> <span class="ident">char</span> {
+        <span class="kw">match</span> <span class="self">self</span> {
+            <span class="ident">Coptic</span>::<span class="ident">CapitalLetterAlfa</span> <span class="op">=&gt;</span> <span class="string">&#39;Ⲁ&#39;</span>,
+            <span class="ident">Coptic</span>::<span class="ident">SmallLetterAlfa</span> <span class="op">=&gt;</span> <span class="string">&#39;ⲁ&#39;</span>,
+            <span class="ident">Coptic</span>::<span class="ident">CapitalLetterVida</span> <span class="op">=&gt;</span> <span class="string">&#39;Ⲃ&#39;</span>,
+            <span class="ident">Coptic</span>::<span class="ident">SmallLetterVida</span> <span class="op">=&gt;</span> <span class="string">&#39;ⲃ&#39;</span>,
+            <span class="ident">Coptic</span>::<span class="ident">CapitalLetterGamma</span> <span class="op">=&gt;</span> <span class="string">&#39;Ⲅ&#39;</span>,
+            <span class="ident">Coptic</span>::<span class="ident">SmallLetterGamma</span> <span class="op">=&gt;</span> <span class="string">&#39;ⲅ&#39;</span>,
+            <span class="ident">Coptic</span>::<span class="ident">CapitalLetterDalda</span> <span class="op">=&gt;</span> <span class="string">&#39;Ⲇ&#39;</span>,
+            <span class="ident">Coptic</span>::<span class="ident">SmallLetterDalda</span> <span class="op">=&gt;</span> <span class="string">&#39;ⲇ&#39;</span>,
+            <span class="ident">Coptic</span>::<span class="ident">CapitalLetterEie</span> <span class="op">=&gt;</span> <span class="string">&#39;Ⲉ&#39;</span>,
+            <span class="ident">Coptic</span>::<span class="ident">SmallLetterEie</span> <span class="op">=&gt;</span> <span class="string">&#39;ⲉ&#39;</span>,
+            <span class="ident">Coptic</span>::<span class="ident">CapitalLetterSou</span> <span class="op">=&gt;</span> <span class="string">&#39;Ⲋ&#39;</span>,
+            <span class="ident">Coptic</span>::<span class="ident">SmallLetterSou</span> <span class="op">=&gt;</span> <span class="string">&#39;ⲋ&#39;</span>,
+            <span class="ident">Coptic</span>::<span class="ident">CapitalLetterZata</span> <span class="op">=&gt;</span> <span class="string">&#39;Ⲍ&#39;</span>,
+            <span class="ident">Coptic</span>::<span class="ident">SmallLetterZata</span> <span class="op">=&gt;</span> <span class="string">&#39;ⲍ&#39;</span>,
+            <span class="ident">Coptic</span>::<span class="ident">CapitalLetterHate</span> <span class="op">=&gt;</span> <span class="string">&#39;Ⲏ&#39;</span>,
+            <span class="ident">Coptic</span>::<span class="ident">SmallLetterHate</span> <span class="op">=&gt;</span> <span class="string">&#39;ⲏ&#39;</span>,
+            <span class="ident">Coptic</span>::<span class="ident">CapitalLetterThethe</span> <span class="op">=&gt;</span> <span class="string">&#39;Ⲑ&#39;</span>,
+            <span class="ident">Coptic</span>::<span class="ident">SmallLetterThethe</span> <span class="op">=&gt;</span> <span class="string">&#39;ⲑ&#39;</span>,
+            <span class="ident">Coptic</span>::<span class="ident">CapitalLetterIauda</span> <span class="op">=&gt;</span> <span class="string">&#39;Ⲓ&#39;</span>,
+            <span class="ident">Coptic</span>::<span class="ident">SmallLetterIauda</span> <span class="op">=&gt;</span> <span class="string">&#39;ⲓ&#39;</span>,
+            <span class="ident">Coptic</span>::<span class="ident">CapitalLetterKapa</span> <span class="op">=&gt;</span> <span class="string">&#39;Ⲕ&#39;</span>,
+            <span class="ident">Coptic</span>::<span class="ident">SmallLetterKapa</span> <span class="op">=&gt;</span> <span class="string">&#39;ⲕ&#39;</span>,
+            <span class="ident">Coptic</span>::<span class="ident">CapitalLetterLaula</span> <span class="op">=&gt;</span> <span class="string">&#39;Ⲗ&#39;</span>,
+            <span class="ident">Coptic</span>::<span class="ident">SmallLetterLaula</span> <span class="op">=&gt;</span> <span class="string">&#39;ⲗ&#39;</span>,
+            <span class="ident">Coptic</span>::<span class="ident">CapitalLetterMi</span> <span class="op">=&gt;</span> <span class="string">&#39;Ⲙ&#39;</span>,
+            <span class="ident">Coptic</span>::<span class="ident">SmallLetterMi</span> <span class="op">=&gt;</span> <span class="string">&#39;ⲙ&#39;</span>,
+            <span class="ident">Coptic</span>::<span class="ident">CapitalLetterNi</span> <span class="op">=&gt;</span> <span class="string">&#39;Ⲛ&#39;</span>,
+            <span class="ident">Coptic</span>::<span class="ident">SmallLetterNi</span> <span class="op">=&gt;</span> <span class="string">&#39;ⲛ&#39;</span>,
+            <span class="ident">Coptic</span>::<span class="ident">CapitalLetterKsi</span> <span class="op">=&gt;</span> <span class="string">&#39;Ⲝ&#39;</span>,
+            <span class="ident">Coptic</span>::<span class="ident">SmallLetterKsi</span> <span class="op">=&gt;</span> <span class="string">&#39;ⲝ&#39;</span>,
+            <span class="ident">Coptic</span>::<span class="ident">CapitalLetterO</span> <span class="op">=&gt;</span> <span class="string">&#39;Ⲟ&#39;</span>,
+            <span class="ident">Coptic</span>::<span class="ident">SmallLetterO</span> <span class="op">=&gt;</span> <span class="string">&#39;ⲟ&#39;</span>,
+            <span class="ident">Coptic</span>::<span class="ident">CapitalLetterPi</span> <span class="op">=&gt;</span> <span class="string">&#39;Ⲡ&#39;</span>,
+            <span class="ident">Coptic</span>::<span class="ident">SmallLetterPi</span> <span class="op">=&gt;</span> <span class="string">&#39;ⲡ&#39;</span>,
+            <span class="ident">Coptic</span>::<span class="ident">CapitalLetterRo</span> <span class="op">=&gt;</span> <span class="string">&#39;Ⲣ&#39;</span>,
+            <span class="ident">Coptic</span>::<span class="ident">SmallLetterRo</span> <span class="op">=&gt;</span> <span class="string">&#39;ⲣ&#39;</span>,
+            <span class="ident">Coptic</span>::<span class="ident">CapitalLetterSima</span> <span class="op">=&gt;</span> <span class="string">&#39;Ⲥ&#39;</span>,
+            <span class="ident">Coptic</span>::<span class="ident">SmallLetterSima</span> <span class="op">=&gt;</span> <span class="string">&#39;ⲥ&#39;</span>,
+            <span class="ident">Coptic</span>::<span class="ident">CapitalLetterTau</span> <span class="op">=&gt;</span> <span class="string">&#39;Ⲧ&#39;</span>,
+            <span class="ident">Coptic</span>::<span class="ident">SmallLetterTau</span> <span class="op">=&gt;</span> <span class="string">&#39;ⲧ&#39;</span>,
+            <span class="ident">Coptic</span>::<span class="ident">CapitalLetterUa</span> <span class="op">=&gt;</span> <span class="string">&#39;Ⲩ&#39;</span>,
+            <span class="ident">Coptic</span>::<span class="ident">SmallLetterUa</span> <span class="op">=&gt;</span> <span class="string">&#39;ⲩ&#39;</span>,
+            <span class="ident">Coptic</span>::<span class="ident">CapitalLetterFi</span> <span class="op">=&gt;</span> <span class="string">&#39;Ⲫ&#39;</span>,
+            <span class="ident">Coptic</span>::<span class="ident">SmallLetterFi</span> <span class="op">=&gt;</span> <span class="string">&#39;ⲫ&#39;</span>,
+            <span class="ident">Coptic</span>::<span class="ident">CapitalLetterKhi</span> <span class="op">=&gt;</span> <span class="string">&#39;Ⲭ&#39;</span>,
+            <span class="ident">Coptic</span>::<span class="ident">SmallLetterKhi</span> <span class="op">=&gt;</span> <span class="string">&#39;ⲭ&#39;</span>,
+            <span class="ident">Coptic</span>::<span class="ident">CapitalLetterPsi</span> <span class="op">=&gt;</span> <span class="string">&#39;Ⲯ&#39;</span>,
+            <span class="ident">Coptic</span>::<span class="ident">SmallLetterPsi</span> <span class="op">=&gt;</span> <span class="string">&#39;ⲯ&#39;</span>,
+            <span class="ident">Coptic</span>::<span class="ident">CapitalLetterOou</span> <span class="op">=&gt;</span> <span class="string">&#39;Ⲱ&#39;</span>,
+            <span class="ident">Coptic</span>::<span class="ident">SmallLetterOou</span> <span class="op">=&gt;</span> <span class="string">&#39;ⲱ&#39;</span>,
+            <span class="ident">Coptic</span>::<span class="ident">CapitalLetterDialectDashPAlef</span> <span class="op">=&gt;</span> <span class="string">&#39;Ⲳ&#39;</span>,
+            <span class="ident">Coptic</span>::<span class="ident">SmallLetterDialectDashPAlef</span> <span class="op">=&gt;</span> <span class="string">&#39;ⲳ&#39;</span>,
+            <span class="ident">Coptic</span>::<span class="ident">CapitalLetterOldAin</span> <span class="op">=&gt;</span> <span class="string">&#39;Ⲵ&#39;</span>,
+            <span class="ident">Coptic</span>::<span class="ident">SmallLetterOldAin</span> <span class="op">=&gt;</span> <span class="string">&#39;ⲵ&#39;</span>,
+            <span class="ident">Coptic</span>::<span class="ident">CapitalLetterCryptogrammicEie</span> <span class="op">=&gt;</span> <span class="string">&#39;Ⲷ&#39;</span>,
+            <span class="ident">Coptic</span>::<span class="ident">SmallLetterCryptogrammicEie</span> <span class="op">=&gt;</span> <span class="string">&#39;ⲷ&#39;</span>,
+            <span class="ident">Coptic</span>::<span class="ident">CapitalLetterDialectDashPKapa</span> <span class="op">=&gt;</span> <span class="string">&#39;Ⲹ&#39;</span>,
+            <span class="ident">Coptic</span>::<span class="ident">SmallLetterDialectDashPKapa</span> <span class="op">=&gt;</span> <span class="string">&#39;ⲹ&#39;</span>,
+            <span class="ident">Coptic</span>::<span class="ident">CapitalLetterDialectDashPNi</span> <span class="op">=&gt;</span> <span class="string">&#39;Ⲻ&#39;</span>,
+            <span class="ident">Coptic</span>::<span class="ident">SmallLetterDialectDashPNi</span> <span class="op">=&gt;</span> <span class="string">&#39;ⲻ&#39;</span>,
+            <span class="ident">Coptic</span>::<span class="ident">CapitalLetterCryptogrammicNi</span> <span class="op">=&gt;</span> <span class="string">&#39;Ⲽ&#39;</span>,
+            <span class="ident">Coptic</span>::<span class="ident">SmallLetterCryptogrammicNi</span> <span class="op">=&gt;</span> <span class="string">&#39;ⲽ&#39;</span>,
+            <span class="ident">Coptic</span>::<span class="ident">CapitalLetterOldOou</span> <span class="op">=&gt;</span> <span class="string">&#39;Ⲿ&#39;</span>,
+            <span class="ident">Coptic</span>::<span class="ident">SmallLetterOldOou</span> <span class="op">=&gt;</span> <span class="string">&#39;ⲿ&#39;</span>,
+            <span class="ident">Coptic</span>::<span class="ident">CapitalLetterSampi</span> <span class="op">=&gt;</span> <span class="string">&#39;Ⳁ&#39;</span>,
+            <span class="ident">Coptic</span>::<span class="ident">SmallLetterSampi</span> <span class="op">=&gt;</span> <span class="string">&#39;ⳁ&#39;</span>,
+            <span class="ident">Coptic</span>::<span class="ident">CapitalLetterCrossedShei</span> <span class="op">=&gt;</span> <span class="string">&#39;Ⳃ&#39;</span>,
+            <span class="ident">Coptic</span>::<span class="ident">SmallLetterCrossedShei</span> <span class="op">=&gt;</span> <span class="string">&#39;ⳃ&#39;</span>,
+            <span class="ident">Coptic</span>::<span class="ident">CapitalLetterOldShei</span> <span class="op">=&gt;</span> <span class="string">&#39;Ⳅ&#39;</span>,
+            <span class="ident">Coptic</span>::<span class="ident">SmallLetterOldShei</span> <span class="op">=&gt;</span> <span class="string">&#39;ⳅ&#39;</span>,
+            <span class="ident">Coptic</span>::<span class="ident">CapitalLetterOldEsh</span> <span class="op">=&gt;</span> <span class="string">&#39;Ⳇ&#39;</span>,
+            <span class="ident">Coptic</span>::<span class="ident">SmallLetterOldEsh</span> <span class="op">=&gt;</span> <span class="string">&#39;ⳇ&#39;</span>,
+            <span class="ident">Coptic</span>::<span class="ident">CapitalLetterAkhmimicKhei</span> <span class="op">=&gt;</span> <span class="string">&#39;Ⳉ&#39;</span>,
+            <span class="ident">Coptic</span>::<span class="ident">SmallLetterAkhmimicKhei</span> <span class="op">=&gt;</span> <span class="string">&#39;ⳉ&#39;</span>,
+            <span class="ident">Coptic</span>::<span class="ident">CapitalLetterDialectDashPHori</span> <span class="op">=&gt;</span> <span class="string">&#39;Ⳋ&#39;</span>,
+            <span class="ident">Coptic</span>::<span class="ident">SmallLetterDialectDashPHori</span> <span class="op">=&gt;</span> <span class="string">&#39;ⳋ&#39;</span>,
+            <span class="ident">Coptic</span>::<span class="ident">CapitalLetterOldHori</span> <span class="op">=&gt;</span> <span class="string">&#39;Ⳍ&#39;</span>,
+            <span class="ident">Coptic</span>::<span class="ident">SmallLetterOldHori</span> <span class="op">=&gt;</span> <span class="string">&#39;ⳍ&#39;</span>,
+            <span class="ident">Coptic</span>::<span class="ident">CapitalLetterOldHa</span> <span class="op">=&gt;</span> <span class="string">&#39;Ⳏ&#39;</span>,
+            <span class="ident">Coptic</span>::<span class="ident">SmallLetterOldHa</span> <span class="op">=&gt;</span> <span class="string">&#39;ⳏ&#39;</span>,
+            <span class="ident">Coptic</span>::<span class="ident">CapitalLetterLDashShapedHa</span> <span class="op">=&gt;</span> <span class="string">&#39;Ⳑ&#39;</span>,
+            <span class="ident">Coptic</span>::<span class="ident">SmallLetterLDashShapedHa</span> <span class="op">=&gt;</span> <span class="string">&#39;ⳑ&#39;</span>,
+            <span class="ident">Coptic</span>::<span class="ident">CapitalLetterOldHei</span> <span class="op">=&gt;</span> <span class="string">&#39;Ⳓ&#39;</span>,
+            <span class="ident">Coptic</span>::<span class="ident">SmallLetterOldHei</span> <span class="op">=&gt;</span> <span class="string">&#39;ⳓ&#39;</span>,
+            <span class="ident">Coptic</span>::<span class="ident">CapitalLetterOldHat</span> <span class="op">=&gt;</span> <span class="string">&#39;Ⳕ&#39;</span>,
+            <span class="ident">Coptic</span>::<span class="ident">SmallLetterOldHat</span> <span class="op">=&gt;</span> <span class="string">&#39;ⳕ&#39;</span>,
+            <span class="ident">Coptic</span>::<span class="ident">CapitalLetterOldGangia</span> <span class="op">=&gt;</span> <span class="string">&#39;Ⳗ&#39;</span>,
+            <span class="ident">Coptic</span>::<span class="ident">SmallLetterOldGangia</span> <span class="op">=&gt;</span> <span class="string">&#39;ⳗ&#39;</span>,
+            <span class="ident">Coptic</span>::<span class="ident">CapitalLetterOldDja</span> <span class="op">=&gt;</span> <span class="string">&#39;Ⳙ&#39;</span>,
+            <span class="ident">Coptic</span>::<span class="ident">SmallLetterOldDja</span> <span class="op">=&gt;</span> <span class="string">&#39;ⳙ&#39;</span>,
+            <span class="ident">Coptic</span>::<span class="ident">CapitalLetterOldShima</span> <span class="op">=&gt;</span> <span class="string">&#39;Ⳛ&#39;</span>,
+            <span class="ident">Coptic</span>::<span class="ident">SmallLetterOldShima</span> <span class="op">=&gt;</span> <span class="string">&#39;ⳛ&#39;</span>,
+            <span class="ident">Coptic</span>::<span class="ident">CapitalLetterOldNubianShima</span> <span class="op">=&gt;</span> <span class="string">&#39;Ⳝ&#39;</span>,
+            <span class="ident">Coptic</span>::<span class="ident">SmallLetterOldNubianShima</span> <span class="op">=&gt;</span> <span class="string">&#39;ⳝ&#39;</span>,
+            <span class="ident">Coptic</span>::<span class="ident">CapitalLetterOldNubianNgi</span> <span class="op">=&gt;</span> <span class="string">&#39;Ⳟ&#39;</span>,
+            <span class="ident">Coptic</span>::<span class="ident">SmallLetterOldNubianNgi</span> <span class="op">=&gt;</span> <span class="string">&#39;ⳟ&#39;</span>,
+            <span class="ident">Coptic</span>::<span class="ident">CapitalLetterOldNubianNyi</span> <span class="op">=&gt;</span> <span class="string">&#39;Ⳡ&#39;</span>,
+            <span class="ident">Coptic</span>::<span class="ident">SmallLetterOldNubianNyi</span> <span class="op">=&gt;</span> <span class="string">&#39;ⳡ&#39;</span>,
+            <span class="ident">Coptic</span>::<span class="ident">CapitalLetterOldNubianWau</span> <span class="op">=&gt;</span> <span class="string">&#39;Ⳣ&#39;</span>,
+            <span class="ident">Coptic</span>::<span class="ident">SmallLetterOldNubianWau</span> <span class="op">=&gt;</span> <span class="string">&#39;ⳣ&#39;</span>,
+            <span class="ident">Coptic</span>::<span class="ident">SymbolKai</span> <span class="op">=&gt;</span> <span class="string">&#39;ⳤ&#39;</span>,
+            <span class="ident">Coptic</span>::<span class="ident">SymbolMiRo</span> <span class="op">=&gt;</span> <span class="string">&#39;⳥&#39;</span>,
+            <span class="ident">Coptic</span>::<span class="ident">SymbolPiRo</span> <span class="op">=&gt;</span> <span class="string">&#39;⳦&#39;</span>,
+            <span class="ident">Coptic</span>::<span class="ident">SymbolStauros</span> <span class="op">=&gt;</span> <span class="string">&#39;⳧&#39;</span>,
+            <span class="ident">Coptic</span>::<span class="ident">SymbolTauRo</span> <span class="op">=&gt;</span> <span class="string">&#39;⳨&#39;</span>,
+            <span class="ident">Coptic</span>::<span class="ident">SymbolKhiRo</span> <span class="op">=&gt;</span> <span class="string">&#39;⳩&#39;</span>,
+            <span class="ident">Coptic</span>::<span class="ident">SymbolShimaSima</span> <span class="op">=&gt;</span> <span class="string">&#39;⳪&#39;</span>,
+            <span class="ident">Coptic</span>::<span class="ident">CapitalLetterCryptogrammicShei</span> <span class="op">=&gt;</span> <span class="string">&#39;Ⳬ&#39;</span>,
+            <span class="ident">Coptic</span>::<span class="ident">SmallLetterCryptogrammicShei</span> <span class="op">=&gt;</span> <span class="string">&#39;ⳬ&#39;</span>,
+            <span class="ident">Coptic</span>::<span class="ident">CapitalLetterCryptogrammicGangia</span> <span class="op">=&gt;</span> <span class="string">&#39;Ⳮ&#39;</span>,
+            <span class="ident">Coptic</span>::<span class="ident">SmallLetterCryptogrammicGangia</span> <span class="op">=&gt;</span> <span class="string">&#39;ⳮ&#39;</span>,
+            <span class="ident">Coptic</span>::<span class="ident">CombiningNiAbove</span> <span class="op">=&gt;</span> <span class="string">&#39;⳯&#39;</span>,
+            <span class="ident">Coptic</span>::<span class="ident">CombiningSpiritusAsper</span> <span class="op">=&gt;</span> <span class="string">&#39;⳰&#39;</span>,
+            <span class="ident">Coptic</span>::<span class="ident">CombiningSpiritusLenis</span> <span class="op">=&gt;</span> <span class="string">&#39;⳱&#39;</span>,
+            <span class="ident">Coptic</span>::<span class="ident">CapitalLetterBohairicKhei</span> <span class="op">=&gt;</span> <span class="string">&#39;Ⳳ&#39;</span>,
+            <span class="ident">Coptic</span>::<span class="ident">SmallLetterBohairicKhei</span> <span class="op">=&gt;</span> <span class="string">&#39;ⳳ&#39;</span>,
+            <span class="ident">Coptic</span>::<span class="ident">OldNubianFullStop</span> <span class="op">=&gt;</span> <span class="string">&#39;⳹&#39;</span>,
+            <span class="ident">Coptic</span>::<span class="ident">OldNubianDirectQuestionMark</span> <span class="op">=&gt;</span> <span class="string">&#39;⳺&#39;</span>,
+            <span class="ident">Coptic</span>::<span class="ident">OldNubianIndirectQuestionMark</span> <span class="op">=&gt;</span> <span class="string">&#39;⳻&#39;</span>,
+            <span class="ident">Coptic</span>::<span class="ident">OldNubianVerseDivider</span> <span class="op">=&gt;</span> <span class="string">&#39;⳼&#39;</span>,
+            <span class="ident">Coptic</span>::<span class="ident">FractionOneHalf</span> <span class="op">=&gt;</span> <span class="string">&#39;⳽&#39;</span>,
+            <span class="ident">Coptic</span>::<span class="ident">FullStop</span> <span class="op">=&gt;</span> <span class="string">&#39;⳾&#39;</span>,
+        }
+    }
+}
+
+<span class="kw">impl</span> <span class="ident">std</span>::<span class="ident">convert</span>::<span class="ident">TryFrom</span><span class="op">&lt;</span><span class="ident">char</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">Coptic</span> {
+    <span class="kw">type</span> <span class="ident">Error</span> <span class="op">=</span> ();
+    <span class="kw">fn</span> <span class="ident">try_from</span>(<span class="ident">c</span>: <span class="ident">char</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="self">Self</span>, <span class="self">Self</span>::<span class="ident">Error</span><span class="op">&gt;</span> {
+        <span class="kw">match</span> <span class="ident">c</span> {
+            <span class="string">&#39;Ⲁ&#39;</span> <span class="op">=&gt;</span> <span class="prelude-val">Ok</span>(<span class="ident">Coptic</span>::<span class="ident">CapitalLetterAlfa</span>),
+            <span class="string">&#39;ⲁ&#39;</span> <span class="op">=&gt;</span> <span class="prelude-val">Ok</span>(<span class="ident">Coptic</span>::<span class="ident">SmallLetterAlfa</span>),
+            <span class="string">&#39;Ⲃ&#39;</span> <span class="op">=&gt;</span> <span class="prelude-val">Ok</span>(<span class="ident">Coptic</span>::<span class="ident">CapitalLetterVida</span>),
+            <span class="string">&#39;ⲃ&#39;</span> <span class="op">=&gt;</span> <span class="prelude-val">Ok</span>(<span class="ident">Coptic</span>::<span class="ident">SmallLetterVida</span>),
+            <span class="string">&#39;Ⲅ&#39;</span> <span class="op">=&gt;</span> <span class="prelude-val">Ok</span>(<span class="ident">Coptic</span>::<span class="ident">CapitalLetterGamma</span>),
+            <span class="string">&#39;ⲅ&#39;</span> <span class="op">=&gt;</span> <span class="prelude-val">Ok</span>(<span class="ident">Coptic</span>::<span class="ident">SmallLetterGamma</span>),
+            <span class="string">&#39;Ⲇ&#39;</span> <span class="op">=&gt;</span> <span class="prelude-val">Ok</span>(<span class="ident">Coptic</span>::<span class="ident">CapitalLetterDalda</span>),
+            <span class="string">&#39;ⲇ&#39;</span> <span class="op">=&gt;</span> <span class="prelude-val">Ok</span>(<span class="ident">Coptic</span>::<span class="ident">SmallLetterDalda</span>),
+            <span class="string">&#39;Ⲉ&#39;</span> <span class="op">=&gt;</span> <span class="prelude-val">Ok</span>(<span class="ident">Coptic</span>::<span class="ident">CapitalLetterEie</span>),
+            <span class="string">&#39;ⲉ&#39;</span> <span class="op">=&gt;</span> <span class="prelude-val">Ok</span>(<span class="ident">Coptic</span>::<span class="ident">SmallLetterEie</span>),
+            <span class="string">&#39;Ⲋ&#39;</span> <span class="op">=&gt;</span> <span class="prelude-val">Ok</span>(<span class="ident">Coptic</span>::<span class="ident">CapitalLetterSou</span>),
+            <span class="string">&#39;ⲋ&#39;</span> <span class="op">=&gt;</span> <span class="prelude-val">Ok</span>(<span class="ident">Coptic</span>::<span class="ident">SmallLetterSou</span>),
+            <span class="string">&#39;Ⲍ&#39;</span> <span class="op">=&gt;</span> <span class="prelude-val">Ok</span>(<span class="ident">Coptic</span>::<span class="ident">CapitalLetterZata</span>),
+            <span class="string">&#39;ⲍ&#39;</span> <span class="op">=&gt;</span> <span class="prelude-val">Ok</span>(<span class="ident">Coptic</span>::<span class="ident">SmallLetterZata</span>),
+            <span class="string">&#39;Ⲏ&#39;</span> <span class="op">=&gt;</span> <span class="prelude-val">Ok</span>(<span class="ident">Coptic</span>::<span class="ident">CapitalLetterHate</span>),
+            <span class="string">&#39;ⲏ&#39;</span> <span class="op">=&gt;</span> <span class="prelude-val">Ok</span>(<span class="ident">Coptic</span>::<span class="ident">SmallLetterHate</span>),
+            <span class="string">&#39;Ⲑ&#39;</span> <span class="op">=&gt;</span> <span class="prelude-val">Ok</span>(<span class="ident">Coptic</span>::<span class="ident">CapitalLetterThethe</span>),
+            <span class="string">&#39;ⲑ&#39;</span> <span class="op">=&gt;</span> <span class="prelude-val">Ok</span>(<span class="ident">Coptic</span>::<span class="ident">SmallLetterThethe</span>),
+            <span class="string">&#39;Ⲓ&#39;</span> <span class="op">=&gt;</span> <span class="prelude-val">Ok</span>(<span class="ident">Coptic</span>::<span class="ident">CapitalLetterIauda</span>),
+            <span class="string">&#39;ⲓ&#39;</span> <span class="op">=&gt;</span> <span class="prelude-val">Ok</span>(<span class="ident">Coptic</span>::<span class="ident">SmallLetterIauda</span>),
+            <span class="string">&#39;Ⲕ&#39;</span> <span class="op">=&gt;</span> <span class="prelude-val">Ok</span>(<span class="ident">Coptic</span>::<span class="ident">CapitalLetterKapa</span>),
+            <span class="string">&#39;ⲕ&#39;</span> <span class="op">=&gt;</span> <span class="prelude-val">Ok</span>(<span class="ident">Coptic</span>::<span class="ident">SmallLetterKapa</span>),
+            <span class="string">&#39;Ⲗ&#39;</span> <span class="op">=&gt;</span> <span class="prelude-val">Ok</span>(<span class="ident">Coptic</span>::<span class="ident">CapitalLetterLaula</span>),
+            <span class="string">&#39;ⲗ&#39;</span> <span class="op">=&gt;</span> <span class="prelude-val">Ok</span>(<span class="ident">Coptic</span>::<span class="ident">SmallLetterLaula</span>),
+            <span class="string">&#39;Ⲙ&#39;</span> <span class="op">=&gt;</span> <span class="prelude-val">Ok</span>(<span class="ident">Coptic</span>::<span class="ident">CapitalLetterMi</span>),
+            <span class="string">&#39;ⲙ&#39;</span> <span class="op">=&gt;</span> <span class="prelude-val">Ok</span>(<span class="ident">Coptic</span>::<span class="ident">SmallLetterMi</span>),
+            <span class="string">&#39;Ⲛ&#39;</span> <span class="op">=&gt;</span> <span class="prelude-val">Ok</span>(<span class="ident">Coptic</span>::<span class="ident">CapitalLetterNi</span>),
+            <span class="string">&#39;ⲛ&#39;</span> <span class="op">=&gt;</span> <span class="prelude-val">Ok</span>(<span class="ident">Coptic</span>::<span class="ident">SmallLetterNi</span>),
+            <span class="string">&#39;Ⲝ&#39;</span> <span class="op">=&gt;</span> <span class="prelude-val">Ok</span>(<span class="ident">Coptic</span>::<span class="ident">CapitalLetterKsi</span>),
+            <span class="string">&#39;ⲝ&#39;</span> <span class="op">=&gt;</span> <span class="prelude-val">Ok</span>(<span class="ident">Coptic</span>::<span class="ident">SmallLetterKsi</span>),
+            <span class="string">&#39;Ⲟ&#39;</span> <span class="op">=&gt;</span> <span class="prelude-val">Ok</span>(<span class="ident">Coptic</span>::<span class="ident">CapitalLetterO</span>),
+            <span class="string">&#39;ⲟ&#39;</span> <span class="op">=&gt;</span> <span class="prelude-val">Ok</span>(<span class="ident">Coptic</span>::<span class="ident">SmallLetterO</span>),
+            <span class="string">&#39;Ⲡ&#39;</span> <span class="op">=&gt;</span> <span class="prelude-val">Ok</span>(<span class="ident">Coptic</span>::<span class="ident">CapitalLetterPi</span>),
+            <span class="string">&#39;ⲡ&#39;</span> <span class="op">=&gt;</span> <span class="prelude-val">Ok</span>(<span class="ident">Coptic</span>::<span class="ident">SmallLetterPi</span>),
+            <span class="string">&#39;Ⲣ&#39;</span> <span class="op">=&gt;</span> <span class="prelude-val">Ok</span>(<span class="ident">Coptic</span>::<span class="ident">CapitalLetterRo</span>),
+            <span class="string">&#39;ⲣ&#39;</span> <span class="op">=&gt;</span> <span class="prelude-val">Ok</span>(<span class="ident">Coptic</span>::<span class="ident">SmallLetterRo</span>),
+            <span class="string">&#39;Ⲥ&#39;</span> <span class="op">=&gt;</span> <span class="prelude-val">Ok</span>(<span class="ident">Coptic</span>::<span class="ident">CapitalLetterSima</span>),
+            <span class="string">&#39;ⲥ&#39;</span> <span class="op">=&gt;</span> <span class="prelude-val">Ok</span>(<span class="ident">Coptic</span>::<span class="ident">SmallLetterSima</span>),
+            <span class="string">&#39;Ⲧ&#39;</span> <span class="op">=&gt;</span> <span class="prelude-val">Ok</span>(<span class="ident">Coptic</span>::<span class="ident">CapitalLetterTau</span>),
+            <span class="string">&#39;ⲧ&#39;</span> <span class="op">=&gt;</span> <span class="prelude-val">Ok</span>(<span class="ident">Coptic</span>::<span class="ident">SmallLetterTau</span>),
+            <span class="string">&#39;Ⲩ&#39;</span> <span class="op">=&gt;</span> <span class="prelude-val">Ok</span>(<span class="ident">Coptic</span>::<span class="ident">CapitalLetterUa</span>),
+            <span class="string">&#39;ⲩ&#39;</span> <span class="op">=&gt;</span> <span class="prelude-val">Ok</span>(<span class="ident">Coptic</span>::<span class="ident">SmallLetterUa</span>),
+            <span class="string">&#39;Ⲫ&#39;</span> <span class="op">=&gt;</span> <span class="prelude-val">Ok</span>(<span class="ident">Coptic</span>::<span class="ident">CapitalLetterFi</span>),
+            <span class="string">&#39;ⲫ&#39;</span> <span class="op">=&gt;</span> <span class="prelude-val">Ok</span>(<span class="ident">Coptic</span>::<span class="ident">SmallLetterFi</span>),
+            <span class="string">&#39;Ⲭ&#39;</span> <span class="op">=&gt;</span> <span class="prelude-val">Ok</span>(<span class="ident">Coptic</span>::<span class="ident">CapitalLetterKhi</span>),
+            <span class="string">&#39;ⲭ&#39;</span> <span class="op">=&gt;</span> <span class="prelude-val">Ok</span>(<span class="ident">Coptic</span>::<span class="ident">SmallLetterKhi</span>),
+            <span class="string">&#39;Ⲯ&#39;</span> <span class="op">=&gt;</span> <span class="prelude-val">Ok</span>(<span class="ident">Coptic</span>::<span class="ident">CapitalLetterPsi</span>),
+            <span class="string">&#39;ⲯ&#39;</span> <span class="op">=&gt;</span> <span class="prelude-val">Ok</span>(<span class="ident">Coptic</span>::<span class="ident">SmallLetterPsi</span>),
+            <span class="string">&#39;Ⲱ&#39;</span> <span class="op">=&gt;</span> <span class="prelude-val">Ok</span>(<span class="ident">Coptic</span>::<span class="ident">CapitalLetterOou</span>),
+            <span class="string">&#39;ⲱ&#39;</span> <span class="op">=&gt;</span> <span class="prelude-val">Ok</span>(<span class="ident">Coptic</span>::<span class="ident">SmallLetterOou</span>),
+            <span class="string">&#39;Ⲳ&#39;</span> <span class="op">=&gt;</span> <span class="prelude-val">Ok</span>(<span class="ident">Coptic</span>::<span class="ident">CapitalLetterDialectDashPAlef</span>),
+            <span class="string">&#39;ⲳ&#39;</span> <span class="op">=&gt;</span> <span class="prelude-val">Ok</span>(<span class="ident">Coptic</span>::<span class="ident">SmallLetterDialectDashPAlef</span>),
+            <span class="string">&#39;Ⲵ&#39;</span> <span class="op">=&gt;</span> <span class="prelude-val">Ok</span>(<span class="ident">Coptic</span>::<span class="ident">CapitalLetterOldAin</span>),
+            <span class="string">&#39;ⲵ&#39;</span> <span class="op">=&gt;</span> <span class="prelude-val">Ok</span>(<span class="ident">Coptic</span>::<span class="ident">SmallLetterOldAin</span>),
+            <span class="string">&#39;Ⲷ&#39;</span> <span class="op">=&gt;</span> <span class="prelude-val">Ok</span>(<span class="ident">Coptic</span>::<span class="ident">CapitalLetterCryptogrammicEie</span>),
+            <span class="string">&#39;ⲷ&#39;</span> <span class="op">=&gt;</span> <span class="prelude-val">Ok</span>(<span class="ident">Coptic</span>::<span class="ident">SmallLetterCryptogrammicEie</span>),
+            <span class="string">&#39;Ⲹ&#39;</span> <span class="op">=&gt;</span> <span class="prelude-val">Ok</span>(<span class="ident">Coptic</span>::<span class="ident">CapitalLetterDialectDashPKapa</span>),
+            <span class="string">&#39;ⲹ&#39;</span> <span class="op">=&gt;</span> <span class="prelude-val">Ok</span>(<span class="ident">Coptic</span>::<span class="ident">SmallLetterDialectDashPKapa</span>),
+            <span class="string">&#39;Ⲻ&#39;</span> <span class="op">=&gt;</span> <span class="prelude-val">Ok</span>(<span class="ident">Coptic</span>::<span class="ident">CapitalLetterDialectDashPNi</span>),
+            <span class="string">&#39;ⲻ&#39;</span> <span class="op">=&gt;</span> <span class="prelude-val">Ok</span>(<span class="ident">Coptic</span>::<span class="ident">SmallLetterDialectDashPNi</span>),
+            <span class="string">&#39;Ⲽ&#39;</span> <span class="op">=&gt;</span> <span class="prelude-val">Ok</span>(<span class="ident">Coptic</span>::<span class="ident">CapitalLetterCryptogrammicNi</span>),
+            <span class="string">&#39;ⲽ&#39;</span> <span class="op">=&gt;</span> <span class="prelude-val">Ok</span>(<span class="ident">Coptic</span>::<span class="ident">SmallLetterCryptogrammicNi</span>),
+            <span class="string">&#39;Ⲿ&#39;</span> <span class="op">=&gt;</span> <span class="prelude-val">Ok</span>(<span class="ident">Coptic</span>::<span class="ident">CapitalLetterOldOou</span>),
+            <span class="string">&#39;ⲿ&#39;</span> <span class="op">=&gt;</span> <span class="prelude-val">Ok</span>(<span class="ident">Coptic</span>::<span class="ident">SmallLetterOldOou</span>),
+            <span class="string">&#39;Ⳁ&#39;</span> <span class="op">=&gt;</span> <span class="prelude-val">Ok</span>(<span class="ident">Coptic</span>::<span class="ident">CapitalLetterSampi</span>),
+            <span class="string">&#39;ⳁ&#39;</span> <span class="op">=&gt;</span> <span class="prelude-val">Ok</span>(<span class="ident">Coptic</span>::<span class="ident">SmallLetterSampi</span>),
+            <span class="string">&#39;Ⳃ&#39;</span> <span class="op">=&gt;</span> <span class="prelude-val">Ok</span>(<span class="ident">Coptic</span>::<span class="ident">CapitalLetterCrossedShei</span>),
+            <span class="string">&#39;ⳃ&#39;</span> <span class="op">=&gt;</span> <span class="prelude-val">Ok</span>(<span class="ident">Coptic</span>::<span class="ident">SmallLetterCrossedShei</span>),
+            <span class="string">&#39;Ⳅ&#39;</span> <span class="op">=&gt;</span> <span class="prelude-val">Ok</span>(<span class="ident">Coptic</span>::<span class="ident">CapitalLetterOldShei</span>),
+            <span class="string">&#39;ⳅ&#39;</span> <span class="op">=&gt;</span> <span class="prelude-val">Ok</span>(<span class="ident">Coptic</span>::<span class="ident">SmallLetterOldShei</span>),
+            <span class="string">&#39;Ⳇ&#39;</span> <span class="op">=&gt;</span> <span class="prelude-val">Ok</span>(<span class="ident">Coptic</span>::<span class="ident">CapitalLetterOldEsh</span>),
+            <span class="string">&#39;ⳇ&#39;</span> <span class="op">=&gt;</span> <span class="prelude-val">Ok</span>(<span class="ident">Coptic</span>::<span class="ident">SmallLetterOldEsh</span>),
+            <span class="string">&#39;Ⳉ&#39;</span> <span class="op">=&gt;</span> <span class="prelude-val">Ok</span>(<span class="ident">Coptic</span>::<span class="ident">CapitalLetterAkhmimicKhei</span>),
+            <span class="string">&#39;ⳉ&#39;</span> <span class="op">=&gt;</span> <span class="prelude-val">Ok</span>(<span class="ident">Coptic</span>::<span class="ident">SmallLetterAkhmimicKhei</span>),
+            <span class="string">&#39;Ⳋ&#39;</span> <span class="op">=&gt;</span> <span class="prelude-val">Ok</span>(<span class="ident">Coptic</span>::<span class="ident">CapitalLetterDialectDashPHori</span>),
+            <span class="string">&#39;ⳋ&#39;</span> <span class="op">=&gt;</span> <span class="prelude-val">Ok</span>(<span class="ident">Coptic</span>::<span class="ident">SmallLetterDialectDashPHori</span>),
+            <span class="string">&#39;Ⳍ&#39;</span> <span class="op">=&gt;</span> <span class="prelude-val">Ok</span>(<span class="ident">Coptic</span>::<span class="ident">CapitalLetterOldHori</span>),
+            <span class="string">&#39;ⳍ&#39;</span> <span class="op">=&gt;</span> <span class="prelude-val">Ok</span>(<span class="ident">Coptic</span>::<span class="ident">SmallLetterOldHori</span>),
+            <span class="string">&#39;Ⳏ&#39;</span> <span class="op">=&gt;</span> <span class="prelude-val">Ok</span>(<span class="ident">Coptic</span>::<span class="ident">CapitalLetterOldHa</span>),
+            <span class="string">&#39;ⳏ&#39;</span> <span class="op">=&gt;</span> <span class="prelude-val">Ok</span>(<span class="ident">Coptic</span>::<span class="ident">SmallLetterOldHa</span>),
+            <span class="string">&#39;Ⳑ&#39;</span> <span class="op">=&gt;</span> <span class="prelude-val">Ok</span>(<span class="ident">Coptic</span>::<span class="ident">CapitalLetterLDashShapedHa</span>),
+            <span class="string">&#39;ⳑ&#39;</span> <span class="op">=&gt;</span> <span class="prelude-val">Ok</span>(<span class="ident">Coptic</span>::<span class="ident">SmallLetterLDashShapedHa</span>),
+            <span class="string">&#39;Ⳓ&#39;</span> <span class="op">=&gt;</span> <span class="prelude-val">Ok</span>(<span class="ident">Coptic</span>::<span class="ident">CapitalLetterOldHei</span>),
+            <span class="string">&#39;ⳓ&#39;</span> <span class="op">=&gt;</span> <span class="prelude-val">Ok</span>(<span class="ident">Coptic</span>::<span class="ident">SmallLetterOldHei</span>),
+            <span class="string">&#39;Ⳕ&#39;</span> <span class="op">=&gt;</span> <span class="prelude-val">Ok</span>(<span class="ident">Coptic</span>::<span class="ident">CapitalLetterOldHat</span>),
+            <span class="string">&#39;ⳕ&#39;</span> <span class="op">=&gt;</span> <span class="prelude-val">Ok</span>(<span class="ident">Coptic</span>::<span class="ident">SmallLetterOldHat</span>),
+            <span class="string">&#39;Ⳗ&#39;</span> <span class="op">=&gt;</span> <span class="prelude-val">Ok</span>(<span class="ident">Coptic</span>::<span class="ident">CapitalLetterOldGangia</span>),
+            <span class="string">&#39;ⳗ&#39;</span> <span class="op">=&gt;</span> <span class="prelude-val">Ok</span>(<span class="ident">Coptic</span>::<span class="ident">SmallLetterOldGangia</span>),
+            <span class="string">&#39;Ⳙ&#39;</span> <span class="op">=&gt;</span> <span class="prelude-val">Ok</span>(<span class="ident">Coptic</span>::<span class="ident">CapitalLetterOldDja</span>),
+            <span class="string">&#39;ⳙ&#39;</span> <span class="op">=&gt;</span> <span class="prelude-val">Ok</span>(<span class="ident">Coptic</span>::<span class="ident">SmallLetterOldDja</span>),
+            <span class="string">&#39;Ⳛ&#39;</span> <span class="op">=&gt;</span> <span class="prelude-val">Ok</span>(<span class="ident">Coptic</span>::<span class="ident">CapitalLetterOldShima</span>),
+            <span class="string">&#39;ⳛ&#39;</span> <span class="op">=&gt;</span> <span class="prelude-val">Ok</span>(<span class="ident">Coptic</span>::<span class="ident">SmallLetterOldShima</span>),
+            <span class="string">&#39;Ⳝ&#39;</span> <span class="op">=&gt;</span> <span class="prelude-val">Ok</span>(<span class="ident">Coptic</span>::<span class="ident">CapitalLetterOldNubianShima</span>),
+            <span class="string">&#39;ⳝ&#39;</span> <span class="op">=&gt;</span> <span class="prelude-val">Ok</span>(<span class="ident">Coptic</span>::<span class="ident">SmallLetterOldNubianShima</span>),
+            <span class="string">&#39;Ⳟ&#39;</span> <span class="op">=&gt;</span> <span class="prelude-val">Ok</span>(<span class="ident">Coptic</span>::<span class="ident">CapitalLetterOldNubianNgi</span>),
+            <span class="string">&#39;ⳟ&#39;</span> <span class="op">=&gt;</span> <span class="prelude-val">Ok</span>(<span class="ident">Coptic</span>::<span class="ident">SmallLetterOldNubianNgi</span>),
+            <span class="string">&#39;Ⳡ&#39;</span> <span class="op">=&gt;</span> <span class="prelude-val">Ok</span>(<span class="ident">Coptic</span>::<span class="ident">CapitalLetterOldNubianNyi</span>),
+            <span class="string">&#39;ⳡ&#39;</span> <span class="op">=&gt;</span> <span class="prelude-val">Ok</span>(<span class="ident">Coptic</span>::<span class="ident">SmallLetterOldNubianNyi</span>),
+            <span class="string">&#39;Ⳣ&#39;</span> <span class="op">=&gt;</span> <span class="prelude-val">Ok</span>(<span class="ident">Coptic</span>::<span class="ident">CapitalLetterOldNubianWau</span>),
+            <span class="string">&#39;ⳣ&#39;</span> <span class="op">=&gt;</span> <span class="prelude-val">Ok</span>(<span class="ident">Coptic</span>::<span class="ident">SmallLetterOldNubianWau</span>),
+            <span class="string">&#39;ⳤ&#39;</span> <span class="op">=&gt;</span> <span class="prelude-val">Ok</span>(<span class="ident">Coptic</span>::<span class="ident">SymbolKai</span>),
+            <span class="string">&#39;⳥&#39;</span> <span class="op">=&gt;</span> <span class="prelude-val">Ok</span>(<span class="ident">Coptic</span>::<span class="ident">SymbolMiRo</span>),
+            <span class="string">&#39;⳦&#39;</span> <span class="op">=&gt;</span> <span class="prelude-val">Ok</span>(<span class="ident">Coptic</span>::<span class="ident">SymbolPiRo</span>),
+            <span class="string">&#39;⳧&#39;</span> <span class="op">=&gt;</span> <span class="prelude-val">Ok</span>(<span class="ident">Coptic</span>::<span class="ident">SymbolStauros</span>),
+            <span class="string">&#39;⳨&#39;</span> <span class="op">=&gt;</span> <span class="prelude-val">Ok</span>(<span class="ident">Coptic</span>::<span class="ident">SymbolTauRo</span>),
+            <span class="string">&#39;⳩&#39;</span> <span class="op">=&gt;</span> <span class="prelude-val">Ok</span>(<span class="ident">Coptic</span>::<span class="ident">SymbolKhiRo</span>),
+            <span class="string">&#39;⳪&#39;</span> <span class="op">=&gt;</span> <span class="prelude-val">Ok</span>(<span class="ident">Coptic</span>::<span class="ident">SymbolShimaSima</span>),
+            <span class="string">&#39;Ⳬ&#39;</span> <span class="op">=&gt;</span> <span class="prelude-val">Ok</span>(<span class="ident">Coptic</span>::<span class="ident">CapitalLetterCryptogrammicShei</span>),
+            <span class="string">&#39;ⳬ&#39;</span> <span class="op">=&gt;</span> <span class="prelude-val">Ok</span>(<span class="ident">Coptic</span>::<span class="ident">SmallLetterCryptogrammicShei</span>),
+            <span class="string">&#39;Ⳮ&#39;</span> <span class="op">=&gt;</span> <span class="prelude-val">Ok</span>(<span class="ident">Coptic</span>::<span class="ident">CapitalLetterCryptogrammicGangia</span>),
+            <span class="string">&#39;ⳮ&#39;</span> <span class="op">=&gt;</span> <span class="prelude-val">Ok</span>(<span class="ident">Coptic</span>::<span class="ident">SmallLetterCryptogrammicGangia</span>),
+            <span class="string">&#39;⳯&#39;</span> <span class="op">=&gt;</span> <span class="prelude-val">Ok</span>(<span class="ident">Coptic</span>::<span class="ident">CombiningNiAbove</span>),
+            <span class="string">&#39;⳰&#39;</span> <span class="op">=&gt;</span> <span class="prelude-val">Ok</span>(<span class="ident">Coptic</span>::<span class="ident">CombiningSpiritusAsper</span>),
+            <span class="string">&#39;⳱&#39;</span> <span class="op">=&gt;</span> <span class="prelude-val">Ok</span>(<span class="ident">Coptic</span>::<span class="ident">CombiningSpiritusLenis</span>),
+            <span class="string">&#39;Ⳳ&#39;</span> <span class="op">=&gt;</span> <span class="prelude-val">Ok</span>(<span class="ident">Coptic</span>::<span class="ident">CapitalLetterBohairicKhei</span>),
+            <span class="string">&#39;ⳳ&#39;</span> <span class="op">=&gt;</span> <span class="prelude-val">Ok</span>(<span class="ident">Coptic</span>::<span class="ident">SmallLetterBohairicKhei</span>),
+            <span class="string">&#39;⳹&#39;</span> <span class="op">=&gt;</span> <span class="prelude-val">Ok</span>(<span class="ident">Coptic</span>::<span class="ident">OldNubianFullStop</span>),
+            <span class="string">&#39;⳺&#39;</span> <span class="op">=&gt;</span> <span class="prelude-val">Ok</span>(<span class="ident">Coptic</span>::<span class="ident">OldNubianDirectQuestionMark</span>),
+            <span class="string">&#39;⳻&#39;</span> <span class="op">=&gt;</span> <span class="prelude-val">Ok</span>(<span class="ident">Coptic</span>::<span class="ident">OldNubianIndirectQuestionMark</span>),
+            <span class="string">&#39;⳼&#39;</span> <span class="op">=&gt;</span> <span class="prelude-val">Ok</span>(<span class="ident">Coptic</span>::<span class="ident">OldNubianVerseDivider</span>),
+            <span class="string">&#39;⳽&#39;</span> <span class="op">=&gt;</span> <span class="prelude-val">Ok</span>(<span class="ident">Coptic</span>::<span class="ident">FractionOneHalf</span>),
+            <span class="string">&#39;⳾&#39;</span> <span class="op">=&gt;</span> <span class="prelude-val">Ok</span>(<span class="ident">Coptic</span>::<span class="ident">FullStop</span>),
+            <span class="kw">_</span> <span class="op">=&gt;</span> <span class="prelude-val">Err</span>(()),
+        }
+    }
+}
+
+<span class="kw">impl</span> <span class="ident">Into</span><span class="op">&lt;</span><span class="ident">u32</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">Coptic</span> {
+    <span class="kw">fn</span> <span class="ident">into</span>(<span class="self">self</span>) <span class="op">-&gt;</span> <span class="ident">u32</span> {
+        <span class="kw">let</span> <span class="ident">c</span>: <span class="ident">char</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">into</span>();
+        <span class="kw">let</span> <span class="ident">hex</span> <span class="op">=</span> <span class="ident">c</span>
+            .<span class="ident">escape_unicode</span>()
+            .<span class="ident">to_string</span>()
+            .<span class="ident">replace</span>(<span class="string">&quot;\\u{&quot;</span>, <span class="string">&quot;&quot;</span>)
+            .<span class="ident">replace</span>(<span class="string">&quot;}&quot;</span>, <span class="string">&quot;&quot;</span>);
+        <span class="ident">u32</span>::<span class="ident">from_str_radix</span>(<span class="kw-2">&amp;</span><span class="ident">hex</span>, <span class="number">16</span>).<span class="ident">unwrap</span>()
+    }
+}
+
+<span class="kw">impl</span> <span class="ident">std</span>::<span class="ident">convert</span>::<span class="ident">TryFrom</span><span class="op">&lt;</span><span class="ident">u32</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">Coptic</span> {
+    <span class="kw">type</span> <span class="ident">Error</span> <span class="op">=</span> ();
+    <span class="kw">fn</span> <span class="ident">try_from</span>(<span class="ident">u</span>: <span class="ident">u32</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="self">Self</span>, <span class="self">Self</span>::<span class="ident">Error</span><span class="op">&gt;</span> {
+        <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Ok</span>(<span class="ident">c</span>) <span class="op">=</span> <span class="ident">char</span>::<span class="ident">try_from</span>(<span class="ident">u</span>) {
+            <span class="self">Self</span>::<span class="ident">try_from</span>(<span class="ident">c</span>)
+        } <span class="kw">else</span> {
+            <span class="prelude-val">Err</span>(())
+        }
+    }
+}
+
+<span class="kw">impl</span> <span class="ident">Iterator</span> <span class="kw">for</span> <span class="ident">Coptic</span> {
+    <span class="kw">type</span> <span class="ident">Item</span> <span class="op">=</span> <span class="self">Self</span>;
+    <span class="kw">fn</span> <span class="ident">next</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="self">Self</span><span class="op">&gt;</span> {
+        <span class="kw">let</span> <span class="ident">index</span>: <span class="ident">u32</span> <span class="op">=</span> (<span class="kw-2">*</span><span class="self">self</span>).<span class="ident">into</span>();
+        <span class="kw">use</span> <span class="ident">std</span>::<span class="ident">convert</span>::<span class="ident">TryFrom</span>;
+        <span class="self">Self</span>::<span class="ident">try_from</span>(<span class="ident">index</span> <span class="op">+</span> <span class="number">1</span>).<span class="ident">ok</span>()
+    }
+}
+
+<span class="kw">impl</span> <span class="ident">Coptic</span> {
+    <span class="doccomment">/// The character with the lowest index in this unicode block</span>
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>() <span class="op">-&gt;</span> <span class="self">Self</span> {
+        <span class="ident">Coptic</span>::<span class="ident">CapitalLetterAlfa</span>
+    }
+
+    <span class="doccomment">/// The character&#39;s name, in sentence case</span>
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">name</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-&gt;</span> <span class="ident">String</span> {
+        <span class="kw">let</span> <span class="ident">s</span> <span class="op">=</span> <span class="ident">std</span>::<span class="macro">format</span><span class="macro">!</span>(<span class="string">&quot;Coptic{:#?}&quot;</span>, <span class="self">self</span>);
+        <span class="ident">string_morph</span>::<span class="ident">to_sentence_case</span>(<span class="kw-2">&amp;</span><span class="ident">s</span>)
+    }
+}
+</pre></div>
+</section><section id="search" class="content hidden"></section><section class="footer"></section><aside id="help" class="hidden"><div><h1 class="hidden">Help</h1><div class="shortcuts"><h2>Keyboard Shortcuts</h2><dl><dt><kbd>?</kbd></dt><dd>Show this help dialog</dd><dt><kbd>S</kbd></dt><dd>Focus the search field</dd><dt><kbd>↑</kbd></dt><dd>Move up in search results</dd><dt><kbd>↓</kbd></dt><dd>Move down in search results</dd><dt><kbd>↹</kbd></dt><dd>Switch tab</dd><dt><kbd>&#9166;</kbd></dt><dd>Go to active search result</dd><dt><kbd>+</kbd></dt><dd>Expand all sections</dd><dt><kbd>-</kbd></dt><dd>Collapse all sections</dd></dl></div><div class="infos"><h2>Search Tricks</h2><p>Prefix searches with a type followed by a colon (e.g., <code>fn:</code>) to restrict the search to a given type.</p><p>Accepted types are: <code>fn</code>, <code>mod</code>, <code>struct</code>, <code>enum</code>, <code>trait</code>, <code>type</code>, <code>macro</code>, and <code>const</code>.</p><p>Search functions by type signature (e.g., <code>vec -> usize</code> or <code>* -> vec</code>)</p><p>Search multiple things at once by splitting your query with comma (e.g., <code>str,u8</code> or <code>String,struct:Vec,test</code>)</p></div></div></aside><script>window.rootPath = "../../../";window.currentCrate = "unicode_types";</script><script src="../../../aliases.js"></script><script src="../../../main.js"></script><script src="../../../source-script.js"></script><script src="../../../source-files.js"></script><script defer src="../../../search-index.js"></script></body></html>

@@ -1,0 +1,1 @@
+initSidebarItems({"enum":[["Thaana","An enum to represent all characters in the Thaana block."]]});

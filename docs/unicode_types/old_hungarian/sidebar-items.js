@@ -1,0 +1,1 @@
+initSidebarItems({"enum":[["OldHungarian","An enum to represent all characters in the OldHungarian block."]]});

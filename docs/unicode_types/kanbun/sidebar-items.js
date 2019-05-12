@@ -1,0 +1,1 @@
+initSidebarItems({"enum":[["Kanbun","An enum to represent all characters in the Kanbun block."]]});

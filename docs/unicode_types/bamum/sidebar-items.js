@@ -1,0 +1,1 @@
+initSidebarItems({"enum":[["Bamum","An enum to represent all characters in the Bamum block."]]});

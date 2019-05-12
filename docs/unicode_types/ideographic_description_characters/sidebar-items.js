@@ -1,0 +1,1 @@
+initSidebarItems({"enum":[["IdeographicDescriptionCharacters","An enum to represent all characters in the IdeographicDescriptionCharacters block."]]});

@@ -1,0 +1,1 @@
+initSidebarItems({"enum":[["AncientSymbols","An enum to represent all characters in the AncientSymbols block."]]});

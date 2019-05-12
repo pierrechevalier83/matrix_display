@@ -1,0 +1,1 @@
+initSidebarItems({"enum":[["AncientGreekMusicalNotation","An enum to represent all characters in the AncientGreekMusicalNotation block."]]});

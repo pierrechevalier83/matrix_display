@@ -1,0 +1,1 @@
+initSidebarItems({"enum":[["LinearA","An enum to represent all characters in the LinearA block."]]});
