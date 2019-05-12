@@ -17,5 +17,5 @@ fn main() {
         .collect::<Vec<_>>();
     let mut data = matrix::Matrix::new(4, board);
     let display = MatrixDisplay::new(&format, &mut data);
-    display.print(&mut std::io::stdout(), &style::BordersStyle::Thick);
+    display.print(&mut std::io::stdout(), &style::BordersStyle::Heavy);
 }

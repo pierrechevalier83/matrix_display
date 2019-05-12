@@ -266,7 +266,7 @@ fn cursor_to_index(x: usize, cell_dim: usize, n_cells: usize) -> usize {
 ///     .collect::<Vec<_>>();
 /// let mut data = matrix::Matrix::new(8, board);
 /// let display = MatrixDisplay::new(&format, &mut data);
-/// display.print(&mut std::io::stdout(), &style::BordersStyle::Thin);
+/// display.print(&mut std::io::stdout(), &style::BordersStyle::Light);
 /// ```
 pub struct MatrixDisplay<'a, T>
 where

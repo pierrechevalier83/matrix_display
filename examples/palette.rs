@@ -8,5 +8,5 @@ fn main() {
         .collect::<Vec<_>>();
     let mut data = matrix::Matrix::new(8, board);
     let display = MatrixDisplay::new(&format, &mut data);
-    display.print(&mut std::io::stdout(), &style::BordersStyle::Thin);
+    display.print(&mut std::io::stdout(), &style::BordersStyle::Light);
 }
