@@ -11,3 +11,4 @@ edition = "2018"
 [dependencies]
 ansi_term= "0.11.0"
 unicode-width= "0.1.5"
+unicode_types = "0.2.0"
